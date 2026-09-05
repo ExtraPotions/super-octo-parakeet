@@ -11,13 +11,21 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 | **ManaPool Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
 | **Scryfall Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
 | **SteamGifts Grey Edition** | 1.7.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
-| Grey Edition common (auto via `@require`) | 1.7.1 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
+| **Amazon Grey Edition** | 1.5.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/amazon-grey-edition.user.js) |
+| **eBay Grey Edition** | 1.5.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/ebay-grey-edition.user.js) |
+| **SoFi Grey Edition** | 1.5.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/sofi-grey-edition.user.js) |
+| Grey Edition common (auto via `@require`) | 1.8.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: **1.6.0** (ManaPool/Scryfall/common); SteamGifts **1.7.0** (full SG Dark Grey restore).
+Current release: ManaPool/Scryfall **1.6.1**, SteamGifts **1.7.1**, Amazon/eBay/SoFi **1.5.0**, common **1.8.0**.
+
+## Changelog — 1.8.0
+
+- **Amazon / eBay / SoFi Grey Edition** `1.5.0`: new charcoal themes with the shared bottom-right favicon settings FAB (intensity / brighter links / hide ads). Broad `@match` for major Amazon and eBay country sites; SoFi includes `app` / `login` / `*.sofi.com`.
+- Common `1.8.0`: site icons/titles for amazon, ebay, sofi.
 
 ## Changelog — 1.7.1
 
@@ -45,6 +53,7 @@ Current release: **1.6.0** (ManaPool/Scryfall/common); SteamGifts **1.7.0** (ful
 
 ## Notes
 
-- Open Tampermonkey → script → “Grey Edition: …” menu commands to toggle intensity, brighter links, hide ads, and (ManaPool) denser grid.
+- Open Tampermonkey → script → “Grey Edition: …” menu commands, or use the **bottom-right favicon FAB**, to toggle intensity, brighter links, hide ads, and (ManaPool) denser grid.
+- Amazon / eBay / SoFi themes keep primary CTAs recognizable (Amazon yellow/orange, eBay blue, SoFi green).
 - **SteamGifts Grey Edition** `1.7.0+` ships the full SG Dark Grey stylesheet (ESGST-tested). It coexists with [ESGST / A-ESGST](https://github.com/JustArchi/ESGST).
 - SteamGifts theme is derived from / inspired by [SG Dark Grey](https://github.com/SquishedPotatoe/SG-Dark-Grey) by SquishedPotatoe, licensed [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/).
