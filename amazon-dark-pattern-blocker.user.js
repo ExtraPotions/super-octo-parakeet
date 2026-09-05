@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Amazon Dark Pattern Blocker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        0.1.11
+// @version        0.1.12
 // @description    Remove Amazon dark patterns (Prime upsells, credit cards, Rufus, etc.) — fork of August4067 MIT script; amazon.com only
 // @author         expDARE
 // @license        MIT
@@ -48,6 +48,7 @@
  * Maintained fork by expDARE — ExtraPotions/super-octo-parakeet
  * Match scope narrowed to amazon.com / www.amazon.com only.
  * 0.1.11: stop removing #desktop-banner / gwm homepage layout (was wiping the homepage).
+ * 0.1.12: stop removing #attach-desktop-sideSheet (right-side cart flyout).
  */
 
 (function () {
@@ -144,8 +145,12 @@
       protectionPlans: {
         setting: "removeProtectionPlans",
         productPageProtectionPlan: "#mbb_feature_div",
-        warrantyFlyoutSidesheet: "#attach-desktop-sideSheet",
-        warrantyFlyoutBackdrop: "#attach-popover-lgtbox",
+        // 0.1.12: do NOT remove #attach-desktop-sideSheet / #attach-popover-lgtbox —
+        // that flyout IS the right-side cart ("Added to Cart" + cart contents).
+        // Target warranty/protection widgets inside it instead when possible:
+        attachWarrantyOffer: "#attach-warranty",
+        attachWarrantyUpsell: '[id*="attach-warranty"]',
+        attachProtectionPlan: '#attach-protection-plan, [data-feature-name*="protection"]',
       },
     },
 
