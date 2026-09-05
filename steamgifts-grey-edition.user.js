@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SteamGifts Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.6.1
+// @version        1.6.2
 // @description    Lean dark charcoal Grey Edition theme for SteamGifts (and SteamTrades / SGTools). Compatible with ESGST (JustArchi/A-ESGST). Derived from / inspired by SG Dark Grey by SquishedPotatoe (CC-BY-SA-4.0).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -48,7 +48,7 @@
   GE.registerMenus('steamgifts');
 
   var STYLE_ID = 'grey-edition-steamgifts';
-  var css = `/* SteamGifts Grey Edition v1.6.1 — lean CSS rewrite
+  var css = `/* SteamGifts Grey Edition v1.6.2 — lean CSS rewrite
    Inspired by / derived from SG Dark Grey by SquishedPotatoe (CC-BY-SA-4.0)
    Compatible with ESGST / A-ESGST — does not remove ESGST nodes.
 */
@@ -87,9 +87,11 @@ html, body {
   background-image: none !important;
   color: var(--ge-text) !important;
 }
+/* Keep charcoal under content — transparent wrappers let SteamGifts #f0f2f5 bleed through */
 .page__outer-wrap, .page_outer_wrap, .page__inner-wrap {
-  background: transparent !important;
-  background-color: transparent !important;
+  background: var(--ge-body) !important;
+  background-color: var(--ge-body) !important;
+  background-image: none !important;
   color: var(--ge-text) !important;
 }
 
@@ -184,6 +186,10 @@ header nav, .nav__left-container, .nav__right-container {
   position: relative !important;
   z-index: 1 !important;
 }
+.sidebar__search-container, .sidebar__search-input {
+  background-color: var(--ge-input) !important;
+  background: var(--ge-input) !important;
+}
 
 .giveaway__row-outer-wrap, .giveaway_row {
   background-color: transparent !important;
@@ -224,8 +230,20 @@ header nav, .nav__left-container, .nav__right-container {
 
 .is-faded:not(em), .giveaway__row-inner-wrap.is-faded,
 .giveaway-gridview .faded, .giveaway__row-inner-wrap.esgst-faded {
-  opacity: 0.55 !important;
-  filter: grayscale(0.25) !important;
+  /* Avoid heavy opacity — it greys out Enter/Leave icons too */
+  opacity: 1 !important;
+  filter: none !important;
+  background-color: rgba(20, 20, 18, 0.55) !important;
+}
+.giveaway__row-inner-wrap.is-faded .giveaway__summary,
+.giveaway__row-inner-wrap.is-faded .giveaway__heading__name,
+.giveaway__row-inner-wrap.esgst-faded .giveaway__summary {
+  opacity: 0.65 !important;
+}
+.giveaway__row-inner-wrap.is-faded .giveaway__quick-entry-wrap,
+.giveaway__row-inner-wrap.esgst-faded .giveaway__quick-entry-wrap {
+  opacity: 1 !important;
+  filter: none !important;
 }
 
 .giveaway__column--contributor-level--positive,
@@ -327,6 +345,31 @@ button.sidebar__entry-insert,
 .giveaway__quick-entry-btn--description i {
   color: var(--ge-enter-blue-txt) !important;
 }
+
+/* Beat SteamGifts icon-only greens — paint the whole control */
+.giveaway__quick-entry-btn--insert,
+.giveaway__quick-entry-btn[data-do="entry_insert"],
+.sidebar__entry-insert,
+.featured__action-button,
+.form__submit-button,
+.btn_action.green,
+.esgst-enter-button {
+  background: var(--ge-enter-green-bg) !important;
+  background-image: var(--ge-enter-green-bg) !important;
+  background-color: #3d5a28 !important;
+  color: var(--ge-enter-green-txt) !important;
+  border: 1px solid #000 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12) !important;
+}
+.giveaway__quick-entry-btn--insert.is-locked,
+.giveaway__quick-entry-btn[data-do="entry_insert"].is-locked {
+  background-image: linear-gradient(#555 0%, #3a3a3a 100%) !important;
+  background-color: #4a4a4a !important;
+  color: #b0b0b0 !important;
+  opacity: 1 !important;
+  display: inline-flex !important;
+}
+
 .sidebar__error, .sidebar__suspension, .btn_action.red,
 .page__heading__button--red, .page_heading_btn.red, .btn-danger,
 .header__error {

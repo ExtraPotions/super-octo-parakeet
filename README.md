@@ -10,14 +10,18 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 | --- | --- | --- |
 | **ManaPool Grey Edition** | 1.6.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
 | **Scryfall Grey Edition** | 1.6.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.6.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
 | Grey Edition common (auto via `@require`) | 1.6.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: **1.6.0** (ManaPool/Scryfall/common); SteamGifts **1.6.1**.
+Current release: **1.6.0** (ManaPool/Scryfall/common); SteamGifts **1.6.2**.
+
+## Changelog — 1.6.2
+
+- **SteamGifts**: solid charcoal on `.page__outer-wrap` / inner wrap (fixes light `#f0f2f5` bleed from transparent wrappers). Stronger Enter/quick-entry green paint; locked inserts stay visible grey. Faded rows no longer use parent `opacity` (was washing Enter icons).
 
 ## Changelog — 1.6.1
 
