@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Amazon Dark Pattern Blocker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        0.1.12
+// @version        0.1.13
 // @description    Remove Amazon dark patterns (Prime upsells, credit cards, Rufus, etc.) — fork of August4067 MIT script; amazon.com only
 // @author         expDARE
 // @license        MIT
@@ -49,6 +49,7 @@
  * Match scope narrowed to amazon.com / www.amazon.com only.
  * 0.1.11: stop removing #desktop-banner / gwm homepage layout (was wiping the homepage).
  * 0.1.12: stop removing #attach-desktop-sideSheet (right-side cart flyout).
+ * 0.1.13: protect cart rails (ewc/sw/sc-buy-box); drop broad protection + #sw-maple hides.
  */
 
 (function () {
@@ -108,7 +109,7 @@
       creditCardUpsells: {
         setting: "removeCreditCardUpsells",
         cartCreditCardBanner: "#sc-new-upsell",
-        smartWagonCreditCard: "#sw-maple",
+        // 0.1.13: do not hide #sw-maple — lives inside smart-wagon / right cart rail
         productPageCreditCardBanner: "#issuancePriceblockAmabot_feature_div",
         productPageCreditCardBannerMaple: "#maplePriceblockAmabot_feature_div",
         thankYouPageCreditCard: '[cel_widget_id="typ-mapleSlot"]',
@@ -145,12 +146,10 @@
       protectionPlans: {
         setting: "removeProtectionPlans",
         productPageProtectionPlan: "#mbb_feature_div",
-        // 0.1.12: do NOT remove #attach-desktop-sideSheet / #attach-popover-lgtbox —
-        // that flyout IS the right-side cart ("Added to Cart" + cart contents).
-        // Target warranty/protection widgets inside it instead when possible:
-        attachWarrantyOffer: "#attach-warranty",
-        attachWarrantyUpsell: '[id*="attach-warranty"]',
-        attachProtectionPlan: '#attach-protection-plan, [data-feature-name*="protection"]',
+        // 0.1.12+: never touch #attach-desktop-sideSheet (right-side cart).
+        // 0.1.13: drop broad [id*="attach-warranty"] / [data-feature-name*="protection"].
+        attachWarrantyExact: "#attach-warranty",
+        attachSiNoCoverageRow: "#attachSiNoCoverage",
       },
     },
 
@@ -308,6 +307,37 @@
     }
   }
 
+  const CART_RAIL_SELECTORS = [
+    "#attach-desktop-sideSheet",
+    "#attach-accessory-pane",
+    "#nav-flyout-ewc",
+    "#ewc-content",
+    "#ewc-compact",
+    "#ewc-compact-body",
+    ".ewc-container",
+    "#sc-active-cart",
+    "#sc-buy-box",
+    "#sc-buy-box-ptc",
+    "form#activeCartViewForm",
+    "#smartWagon_feature_div",
+    "#sw-content",
+    "#sw-foldaway",
+    "#sw-subtotals",
+    "#sw-items",
+    ".sc-right-rail",
+    "#sc-right-rail",
+    "#cart-right-rail",
+  ];
+
+  function isInsideCartRail(el) {
+    if (!el || !el.closest) return false;
+    try {
+      return !!el.closest(CART_RAIL_SELECTORS.join(","));
+    } catch (e) {
+      return false;
+    }
+  }
+
   // ============================================
   // CSS INJECTION (runs at document-start, before paint)
   // ============================================
@@ -332,7 +362,10 @@
     style.textContent =
       "/* Amazon Dark Pattern Blocker - FOUC prevention */\n" +
       rules.join(",\n") +
-      " {\n  display: none !important;\n}";
+      " {\n  display: none !important;\n}\n" +
+      "/* 0.1.13: keep cart rails visible */\n" +
+      CART_RAIL_SELECTORS.join(",\n") +
+      ",\n#attach-popover-lgtbox,\n#sw-maple,\n[id^=\"sw-\"] {\n  display: revert !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n}";
     (document.head || document.documentElement).appendChild(style);
     debug("Injected CSS hide rules for " + rules.length + " selectors");
   }
@@ -368,6 +401,10 @@
         try {
           const elements = document.querySelectorAll(selector);
           elements.forEach((el) => {
+            if (isInsideCartRail(el)) {
+              debug(`Skipped ${name} (inside cart rail)`);
+              return;
+            }
             el.remove();
             count++;
             debug(`Removed ${name}`);
