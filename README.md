@@ -21,7 +21,7 @@ Current release: ManaPool/Scryfall **1.7.0**, SteamGifts **1.8.0**, common **1.1
 
 ## Changelog — move
 
-- **Amazon Dark Pattern Blocker** moved to its own repo: [ExtraPotions/amazon-dark-pattern-blocker](https://github.com/ExtraPotions/amazon-dark-pattern-blocker) (`0.1.19`). Install from there going forward.
+- **Amazon Dark Pattern Blocker** moved to its own repo: [ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/velvet-crane-orbit) (`0.1.20`). Install from there going forward.
 
 ## Changelog — 1.10.0
 
@@ -89,4 +89,4 @@ Current release: ManaPool/Scryfall **1.7.0**, SteamGifts **1.8.0**, common **1.1
 
 ## Amazon Dark Pattern Blocker
 
-Moved to **[ExtraPotions/amazon-dark-pattern-blocker](https://github.com/ExtraPotions/amazon-dark-pattern-blocker)** (MIT fork of August4067). [Install raw](https://raw.githubusercontent.com/ExtraPotions/amazon-dark-pattern-blocker/main/amazon-dark-pattern-blocker.user.js).
+Moved to **[ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/velvet-crane-orbit)** (MIT fork of August4067). [Install raw](https://raw.githubusercontent.com/ExtraPotions/velvet-crane-orbit/main/amazon-dark-pattern-blocker.user.js).
