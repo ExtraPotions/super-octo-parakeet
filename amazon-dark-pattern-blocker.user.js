@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Amazon Dark Pattern Blocker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        0.1.10
+// @version        0.1.11
 // @description    Remove Amazon dark patterns (Prime upsells, credit cards, Rufus, etc.) — fork of August4067 MIT script; amazon.com only
 // @author         expDARE
 // @license        MIT
@@ -47,6 +47,7 @@
  *
  * Maintained fork by expDARE — ExtraPotions/super-octo-parakeet
  * Match scope narrowed to amazon.com / www.amazon.com only.
+ * 0.1.11: stop removing #desktop-banner / gwm homepage layout (was wiping the homepage).
  */
 
 (function () {
@@ -61,7 +62,7 @@
     selectors: {
       primeUpsells: {
         setting: "removePrimeUpsells",
-        homepageHeroBanner: "#desktop-banner",
+        // homepageHeroBanner removed in 0.1.11 — #desktop-banner is the main gateway hero, not a Prime-only strip
         productPageIlmPromo: '[data-feature-name="desktop-dp-ilm"]',
         productPagePrimeUpsell: "#primeDPUpsellStaticContainerNPA",
         productPagePrimeUpsellAlt: "#primeDPUpsellStaticContainer",
@@ -132,9 +133,8 @@
       },
       homepageClutter: {
         setting: "removeHomepageClutter",
-        // Gateway "window manager" shoppable recommendation card decks
-        homepageShoppableDeck: '[id^="gwm-Deck"]',
-        homepageWindowLayout: "#gwm-window-layout",
+        // 0.1.11: do NOT target #gwm-window-layout / [id^="gwm-Deck"] — those are the main homepage cards.
+        // Leave empty until safer Prime-only homepage selectors are found.
       },
       amazonBusinessPromos: {
         setting: "removeAmazonBusinessPromos",
@@ -246,7 +246,7 @@
     },
     removeHomepageClutter: {
       displayName: "Remove homepage clutter",
-      default: true,
+      default: false,
     },
     autoClipCoupons: {
       displayName: "Auto-clip coupons",
@@ -284,6 +284,14 @@
       new Setting(name, config),
     ]),
   );
+
+  // 0.1.11 one-time: prior builds defaulted homepage clutter ON and deleted the gateway layout
+  try {
+    if (GM_getValue("adpbMigrate011", true)) {
+      GM_setValue("removeHomepageClutter", false);
+      GM_setValue("adpbMigrate011", false);
+    }
+  } catch (e) {}
 
   // ============================================
   // UTILITIES
