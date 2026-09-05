@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Amazon Dark Pattern Blocker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        0.1.17
+// @version        0.1.18
 // @description    Remove Amazon dark patterns + right-edge favicon settings rail — fork of August4067 MIT; amazon.com only
 // @author         expDARE
 // @license        MIT
@@ -49,6 +49,7 @@
  * Match scope narrowed to amazon.com / www.amazon.com only.
  * 0.1.16: right-edge vertical favicon settings rail (mirrors Grey Edition).
  * 0.1.17: rail/button themed to Amazon navy + orange accent (site color scheme).
+ * 0.1.18: floating circular favicon button (no full-height rail) — matches FL dock show.
  * 0.1.11: stop removing #desktop-banner / gwm homepage layout (was wiping the homepage).
  * 0.1.12: stop removing #attach-desktop-sideSheet (right-side cart flyout).
  * 0.1.13: protect cart rails (ewc/sw/sc-buy-box); drop broad protection + #sw-maple hides.
@@ -831,42 +832,30 @@
 
     css() {
       return `
-#${this.RAIL_ID}, #${this.BTN_ID}, #${this.PANEL_ID}, #${this.RAIL_ID} * { box-sizing: border-box; }
-#${this.RAIL_ID} {
-  position: fixed !important;
-  top: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 44px !important;
-  z-index: 2147483000 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 12px 0 !important;
-  /* Amazon nav navy */
-  background: rgba(19,25,33,0.96) !important;
-  border-left: 1px solid rgba(255,153,0,0.28) !important;
-  box-shadow: -4px 0 18px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,153,0,0.12) !important;
-}
+#${this.BTN_ID}, #${this.PANEL_ID}, #${this.BTN_ID} * { box-sizing: border-box; }
 #${this.BTN_ID} {
-  width: 36px !important;
-  height: 36px !important;
+  position: fixed !important;
+  right: 12px !important;
+  bottom: 16px !important;
+  z-index: 2147483000 !important;
+  width: 40px !important;
+  height: 40px !important;
   border-radius: 999px !important;
   border: 1px solid #ff9900 !important;
-  background: #232f3e !important;
+  background: #131921 !important;
   color: #ff9900 !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,153,0,0.25) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,.4), 0 0 0 1px rgba(255,153,0,0.25) !important;
   cursor: pointer !important;
   padding: 0 !important;
-  display: flex !important;
+  margin: 0 !important;
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: hidden !important;
   transition: transform .15s ease, background .15s ease, border-color .15s ease !important;
 }
 #${this.BTN_ID}:hover {
-  background: #37475a !important;
+  background: #232f3e !important;
   border-color: #ff9900 !important;
   transform: scale(1.06) !important;
 }
@@ -878,13 +867,14 @@
 }
 #${this.PANEL_ID} {
   position: fixed !important;
-  right: 52px !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
+  right: 12px !important;
+  bottom: 64px !important;
+  top: auto !important;
+  transform: none !important;
   z-index: 2147483001 !important;
   width: 280px !important;
-  max-width: calc(100vw - 68px) !important;
-  max-height: calc(100vh - 48px) !important;
+  max-width: calc(100vw - 24px) !important;
+  max-height: calc(100vh - 96px) !important;
   overflow: auto !important;
   background: #232f3e !important;
   color: #eee !important;
@@ -976,11 +966,11 @@
     mount() {
       if (!document.body) return false;
       this.ensureStyle();
-      if (document.getElementById(this.RAIL_ID)) return true;
+      if (document.getElementById(this.BTN_ID)) return true;
+      const legacy = document.getElementById(this.RAIL_ID);
+      if (legacy) legacy.remove();
 
       const panel = this.buildPanel();
-      const rail = document.createElement("div");
-      rail.id = this.RAIL_ID;
       const btn = document.createElement("button");
       btn.id = this.BTN_ID;
       btn.type = "button";
@@ -1006,16 +996,15 @@
         (e) => {
           if (!panel.classList.contains("adpb-open")) return;
           const t = e.target;
-          if (t === btn || btn.contains(t) || t === panel || panel.contains(t) || t === rail || rail.contains(t)) return;
+          if (t === btn || btn.contains(t) || t === panel || panel.contains(t)) return;
           panel.classList.remove("adpb-open");
           btn.setAttribute("aria-expanded", "false");
         },
         true,
       );
 
-      rail.appendChild(btn);
       document.body.appendChild(panel);
-      document.body.appendChild(rail);
+      document.body.appendChild(btn);
       return true;
     },
 

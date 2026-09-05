@@ -1,12 +1,13 @@
 /**
  * Grey Edition common helpers (Tampermonkey @require)
- * Version: 1.9.1
+ * Version: 1.9.2
  * Author: expDARE
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
  *
  * Shared palette + settings for ManaPool / Scryfall / SteamGifts Grey Edition.
  * 1.9.0: right-edge vertical favicon settings rail (Violentmonkey/Tampermonkey).
  * 1.9.1: rail/button themed to each site (dark chrome + favicon accent, FL-dock style).
+ * 1.9.2: floating circular favicon button (no full-height rail strip) — matches FL #fl-dock-show.
  * Not a userscript — load via // @require from each Grey Edition script.
  */
 (function (global) {
@@ -34,8 +35,8 @@
   var SITE_THEMES = {
     manapool: {
       railBg: 'rgba(28,28,26,0.94)',
-      btnBg: '#252522',
-      btnBgHover: '#2a2a28',
+      btnBg: '#111111',
+      btnBgHover: '#1a1a1a',
       accent: '#5eb0ef',
       accentSoft: 'rgba(94,176,239,0.28)',
       text: 'rgba(204,204,204,0.95)',
@@ -46,8 +47,8 @@
     },
     scryfall: {
       railBg: 'rgba(28,28,26,0.94)',
-      btnBg: '#252522',
-      btnBgHover: '#2a2a28',
+      btnBg: '#111111',
+      btnBgHover: '#1a1a1a',
       accent: '#7ec8f0',
       accentSoft: 'rgba(126,200,240,0.28)',
       text: 'rgba(204,204,204,0.95)',
@@ -58,8 +59,8 @@
     },
     steamgifts: {
       railBg: 'rgba(33,43,54,0.96)',
-      btnBg: '#2e3d4d',
-      btnBgHover: '#39576f',
+      btnBg: '#1c1c1a',
+      btnBgHover: '#2e3d4d',
       accent: '#7ec8f0',
       accentSoft: 'rgba(126,200,240,0.25)',
       text: 'rgba(204,204,204,0.95)',
@@ -70,8 +71,8 @@
     },
     default: {
       railBg: 'rgba(28,28,26,0.94)',
-      btnBg: '#252522',
-      btnBgHover: '#2a2a28',
+      btnBg: '#111111',
+      btnBgHover: '#1a1a1a',
       accent: '#aeaeae',
       accentSoft: 'rgba(174,174,174,0.25)',
       text: 'rgba(204,204,204,0.95)',
@@ -210,7 +211,7 @@
 
   function rootCss() {
     return [
-      '/* Grey Edition common root flags CSS v1.9.1 */',
+      '/* Grey Edition common root flags CSS v1.9.2 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -257,51 +258,34 @@
 
   function fabCss() {
     return [
-      '#' + RAIL_ID + ', #' + FAB_ID + ', #' + PANEL_ID + ', #' + RAIL_ID + ' * { box-sizing: border-box; }',
-      '#' + RAIL_ID + ' {',
-      '  position: fixed !important;',
-      '  top: 0 !important;',
-      '  right: 0 !important;',
-      '  bottom: 0 !important;',
-      '  width: 44px !important;',
-      '  z-index: 2147483000 !important;',
-      '  display: flex !important;',
-      '  flex-direction: column !important;',
-      '  align-items: center !important;',
-      '  justify-content: center !important;',
-      '  gap: 10px !important;',
-      '  padding: 12px 0 !important;',
-      '  margin: 0 !important;',
-      '  background: var(--ge-rail-bg, rgba(28,28,26,0.94)) !important;',
-      '  border-left: 1px solid var(--ge-rail-accent-soft, rgba(0,0,0,0.75)) !important;',
-      '  box-shadow: -4px 0 18px rgba(0,0,0,0.35), 0 0 0 1px var(--ge-rail-accent-soft, transparent) !important;',
-      '  pointer-events: auto !important;',
-      '}',
+      '#' + FAB_ID + ', #' + PANEL_ID + ', #' + FAB_ID + ' * { box-sizing: border-box; }',
       '#' + FAB_ID + ' {',
-      '  position: relative !important;',
-      '  right: auto !important;',
-      '  bottom: auto !important;',
-      '  width: 36px !important;',
-      '  height: 36px !important;',
+      '  position: fixed !important;',
+      '  right: 12px !important;',
+      '  bottom: 16px !important;',
+      '  top: auto !important;',
+      '  left: auto !important;',
+      '  z-index: 2147483000 !important;',
+      '  width: 40px !important;',
+      '  height: 40px !important;',
       '  border-radius: 999px !important;',
       '  border: 1px solid var(--ge-rail-accent, #aeaeae) !important;',
-      '  background: var(--ge-rail-btn-bg, #252522) !important;',
+      '  background: var(--ge-rail-btn-bg, #111111) !important;',
       '  color: var(--ge-rail-accent, #aeaeae) !important;',
-      '  box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 1px var(--ge-rail-accent-soft, transparent) !important;',
+      '  box-shadow: 0 2px 10px rgba(0,0,0,.4), 0 0 0 1px var(--ge-rail-accent-soft, transparent) !important;',
       '  cursor: pointer !important;',
       '  padding: 0 !important;',
       '  margin: 0 !important;',
-      '  display: flex !important;',
+      '  display: inline-flex !important;',
       '  align-items: center !important;',
       '  justify-content: center !important;',
       '  overflow: hidden !important;',
-      '  transition: transform .15s ease, background .15s ease, border-color .15s ease, filter .15s ease !important;',
+      '  transition: transform .15s ease, background .15s ease, border-color .15s ease !important;',
       '}',
       '#' + FAB_ID + ':hover {',
-      '  background: var(--ge-rail-btn-hover, #2a2a28) !important;',
+      '  background: var(--ge-rail-btn-hover, #1a1a1a) !important;',
       '  border-color: var(--ge-rail-accent, #aeaeae) !important;',
       '  transform: scale(1.06) !important;',
-      '  filter: none !important;',
       '}',
       '#' + FAB_ID + ' img {',
       '  width: 22px !important;',
@@ -312,14 +296,14 @@
       '}',
       '#' + PANEL_ID + ' {',
       '  position: fixed !important;',
-      '  right: 52px !important;',
-      '  top: 50% !important;',
-      '  bottom: auto !important;',
-      '  transform: translateY(-50%) !important;',
+      '  right: 12px !important;',
+      '  bottom: 64px !important;',
+      '  top: auto !important;',
+      '  transform: none !important;',
       '  z-index: 2147483001 !important;',
       '  width: 270px !important;',
-      '  max-width: calc(100vw - 68px) !important;',
-      '  max-height: calc(100vh - 48px) !important;',
+      '  max-width: calc(100vw - 24px) !important;',
+      '  max-height: calc(100vh - 96px) !important;',
       '  overflow: auto !important;',
       '  background: var(--ge-rail-panel-bg, #2a2a28) !important;',
       '  color: var(--ge-rail-text, rgba(204,204,204,0.95)) !important;',
@@ -468,33 +452,27 @@
       ensureFabStyle();
       applyDocumentFlags(site);
 
-      if (document.getElementById(RAIL_ID) && document.getElementById(FAB_ID)) return true;
+      if (document.getElementById(FAB_ID)) return true;
+
+      // Remove legacy full-height rail if an older common left one behind
+      var legacyRail = document.getElementById(RAIL_ID);
+      if (legacyRail) legacyRail.remove();
 
       var panel = buildPanel(site);
-      var rail = document.createElement('div');
-      rail.id = RAIL_ID;
-      rail.setAttribute('aria-label', 'Grey Edition settings rail');
       var th = themeFor(site);
-      rail.style.setProperty('--ge-rail-bg', th.railBg);
-      rail.style.setProperty('--ge-rail-btn-bg', th.btnBg);
-      rail.style.setProperty('--ge-rail-btn-hover', th.btnBgHover);
-      rail.style.setProperty('--ge-rail-accent', th.accent);
-      rail.style.setProperty('--ge-rail-accent-soft', th.accentSoft);
-      rail.style.setProperty('--ge-rail-text', th.text);
-      rail.style.setProperty('--ge-rail-panel-bg', th.panelBg);
-      rail.style.setProperty('--ge-rail-panel-border', th.panelBorder);
-      rail.style.setProperty('--ge-rail-title', th.title);
-      rail.style.setProperty('--ge-rail-muted', th.muted);
-      panel.style.setProperty('--ge-rail-bg', th.railBg);
-      panel.style.setProperty('--ge-rail-btn-bg', th.btnBg);
-      panel.style.setProperty('--ge-rail-btn-hover', th.btnBgHover);
-      panel.style.setProperty('--ge-rail-accent', th.accent);
-      panel.style.setProperty('--ge-rail-accent-soft', th.accentSoft);
-      panel.style.setProperty('--ge-rail-text', th.text);
-      panel.style.setProperty('--ge-rail-panel-bg', th.panelBg);
-      panel.style.setProperty('--ge-rail-panel-border', th.panelBorder);
-      panel.style.setProperty('--ge-rail-title', th.title);
-      panel.style.setProperty('--ge-rail-muted', th.muted);
+      function applyTheme(el) {
+        el.style.setProperty('--ge-rail-bg', th.railBg);
+        el.style.setProperty('--ge-rail-btn-bg', th.btnBg);
+        el.style.setProperty('--ge-rail-btn-hover', th.btnBgHover);
+        el.style.setProperty('--ge-rail-accent', th.accent);
+        el.style.setProperty('--ge-rail-accent-soft', th.accentSoft);
+        el.style.setProperty('--ge-rail-text', th.text);
+        el.style.setProperty('--ge-rail-panel-bg', th.panelBg);
+        el.style.setProperty('--ge-rail-panel-border', th.panelBorder);
+        el.style.setProperty('--ge-rail-title', th.title);
+        el.style.setProperty('--ge-rail-muted', th.muted);
+      }
+      applyTheme(panel);
 
       var btn = document.createElement('button');
       btn.id = FAB_ID;
@@ -502,6 +480,7 @@
       btn.title = 'Grey Edition settings';
       btn.setAttribute('aria-label', 'Grey Edition settings');
       btn.setAttribute('aria-expanded', 'false');
+      applyTheme(btn);
 
       if (iconUrl) {
         var img = document.createElement('img');
@@ -512,7 +491,7 @@
         btn.appendChild(img);
       } else {
         btn.textContent = 'GE';
-        btn.style.color = '#c8c8c8';
+        btn.style.color = th.accent;
         btn.style.fontWeight = '700';
         btn.style.fontSize = '11px';
       }
@@ -527,14 +506,13 @@
       document.addEventListener('click', function (e) {
         if (!panel.classList.contains('ge-open')) return;
         var t = e.target;
-        if (t === btn || btn.contains(t) || t === panel || panel.contains(t) || t === rail || rail.contains(t)) return;
+        if (t === btn || btn.contains(t) || t === panel || panel.contains(t)) return;
         panel.classList.remove('ge-open');
         btn.setAttribute('aria-expanded', 'false');
       }, true);
 
-      rail.appendChild(btn);
       document.body.appendChild(panel);
-      document.body.appendChild(rail);
+      document.body.appendChild(btn);
       return true;
     }
 
@@ -557,7 +535,7 @@
   };
 
   var api = {
-    version: '1.9.1',
+    version: '1.9.2',
     palette: palette,
     get: get,
     set: set,
