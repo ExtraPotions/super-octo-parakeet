@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SteamGifts Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.7.0
+// @version        1.7.1
 // @description    Dark charcoal Grey Edition for SteamGifts / SteamTrades / SGTools. Full ESGST-compatible theme restored from SG Dark Grey by SquishedPotatoe (CC-BY-SA-4.0).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -23,7 +23,7 @@
 // ==/UserScript==
 
 function addCss() {
-  var css = `/* SteamGifts Grey Edition v1.7.0  2026-07-26 */
+  var css = `/* SteamGifts Grey Edition v1.7.1  2026-07-26 */
 :root {
   --SGSP-body-bg-color: #252522;
   --SGSP-body-bg-image: "none";
@@ -8420,7 +8420,8 @@ Docobserver.observe(document.documentElement, { childList: true });
     var GE = (typeof globalThis !== 'undefined' && globalThis.GreyEdition) || (typeof window !== 'undefined' && window.GreyEdition);
     if (!GE) return;
     if (typeof GE.applyDocumentFlags === 'function') GE.applyDocumentFlags('steamgifts');
-    if (typeof GE.registerMenus === 'function') GE.registerMenus('steamgifts');
+    if (typeof GE.registerMenus === 'function') GE.registerMenus('steamgifts', 'https://cdn.steamgifts.com/img/favicon.ico');
+    else if (typeof GE.mountSettingsFab === 'function') GE.mountSettingsFab('steamgifts', 'https://cdn.steamgifts.com/img/favicon.ico');
     if (typeof GE.rootCss === 'function') {
       var extra = GE.rootCss();
       if (extra) {

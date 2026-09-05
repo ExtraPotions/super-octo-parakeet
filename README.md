@@ -8,16 +8,21 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 
 | Script | Version | Install |
 | --- | --- | --- |
-| **ManaPool Grey Edition** | 1.6.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
-| **Scryfall Grey Edition** | 1.6.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.7.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
-| Grey Edition common (auto via `@require`) | 1.6.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
+| **ManaPool Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
+| **Scryfall Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.7.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| Grey Edition common (auto via `@require`) | 1.7.1 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
 Current release: **1.6.0** (ManaPool/Scryfall/common); SteamGifts **1.7.0** (full SG Dark Grey restore).
+
+## Changelog — 1.7.1
+
+- **Shared FAB**: floating Grey Edition settings button at **bottom-right** on all sites; collapsed state shows the site favicon; expands into intensity / brighter links / hide ads / denser grid (ManaPool). Lives in `grey-edition-common.js`.
+- ManaPool / Scryfall `1.6.1`, SteamGifts `1.7.1` (theme CSS unchanged from 1.7.0 restore).
 
 ## Changelog — 1.7.0
 
