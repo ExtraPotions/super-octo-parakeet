@@ -12,12 +12,17 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 | **Scryfall Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
 | **SteamGifts Grey Edition** | 1.7.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
 | Grey Edition common (auto via `@require`) | 1.8.1 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
+| **Amazon Dark Pattern Blocker** | 0.1.10 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/amazon-dark-pattern-blocker.user.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
 Current release: ManaPool/Scryfall **1.6.1**, SteamGifts **1.7.1**, common **1.8.1**.
+
+## Changelog — amazon-dpb 0.1.10
+
+- Added **Amazon Dark Pattern Blocker** fork (`0.1.10`) from August4067 MIT Greasy Fork script; `amazon.com` only; raw install from this repo.
 
 ## Changelog — 1.8.1
 
@@ -61,3 +66,9 @@ Current release: ManaPool/Scryfall **1.6.1**, SteamGifts **1.7.1**, common **1.8
 - Open Tampermonkey → script → “Grey Edition: …” menu commands, or use the **bottom-right favicon FAB**, to toggle intensity, brighter links, hide ads, and (ManaPool) denser grid.
 - **SteamGifts Grey Edition** `1.7.0+` ships the full SG Dark Grey stylesheet (ESGST-tested). It coexists with [ESGST / A-ESGST](https://github.com/JustArchi/ESGST).
 - SteamGifts theme is derived from / inspired by [SG Dark Grey](https://github.com/SquishedPotatoe/SG-Dark-Grey) by SquishedPotatoe, licensed [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
+## Amazon Dark Pattern Blocker
+
+Fork of [Amazon Dark Pattern Blocker](https://greasyfork.org/en/scripts/563061-amazon-dark-pattern-blocker) by **August4067** (MIT). Hosted here under **expDARE** with `@match` limited to `amazon.com` / `www.amazon.com`.
+
+Original copyright and MIT license are retained in the script file. Tampermonkey menu toggles (Prime upsells, urgency, Subscribe & Save, sponsored, credit cards, Rufus, Music promos) work the same as upstream `0.1.10-alpha`.
