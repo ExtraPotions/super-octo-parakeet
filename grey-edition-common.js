@@ -1,16 +1,18 @@
 /**
  * Grey Edition common helpers (Tampermonkey @require)
- * Version: 1.8.1
+ * Version: 1.9.0
  * Author: expDARE
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
  *
  * Shared palette + settings for ManaPool / Scryfall / SteamGifts Grey Edition.
+ * 1.9.0: right-edge vertical favicon settings rail (Violentmonkey/Tampermonkey).
  * Not a userscript — load via // @require from each Grey Edition script.
  */
 (function (global) {
   'use strict';
 
   var PREFIX = 'ge-';
+  var RAIL_ID = 'grey-edition-settings-rail';
   var FAB_ID = 'grey-edition-fab';
   var PANEL_ID = 'grey-edition-fab-panel';
   var STYLE_ID = 'grey-edition-fab-style';
@@ -155,7 +157,7 @@
 
   function rootCss() {
     return [
-      '/* Grey Edition common root flags CSS v1.8.1 */',
+      '/* Grey Edition common root flags CSS v1.9.0 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -198,18 +200,36 @@
 
   function fabCss() {
     return [
-      '#' + FAB_ID + ', #' + PANEL_ID + ', #' + FAB_ID + ' * { box-sizing: border-box; }',
-      '#' + FAB_ID + ' {',
+      '#' + RAIL_ID + ', #' + FAB_ID + ', #' + PANEL_ID + ', #' + RAIL_ID + ' * { box-sizing: border-box; }',
+      '#' + RAIL_ID + ' {',
       '  position: fixed !important;',
-      '  right: 18px !important;',
-      '  bottom: 18px !important;',
+      '  top: 0 !important;',
+      '  right: 0 !important;',
+      '  bottom: 0 !important;',
+      '  width: 44px !important;',
       '  z-index: 2147483000 !important;',
-      '  width: 48px !important;',
-      '  height: 48px !important;',
-      '  border-radius: 50% !important;',
+      '  display: flex !important;',
+      '  flex-direction: column !important;',
+      '  align-items: center !important;',
+      '  justify-content: center !important;',
+      '  gap: 10px !important;',
+      '  padding: 12px 0 !important;',
+      '  margin: 0 !important;',
+      '  background: rgba(28,28,26,0.92) !important;',
+      '  border-left: 1px solid rgba(0,0,0,0.75) !important;',
+      '  box-shadow: -4px 0 18px rgba(0,0,0,0.35) !important;',
+      '  pointer-events: auto !important;',
+      '}',
+      '#' + FAB_ID + ' {',
+      '  position: relative !important;',
+      '  right: auto !important;',
+      '  bottom: auto !important;',
+      '  width: 36px !important;',
+      '  height: 36px !important;',
+      '  border-radius: 10px !important;',
       '  border: 1px solid rgba(0,0,0,0.75) !important;',
       '  background: #2a2a28 !important;',
-      '  box-shadow: 0 6px 18px rgba(0,0,0,0.45) !important;',
+      '  box-shadow: 0 2px 8px rgba(0,0,0,0.35) !important;',
       '  cursor: pointer !important;',
       '  padding: 0 !important;',
       '  margin: 0 !important;',
@@ -220,19 +240,23 @@
       '}',
       '#' + FAB_ID + ':hover { filter: brightness(1.12); }',
       '#' + FAB_ID + ' img {',
-      '  width: 28px !important;',
-      '  height: 28px !important;',
+      '  width: 22px !important;',
+      '  height: 22px !important;',
       '  object-fit: contain !important;',
       '  display: block !important;',
       '  pointer-events: none !important;',
       '}',
       '#' + PANEL_ID + ' {',
       '  position: fixed !important;',
-      '  right: 18px !important;',
-      '  bottom: 76px !important;',
+      '  right: 52px !important;',
+      '  top: 50% !important;',
+      '  bottom: auto !important;',
+      '  transform: translateY(-50%) !important;',
       '  z-index: 2147483001 !important;',
-      '  width: 260px !important;',
-      '  max-width: calc(100vw - 36px) !important;',
+      '  width: 270px !important;',
+      '  max-width: calc(100vw - 68px) !important;',
+      '  max-height: calc(100vh - 48px) !important;',
+      '  overflow: auto !important;',
       '  background: #2a2a28 !important;',
       '  color: rgba(204,204,204,0.95) !important;',
       '  border: 1px solid rgba(0,0,0,0.75) !important;',
@@ -365,7 +389,7 @@
 
     var foot = document.createElement('div');
     foot.className = 'ge-foot';
-    foot.textContent = 'Saved for this browser · Tampermonkey menu still works';
+    foot.textContent = 'Saved for this browser · Violentmonkey/Tampermonkey menu still works';
     panel.appendChild(foot);
 
     return panel;
@@ -380,10 +404,13 @@
       ensureFabStyle();
       applyDocumentFlags(site);
 
-      var existing = document.getElementById(FAB_ID);
-      if (existing) return true;
+      if (document.getElementById(RAIL_ID) && document.getElementById(FAB_ID)) return true;
 
       var panel = buildPanel(site);
+      var rail = document.createElement('div');
+      rail.id = RAIL_ID;
+      rail.setAttribute('aria-label', 'Grey Edition settings rail');
+
       var btn = document.createElement('button');
       btn.id = FAB_ID;
       btn.type = 'button';
@@ -395,14 +422,14 @@
         var img = document.createElement('img');
         img.src = iconUrl;
         img.alt = '';
-        img.width = 28;
-        img.height = 28;
+        img.width = 22;
+        img.height = 22;
         btn.appendChild(img);
       } else {
         btn.textContent = 'GE';
         btn.style.color = '#c8c8c8';
         btn.style.fontWeight = '700';
-        btn.style.fontSize = '12px';
+        btn.style.fontSize = '11px';
       }
 
       btn.addEventListener('click', function (e) {
@@ -415,13 +442,14 @@
       document.addEventListener('click', function (e) {
         if (!panel.classList.contains('ge-open')) return;
         var t = e.target;
-        if (t === btn || btn.contains(t) || t === panel || panel.contains(t)) return;
+        if (t === btn || btn.contains(t) || t === panel || panel.contains(t) || t === rail || rail.contains(t)) return;
         panel.classList.remove('ge-open');
         btn.setAttribute('aria-expanded', 'false');
       }, true);
 
+      rail.appendChild(btn);
       document.body.appendChild(panel);
-      document.body.appendChild(btn);
+      document.body.appendChild(rail);
       return true;
     }
 
@@ -444,7 +472,7 @@
   };
 
   var api = {
-    version: '1.8.1',
+    version: '1.9.0',
     palette: palette,
     get: get,
     set: set,

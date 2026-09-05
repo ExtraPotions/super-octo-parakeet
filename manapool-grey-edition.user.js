@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           ManaPool Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.6.1
+// @version        1.6.2
 // @description    Dark charcoal theme for Mana Pool — collapsible home sections + collapse-all by avatar + Grey Edition settings
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet

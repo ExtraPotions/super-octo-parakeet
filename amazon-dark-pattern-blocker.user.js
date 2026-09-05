@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name           Amazon Dark Pattern Blocker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        0.1.15
-// @description    Remove Amazon dark patterns (Prime upsells, credit cards, Rufus, etc.) — fork of August4067 MIT script; amazon.com only
+// @version        0.1.16
+// @description    Remove Amazon dark patterns + right-edge favicon settings rail — fork of August4067 MIT; amazon.com only
 // @author         expDARE
 // @license        MIT
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -47,6 +47,7 @@
  *
  * Maintained fork by expDARE — ExtraPotions/super-octo-parakeet
  * Match scope narrowed to amazon.com / www.amazon.com only.
+ * 0.1.16: right-edge vertical favicon settings rail (mirrors Grey Edition).
  * 0.1.11: stop removing #desktop-banner / gwm homepage layout (was wiping the homepage).
  * 0.1.12: stop removing #attach-desktop-sideSheet (right-side cart flyout).
  * 0.1.13: protect cart rails (ewc/sw/sc-buy-box); drop broad protection + #sw-maple hides.
@@ -815,6 +816,214 @@
     }
   }
 
+
+  // ============================================
+  // SETTINGS RAIL (right-edge favicon button)
+  // ============================================
+
+  const SettingsRail = {
+    RAIL_ID: "adpb-settings-rail",
+    BTN_ID: "adpb-settings-fab",
+    PANEL_ID: "adpb-settings-panel",
+    STYLE_ID: "adpb-settings-rail-style",
+    ICON: "https://www.amazon.com/favicon.ico",
+
+    css() {
+      return `
+#${this.RAIL_ID}, #${this.BTN_ID}, #${this.PANEL_ID}, #${this.RAIL_ID} * { box-sizing: border-box; }
+#${this.RAIL_ID} {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 44px !important;
+  z-index: 2147483000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 0 !important;
+  background: rgba(19,25,33,0.94) !important;
+  border-left: 1px solid rgba(0,0,0,0.75) !important;
+  box-shadow: -4px 0 18px rgba(0,0,0,0.35) !important;
+}
+#${this.BTN_ID} {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(0,0,0,0.75) !important;
+  background: #232f3e !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+#${this.BTN_ID}:hover { filter: brightness(1.12); }
+#${this.BTN_ID} img {
+  width: 22px !important;
+  height: 22px !important;
+  object-fit: contain !important;
+  pointer-events: none !important;
+}
+#${this.PANEL_ID} {
+  position: fixed !important;
+  right: 52px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 2147483001 !important;
+  width: 280px !important;
+  max-width: calc(100vw - 68px) !important;
+  max-height: calc(100vh - 48px) !important;
+  overflow: auto !important;
+  background: #232f3e !important;
+  color: #eee !important;
+  border: 1px solid rgba(0,0,0,0.75) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.5) !important;
+  padding: 12px !important;
+  font: 13px/1.35 "Amazon Ember", Arial, sans-serif !important;
+  display: none !important;
+}
+#${this.PANEL_ID}.adpb-open { display: block !important; }
+#${this.PANEL_ID} .adpb-title {
+  font-weight: 700 !important;
+  margin: 0 0 10px !important;
+  color: #f0c14b !important;
+}
+#${this.PANEL_ID} .adpb-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin: 0 0 8px !important;
+}
+#${this.PANEL_ID} label {
+  color: #eee !important;
+  cursor: pointer !important;
+  flex: 1 !important;
+}
+#${this.PANEL_ID} input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
+  accent-color: #f0c14b !important;
+  cursor: pointer !important;
+}
+#${this.PANEL_ID} .adpb-foot {
+  margin-top: 8px !important;
+  padding-top: 8px !important;
+  border-top: 1px solid rgba(255,255,255,0.12) !important;
+  font-size: 11px !important;
+  color: #99a !important;
+}`;
+    },
+
+    ensureStyle() {
+      let node = document.getElementById(this.STYLE_ID);
+      if (!node) {
+        node = document.createElement("style");
+        node.id = this.STYLE_ID;
+        (document.documentElement || document.head).appendChild(node);
+      }
+      node.textContent = this.css();
+    },
+
+    buildPanel() {
+      const panel = document.createElement("div");
+      panel.id = this.PANEL_ID;
+      panel.setAttribute("role", "dialog");
+      panel.setAttribute("aria-label", "Amazon Dark Pattern Blocker settings");
+
+      const title = document.createElement("div");
+      title.className = "adpb-title";
+      title.textContent = "Dark Pattern Blocker";
+      panel.appendChild(title);
+
+      Object.entries(Settings).forEach(([key, setting]) => {
+        const row = document.createElement("div");
+        row.className = "adpb-row";
+        const lab = document.createElement("label");
+        lab.textContent = setting.displayName;
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = !!setting.value;
+        cb.addEventListener("change", () => {
+          setting.value = !!cb.checked;
+          alert(setting.displayName + (cb.checked ? " enabled" : " disabled") + ". Refresh the page to apply.");
+        });
+        row.appendChild(lab);
+        row.appendChild(cb);
+        panel.appendChild(row);
+      });
+
+      const foot = document.createElement("div");
+      foot.className = "adpb-foot";
+      foot.textContent = "Saved in this browser · Violentmonkey menu still works";
+      panel.appendChild(foot);
+      return panel;
+    },
+
+    mount() {
+      if (!document.body) return false;
+      this.ensureStyle();
+      if (document.getElementById(this.RAIL_ID)) return true;
+
+      const panel = this.buildPanel();
+      const rail = document.createElement("div");
+      rail.id = this.RAIL_ID;
+      const btn = document.createElement("button");
+      btn.id = this.BTN_ID;
+      btn.type = "button";
+      btn.title = "Dark Pattern Blocker settings";
+      btn.setAttribute("aria-label", "Dark Pattern Blocker settings");
+      btn.setAttribute("aria-expanded", "false");
+      const img = document.createElement("img");
+      img.src = this.ICON;
+      img.alt = "";
+      img.width = 22;
+      img.height = 22;
+      btn.appendChild(img);
+
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const open = panel.classList.toggle("adpb-open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      document.addEventListener(
+        "click",
+        (e) => {
+          if (!panel.classList.contains("adpb-open")) return;
+          const t = e.target;
+          if (t === btn || btn.contains(t) || t === panel || panel.contains(t) || t === rail || rail.contains(t)) return;
+          panel.classList.remove("adpb-open");
+          btn.setAttribute("aria-expanded", "false");
+        },
+        true,
+      );
+
+      rail.appendChild(btn);
+      document.body.appendChild(panel);
+      document.body.appendChild(rail);
+      return true;
+    },
+
+    start() {
+      const tryMount = () => this.mount();
+      if (tryMount()) return;
+      const obs = new MutationObserver(() => {
+        if (tryMount()) obs.disconnect();
+      });
+      obs.observe(document.documentElement, { childList: true, subtree: true });
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", tryMount, { once: true });
+      }
+    },
+  };
+
+
   // ============================================
   // MENU
   // ============================================
@@ -871,6 +1080,7 @@
     debug("Initializing...");
 
     setupMenu();
+    SettingsRail.start();
     setupMutationObserver();
 
     if (document.readyState === "loading") {
