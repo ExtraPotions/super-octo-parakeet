@@ -1,6 +1,6 @@
 /**
  * Grey Edition common helpers (Tampermonkey @require)
- * Version: 1.9.2
+ * Version: 1.10.0
  * Author: expDARE
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
  *
@@ -8,6 +8,7 @@
  * 1.9.0: right-edge vertical favicon settings rail (Violentmonkey/Tampermonkey).
  * 1.9.1: rail/button themed to each site (dark chrome + favicon accent, FL-dock style).
  * 1.9.2: floating circular favicon button (no full-height rail strip) — matches FL #fl-dock-show.
+ * 1.10.0: theme palette picker — original / light gray / dark gray / navy / black.
  * Not a userscript — load via // @require from each Grey Edition script.
  */
 (function (global) {
@@ -153,27 +154,55 @@
     return v === true || v === 1 || v === '1' ? '1' : '0';
   }
 
+  var PALETTES = {
+    original: { label: 'Original', body: null, surface: null, header: null },
+    lightGray: { label: 'Light gray', body: '#3f3f3c', surface: '#4a4a46', header: '#333330' },
+    darkGray: { label: 'Dark gray', body: '#252522', surface: '#2a2a28', header: '#1c1c1a' },
+    navy: { label: 'Navy', body: '#1a2332', surface: '#243044', header: '#141c28' },
+    black: { label: 'Black', body: '#0a0a0a', surface: '#111111', header: '#050505' }
+  };
+
+  function normalizePalette(p) {
+    if (p && PALETTES[p]) return p;
+    // Migrate old soft intensity → lightGray
+    if (get('intensity', 'normal') === 'soft') return 'lightGray';
+    return 'darkGray';
+  }
+
   function applyDocumentFlags(site) {
     var root = document.documentElement;
     if (!root) return;
     var intensity = get('intensity', 'normal');
     if (intensity !== 'soft') intensity = 'normal';
+    var palette = normalizePalette(get('palette', 'darkGray'));
     root.setAttribute('data-ge-site', site || '');
     root.setAttribute('data-ge-intensity', intensity);
+    root.setAttribute('data-ge-palette', palette);
     root.setAttribute('data-ge-brighter-links', bool01(get('brighterLinks', false)));
     root.setAttribute('data-ge-hide-ads', bool01(get('hideAds', false)));
     root.setAttribute('data-ge-dense', bool01(get('dense', false)));
+  }
+
+  function isThemeEnabled() {
+    return normalizePalette(get('palette', 'darkGray')) !== 'original';
   }
 
   function registerMenus(site) {
     applyDocumentFlags(site);
     if (typeof GM_registerMenuCommand !== 'function') return;
 
-    var intensity = get('intensity', 'normal');
+    var order = ['original', 'lightGray', 'darkGray', 'navy', 'black'];
+    var cur = normalizePalette(get('palette', 'darkGray'));
+    var next = order[(order.indexOf(cur) + 1) % order.length];
     GM_registerMenuCommand(
-      intensity === 'soft' ? 'Grey Edition: Intensity → Normal' : 'Grey Edition: Intensity → Soft',
+      'Grey Edition: Palette → ' + (PALETTES[next] && PALETTES[next].label || next),
       function () {
-        set('intensity', get('intensity', 'normal') === 'soft' ? 'normal' : 'soft');
+        var order2 = ['original', 'lightGray', 'darkGray', 'navy', 'black'];
+        var cur2 = normalizePalette(get('palette', 'darkGray'));
+        var next2 = order2[(order2.indexOf(cur2) + 1) % order2.length];
+        if (next2 === 'lightGray') set('intensity', 'soft');
+        else if (next2 !== 'original') set('intensity', 'normal');
+        set('palette', next2);
         applyDocumentFlags(site);
         try { location.reload(); } catch (e) {}
       }
@@ -211,7 +240,7 @@
 
   function rootCss() {
     return [
-      '/* Grey Edition common root flags CSS v1.9.2 */',
+      '/* Grey Edition common root flags CSS v1.10.0 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -248,6 +277,75 @@
       'html[data-ge-dense="1"] .group.bg-white,',
       'html[data-ge-dense="1"] li article {',
       '  margin: 0 !important;',
+      '}'
+    ].join('\n');
+  }
+
+
+  function paletteCss() {
+    var p = normalizePalette(get('palette', 'darkGray'));
+    if (p === 'original') {
+      return '/* Grey Edition palette: original (site default — theme CSS suppressed by host script) */';
+    }
+    var t = PALETTES[p];
+    // darkGray matches each script's baked-in charcoal — no remaps needed
+    if (p === 'darkGray') {
+      return [
+        '/* Grey Edition palette: darkGray (default) */',
+        'html[data-ge-palette="darkGray"] {',
+        '  --ge-body: ' + t.body + ';',
+        '  --ge-surface: ' + t.surface + ';',
+        '  --ge-header: ' + t.header + ';',
+        '}'
+      ].join('\n');
+    }
+    return [
+      '/* Grey Edition palette: ' + p + ' */',
+      'html[data-ge-palette="' + p + '"] {',
+      '  --ge-body: ' + t.body + ';',
+      '  --ge-surface: ' + t.surface + ';',
+      '  --ge-header: ' + t.header + ';',
+      '  --background: 0 0% 10% !important;',
+      '  color-scheme: dark !important;',
+      '}',
+      'html[data-ge-palette="' + p + '"],',
+      'html[data-ge-palette="' + p + '"] body,',
+      'html[data-ge-palette="' + p + '"] .app,',
+      'html[data-ge-palette="' + p + '"] #app,',
+      'html[data-ge-palette="' + p + '"] #main,',
+      'html[data-ge-palette="' + p + '"] .page__outer,',
+      'html[data-ge-palette="' + p + '"] .page__inner {',
+      '  background-color: ' + t.body + ' !important;',
+      '  background-image: none !important;',
+      '}',
+      'html[data-ge-palette="' + p + '"] header,',
+      'html[data-ge-palette="' + p + '"] .header,',
+      'html[data-ge-palette="' + p + '"] #header,',
+      'html[data-ge-palette="' + p + '"] nav.header,',
+      'html[data-ge-palette="' + p + '"] .nav__header {',
+      '  background-color: ' + t.header + ' !important;',
+      '  background-image: none !important;',
+      '}',
+      'html[data-ge-palette="' + p + '"] .bg-white,',
+      'html[data-ge-palette="' + p + '"] .bg-gray-50,',
+      'html[data-ge-palette="' + p + '"] .bg-gray-100,',
+      'html[data-ge-palette="' + p + '"] article,',
+      'html[data-ge-palette="' + p + '"] .card,',
+      'html[data-ge-palette="' + p + '"] .sidebar,',
+      'html[data-ge-palette="' + p + '"] .widget-container,',
+      'html[data-ge-palette="' + p + '"] .giveaway__row-outer-wrap,',
+      'html[data-ge-palette="' + p + '"] .table__row-outer-wrap,',
+      'html[data-ge-palette="' + p + '"] .page__heading,',
+      'html[data-ge-palette="' + p + '"] .card-profile,',
+      'html[data-ge-palette="' + p + '"] .card-text,',
+      'html[data-ge-palette="' + p + '"] .toolbox,',
+      'html[data-ge-palette="' + p + '"] .buybox,',
+      'html[data-ge-palette="' + p + '"] .prints,',
+      'html[data-ge-palette="' + p + '"] [data-popover-content],',
+      'html[data-ge-palette="' + p + '"] [role="dialog"],',
+      'html[data-ge-palette="' + p + '"] [role="menu"] {',
+      '  background-color: ' + t.surface + ' !important;',
+      '  background-image: none !important;',
       '}'
     ].join('\n');
   }
@@ -367,10 +465,14 @@
   }
 
   function setSetting(site, key, value) {
+    if (key === 'palette') {
+      if (value === 'lightGray') set('intensity', 'soft');
+      else if (value !== 'original') set('intensity', 'normal');
+    }
     set(key, value);
     applyDocumentFlags(site);
     // Soft intensity / denser / ads / links apply via data attrs + CSS; reload for safety on intensity
-    if (key === 'intensity') {
+    if (key === 'intensity' || key === 'palette') {
       try { location.reload(); } catch (e) {}
       return;
     }
@@ -383,7 +485,7 @@
         flagStyle.id = 'grey-edition-common-flags';
         (document.documentElement || document.head).appendChild(flagStyle);
       }
-      flagStyle.textContent = rootCss();
+      flagStyle.textContent = rootCss() + '\n' + paletteCss();
     } catch (e2) {}
   }
 
@@ -414,18 +516,21 @@
       panel.appendChild(row);
     }
 
-    // Intensity select
+    // Theme palette
     var rowI = document.createElement('div');
     rowI.className = 'ge-row';
     var labI = document.createElement('label');
-    labI.textContent = 'Intensity';
+    labI.textContent = 'Theme';
     var sel = document.createElement('select');
-    var o1 = document.createElement('option'); o1.value = 'normal'; o1.textContent = 'Normal';
-    var o2 = document.createElement('option'); o2.value = 'soft'; o2.textContent = 'Soft';
-    sel.appendChild(o1); sel.appendChild(o2);
-    sel.value = get('intensity', 'normal') === 'soft' ? 'soft' : 'normal';
+    ['original', 'lightGray', 'darkGray', 'navy', 'black'].forEach(function (key) {
+      var opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = PALETTES[key].label;
+      sel.appendChild(opt);
+    });
+    sel.value = normalizePalette(get('palette', 'darkGray'));
     sel.addEventListener('change', function () {
-      setSetting(site, 'intensity', sel.value);
+      setSetting(site, 'palette', sel.value);
     });
     rowI.appendChild(labI);
     rowI.appendChild(sel);
@@ -535,14 +640,18 @@
   };
 
   var api = {
-    version: '1.9.2',
+    version: '1.10.0',
     palette: palette,
+    palettes: PALETTES,
     get: get,
     set: set,
     applyDocumentFlags: applyDocumentFlags,
     registerMenus: registerMenus,
     mountSettingsFab: mountSettingsFab,
-    rootCss: rootCss,
+    rootCss: function () { return rootCss() + '\n' + paletteCss(); },
+    paletteCss: paletteCss,
+    isThemeEnabled: isThemeEnabled,
+    normalizePalette: normalizePalette,
     siteIcons: SITE_ICONS
   };
 

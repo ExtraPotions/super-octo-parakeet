@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           ManaPool Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.6.4
+// @version        1.7.0
 // @description    Dark charcoal theme for Mana Pool — collapsible home sections + collapse-all by avatar + Grey Edition settings
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -28,11 +28,20 @@
       set: function (k, v) { try { localStorage.setItem('ge-' + k, JSON.stringify(v)); } catch (e) { _geStore[k] = v; } },
       applyDocumentFlags: function (site) {
         var r = document.documentElement; if (!r) return;
+        var pal = this.get('palette', 'darkGray');
+        if (pal !== 'original' && pal !== 'lightGray' && pal !== 'darkGray' && pal !== 'navy' && pal !== 'black') {
+          pal = (this.get('intensity', 'normal') === 'soft') ? 'lightGray' : 'darkGray';
+        }
         r.setAttribute('data-ge-site', site || '');
         r.setAttribute('data-ge-intensity', (this.get('intensity', 'normal') === 'soft') ? 'soft' : 'normal');
+        r.setAttribute('data-ge-palette', pal);
         r.setAttribute('data-ge-brighter-links', this.get('brighterLinks', false) ? '1' : '0');
         r.setAttribute('data-ge-hide-ads', this.get('hideAds', false) ? '1' : '0');
         r.setAttribute('data-ge-dense', this.get('dense', false) ? '1' : '0');
+      },
+      isThemeEnabled: function () {
+        var pal = this.get('palette', 'darkGray');
+        return pal !== 'original';
       },
       registerMenus: function () {},
       mountSettingsFab: function () {},
@@ -81,6 +90,17 @@
   var SCROLL_KEY = 'mpge-section-scroll-v1';
 
   function ensureStyle() {
+    if (GE.isThemeEnabled && !GE.isThemeEnabled()) {
+      var nodeOff = document.getElementById(STYLE_ID);
+      if (!nodeOff) {
+        nodeOff = document.createElement('style');
+        nodeOff.id = STYLE_ID;
+        (document.documentElement || document.head).appendChild(nodeOff);
+      }
+      nodeOff.textContent = (GE.rootCss ? GE.rootCss() : '');
+      return;
+    }
+
     var node = document.getElementById(STYLE_ID);
     if (!node) {
       node = document.createElement('style');

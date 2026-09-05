@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SteamGifts Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.7.4
+// @version        1.8.0
 // @description    Dark charcoal Grey Edition for SteamGifts / SteamTrades / SGTools. Full ESGST-compatible theme restored from SG Dark Grey by SquishedPotatoe (CC-BY-SA-4.0).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -8398,6 +8398,12 @@ header {
 }
 `;
   };
+  try {
+    var _GE = (typeof globalThis !== 'undefined' && globalThis.GreyEdition) || (typeof window !== 'undefined' && window.GreyEdition);
+    if (_GE && typeof _GE.isThemeEnabled === 'function' && !_GE.isThemeEnabled()) {
+      return; // Original palette: leave site CSS alone
+    }
+  } catch (eSkip) {}
   var node = document.createElement('style');
   node.setAttribute('type', 'text/css');
   node.setAttribute('name', 'Theme SteamGifts Grey Edition');
