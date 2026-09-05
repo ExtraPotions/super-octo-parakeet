@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           ManaPool Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.8.0
+// @version        1.8.1
 // @description    Dark charcoal theme for Mana Pool — collapsible home sections + collapse/expand in Grey Edition menu
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -89,28 +89,60 @@
   var STORAGE_KEY = 'mpge-collapsed-sections-v1';
   var SCROLL_KEY = 'mpge-section-scroll-v1';
 
-  function ensureStyle() {
-    if (GE.isThemeEnabled && !GE.isThemeEnabled()) {
-      var nodeOff = document.getElementById(STYLE_ID);
-      if (!nodeOff) {
-        nodeOff = document.createElement('style');
-        nodeOff.id = STYLE_ID;
-        (document.documentElement || document.head).appendChild(nodeOff);
-      }
-      nodeOff.textContent = (GE.rootCss ? GE.rootCss() : '');
-      return;
-    }
+  // Structural-only CSS kept even on Original (no charcoal theme)
+  var featureCss = [
+    '/* ManaPool Grey Edition features (no theme) */',
+    '.mpge-section-collapsed .mpge-section-body { display: none !important; }',
+    '.mpge-section-toggle {',
+    '  display: inline-flex !important; align-items: center !important; justify-content: center !important;',
+    '  width: 1.75rem !important; height: 1.75rem !important; margin-right: 0.5rem !important;',
+    '  border-radius: 0.375rem !important; border: 1px solid rgba(0,0,0,0.25) !important;',
+    '  background: transparent !important; color: inherit !important; cursor: pointer !important;',
+    '  font-size: 0.85rem !important; line-height: 1 !important; flex-shrink: 0 !important;',
+    '}',
+    '.mpge-section-head { display: flex !important; align-items: center !important; gap: 0.25rem !important; min-width: 0 !important; }',
+    '.mpge-section-head h2 { cursor: pointer !important; display: block !important; visibility: visible !important; }',
+    '.mpge-collapse-all { display: none !important; }',
+    'html[data-ge-dense="1"] ul.grid, html[data-ge-dense="1"] .grid, html[data-ge-dense="1"] [class*="grid-cols"] {',
+    '  gap: 0.45rem !important; row-gap: 0.45rem !important; column-gap: 0.45rem !important;',
+    '}',
+    'html[data-ge-hide-ads="1"] [class*="promo"], html[data-ge-hide-ads="1"] [class*="advert"],',
+    'html[data-ge-hide-ads="1"] [class*="sponsored"], html[data-ge-hide-ads="1"] [data-ad],',
+    'html[data-ge-hide-ads="1"] .adsbygoogle { display: none !important; }'
+  ].join('\n');
 
+  function ensureStyle() {
     var node = document.getElementById(STYLE_ID);
     if (!node) {
       node = document.createElement('style');
       node.id = STYLE_ID;
       (document.documentElement || document.head).appendChild(node);
     }
+    if (GE.isThemeEnabled && !GE.isThemeEnabled()) {
+      // Original: site theme only + structural features (no charcoal / no rootCss remaps)
+      node.textContent = featureCss;
+      return;
+    }
     if (node.textContent !== css) node.textContent = css;
   }
 
+  function clearThemeOverrides() {
+    var root = document.documentElement;
+    if (!root) return;
+    delete root.dataset.greyEditionVars;
+    root.classList.remove('dark');
+    root.style.removeProperty('color-scheme');
+    Object.keys(vars).forEach(function (k) {
+      root.style.removeProperty(k);
+    });
+    logoFixed = false;
+  }
+
   function applyVarsOnce() {
+    if (GE.isThemeEnabled && !GE.isThemeEnabled()) {
+      clearThemeOverrides();
+      return;
+    }
     var root = document.documentElement;
     if (root.dataset.greyEditionVars === '1') return;
     root.dataset.greyEditionVars = '1';
@@ -122,6 +154,7 @@
   }
 
   function fixLogoOnce() {
+    if (GE.isThemeEnabled && !GE.isThemeEnabled()) return;
     if (logoFixed) return;
     var stops = document.querySelectorAll('header a[href="/"] svg stop[stop-color]');
     if (!stops.length) return;

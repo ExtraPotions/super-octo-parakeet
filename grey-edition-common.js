@@ -1,6 +1,6 @@
 /**
  * Grey Edition common helpers (Tampermonkey @require)
- * Version: 1.11.0
+ * Version: 1.12.0
  * Author: expDARE
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
  *
@@ -10,6 +10,7 @@
  * 1.9.2: floating circular favicon button (no full-height rail strip) — matches FL #fl-dock-show.
  * 1.10.0: theme palette picker — original / light gray / dark gray / navy / black.
  * 1.11.0: vertical-only FAB drag (right edge); ManaPool collapse/expand in panel; harden FAB vs site button CSS.
+ * 1.12.0: larger FAB; ManaPool/Scryfall Original skips all theme overrides.
  * Not a userscript — load via // @require from each Grey Edition script.
  */
 (function (global) {
@@ -242,7 +243,7 @@
 
   function rootCss() {
     return [
-      '/* Grey Edition common root flags CSS v1.11.0 */',
+      '/* Grey Edition common root flags CSS v1.12.0 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -366,12 +367,12 @@
       '  right: 12px !important;',
       '  left: auto !important;',
       '  z-index: 2147483000 !important;',
-      '  width: 40px !important;',
-      '  height: 40px !important;',
-      '  min-width: 40px !important;',
-      '  min-height: 40px !important;',
-      '  max-width: 40px !important;',
-      '  max-height: 40px !important;',
+      '  width: 52px !important;',
+      '  height: 52px !important;',
+      '  min-width: 52px !important;',
+      '  min-height: 52px !important;',
+      '  max-width: 52px !important;',
+      '  max-height: 52px !important;',
       '  border-radius: 999px !important;',
       '  border: 1px solid var(--ge-rail-accent, #aeaeae) !important;',
       '  background: var(--ge-rail-btn-bg, #111111) !important;',
@@ -401,8 +402,8 @@
       '  border-color: var(--ge-rail-accent, #aeaeae) !important;',
       '}',
       '#' + FAB_ID + ' img {',
-      '  width: 22px !important;',
-      '  height: 22px !important;',
+      '  width: 28px !important;',
+      '  height: 28px !important;',
       '  object-fit: contain !important;',
       '  display: block !important;',
       '  pointer-events: none !important;',
@@ -636,8 +637,8 @@
         var img = document.createElement('img');
         img.src = iconUrl;
         img.alt = '';
-        img.width = 22;
-        img.height = 22;
+        img.width = 28;
+        img.height = 28;
         btn.appendChild(img);
       } else {
         btn.textContent = 'GE';
@@ -647,7 +648,7 @@
       }
 
       function clampTop(y) {
-        var max = Math.max(8, (window.innerHeight || 600) - 48);
+        var max = Math.max(8, (window.innerHeight || 600) - 60);
         if (y < 8) return 8;
         if (y > max) return max;
         return y;
@@ -663,7 +664,7 @@
       function loadFabTop() {
         var saved = get('fabTop', null);
         if (typeof saved === 'number' && isFinite(saved)) return clampTop(saved);
-        return clampTop((window.innerHeight || 600) - 56);
+        return clampTop((window.innerHeight || 600) - 68);
       }
 
       function placePanel() {
@@ -771,7 +772,7 @@
   }
 
   var api = {
-    version: '1.11.0',
+    version: '1.12.0',
     palette: palette,
     palettes: PALETTES,
     get: get,

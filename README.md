@@ -8,20 +8,26 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 
 | Script | Version | Install |
 | --- | --- | --- |
-| **ManaPool Grey Edition** | 1.8.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
-| **Scryfall Grey Edition** | 1.8.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.8.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
-| Grey Edition common (auto via `@require`) | 1.11.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
+| **ManaPool Grey Edition** | 1.8.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
+| **Scryfall Grey Edition** | 1.8.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.8.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| Grey Edition common (auto via `@require`) | 1.12.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: ManaPool **1.8.0**, Scryfall **1.8.0**, SteamGifts **1.8.1**, common **1.11.0**.
+Current release: ManaPool **1.8.1**, Scryfall **1.8.1**, SteamGifts **1.8.2**, common **1.12.0**.
 
 ## Changelog — move
 
 - **Amazon Dark Pattern Blocker** moved to its own repo: [ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/velvet-crane-orbit) (`0.1.20`). Install from there going forward.
+
+## Changelog — 1.12.0
+
+- **Original theme**: ManaPool/Scryfall no longer force dark CSS variables, `dark` class, or charcoal remaps — site native look. Structural ManaPool section toggles still work.
+- **Larger FAB**: settings button ~52px (was 40) so it’s easier to spot.
+- ManaPool / Scryfall `1.8.1`, SteamGifts `1.8.2`, common `1.12.0`.
 
 ## Changelog — 1.11.0
 
