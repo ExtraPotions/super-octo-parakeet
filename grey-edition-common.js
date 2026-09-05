@@ -1,6 +1,6 @@
 /**
  * Grey Edition common helpers (Tampermonkey @require)
- * Version: 1.10.0
+ * Version: 1.11.0
  * Author: expDARE
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
  *
@@ -9,6 +9,7 @@
  * 1.9.1: rail/button themed to each site (dark chrome + favicon accent, FL-dock style).
  * 1.9.2: floating circular favicon button (no full-height rail strip) — matches FL #fl-dock-show.
  * 1.10.0: theme palette picker — original / light gray / dark gray / navy / black.
+ * 1.11.0: vertical-only FAB drag (right edge); ManaPool collapse/expand in panel; harden FAB vs site button CSS.
  * Not a userscript — load via // @require from each Grey Edition script.
  */
 (function (global) {
@@ -17,6 +18,7 @@
   var PREFIX = 'ge-';
   var RAIL_ID = 'grey-edition-settings-rail';
   var FAB_ID = 'grey-edition-fab';
+  var siteActions = {};
   var PANEL_ID = 'grey-edition-fab-panel';
   var STYLE_ID = 'grey-edition-fab-style';
 
@@ -240,7 +242,7 @@
 
   function rootCss() {
     return [
-      '/* Grey Edition common root flags CSS v1.10.0 */',
+      '/* Grey Edition common root flags CSS v1.11.0 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -357,33 +359,46 @@
   function fabCss() {
     return [
       '#' + FAB_ID + ', #' + PANEL_ID + ', #' + FAB_ID + ' * { box-sizing: border-box; }',
+      'html body button#' + FAB_ID + ',',
       '#' + FAB_ID + ' {',
+      '  all: unset !important;',
       '  position: fixed !important;',
       '  right: 12px !important;',
-      '  bottom: 16px !important;',
-      '  top: auto !important;',
       '  left: auto !important;',
       '  z-index: 2147483000 !important;',
       '  width: 40px !important;',
       '  height: 40px !important;',
+      '  min-width: 40px !important;',
+      '  min-height: 40px !important;',
+      '  max-width: 40px !important;',
+      '  max-height: 40px !important;',
       '  border-radius: 999px !important;',
       '  border: 1px solid var(--ge-rail-accent, #aeaeae) !important;',
       '  background: var(--ge-rail-btn-bg, #111111) !important;',
+      '  background-image: none !important;',
       '  color: var(--ge-rail-accent, #aeaeae) !important;',
       '  box-shadow: 0 2px 10px rgba(0,0,0,.4), 0 0 0 1px var(--ge-rail-accent-soft, transparent) !important;',
-      '  cursor: pointer !important;',
+      '  cursor: grab !important;',
       '  padding: 0 !important;',
       '  margin: 0 !important;',
       '  display: inline-flex !important;',
       '  align-items: center !important;',
       '  justify-content: center !important;',
       '  overflow: hidden !important;',
-      '  transition: transform .15s ease, background .15s ease, border-color .15s ease !important;',
+      '  touch-action: none !important;',
+      '  user-select: none !important;',
+      '  -webkit-user-select: none !important;',
+      '  appearance: none !important;',
+      '  -webkit-appearance: none !important;',
+      '  filter: none !important;',
+      '  opacity: 1 !important;',
+      '  pointer-events: auto !important;',
+      '  transition: background .15s ease, border-color .15s ease !important;',
       '}',
+      '#' + FAB_ID + '.ge-dragging { cursor: grabbing !important; }',
       '#' + FAB_ID + ':hover {',
       '  background: var(--ge-rail-btn-hover, #1a1a1a) !important;',
       '  border-color: var(--ge-rail-accent, #aeaeae) !important;',
-      '  transform: scale(1.06) !important;',
       '}',
       '#' + FAB_ID + ' img {',
       '  width: 22px !important;',
@@ -392,12 +407,15 @@
       '  display: block !important;',
       '  pointer-events: none !important;',
       '}',
-      '#' + PANEL_ID + ' {',
+      '#' + PANEL_ID + ', html body #' + PANEL_ID + ' {',
+      '  all: unset !important;',
       '  position: fixed !important;',
       '  right: 12px !important;',
-      '  bottom: 64px !important;',
+      '  left: auto !important;',
+      '  bottom: auto !important;',
       '  top: auto !important;',
       '  transform: none !important;',
+      '  box-sizing: border-box !important;',
       '  z-index: 2147483001 !important;',
       '  width: 270px !important;',
       '  max-width: calc(100vw - 24px) !important;',
@@ -540,9 +558,36 @@
     addToggle('hideAds', 'Hide ads / promos', false);
     if (site === 'manapool') addToggle('dense', 'Denser card grid', false);
 
+    if (site === 'manapool') {
+      var rowC = document.createElement('div');
+      rowC.className = 'ge-row';
+      var labC = document.createElement('label');
+      labC.textContent = 'Home sections';
+      var actions = document.createElement('div');
+      actions.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;';
+      function mkAction(label, fnName) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = label;
+        b.style.cssText = 'cursor:pointer;padding:4px 8px;border-radius:6px;border:1px solid var(--ge-rail-panel-border,#444);background:#333;color:inherit;font:12px/1.2 system-ui,sans-serif;';
+        b.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var act = siteActions.manapool;
+          if (act && typeof act[fnName] === 'function') act[fnName]();
+        });
+        return b;
+      }
+      actions.appendChild(mkAction('Collapse all', 'collapseAll'));
+      actions.appendChild(mkAction('Expand all', 'expandAll'));
+      rowC.appendChild(labC);
+      rowC.appendChild(actions);
+      panel.appendChild(rowC);
+    }
+
     var foot = document.createElement('div');
     foot.className = 'ge-foot';
-    foot.textContent = 'Saved for this browser · Violentmonkey/Tampermonkey menu still works';
+    foot.textContent = 'Drag the button up/down · saved in this browser';
     panel.appendChild(foot);
 
     return panel;
@@ -601,11 +646,87 @@
         btn.style.fontSize = '11px';
       }
 
+      function clampTop(y) {
+        var max = Math.max(8, (window.innerHeight || 600) - 48);
+        if (y < 8) return 8;
+        if (y > max) return max;
+        return y;
+      }
+
+      function applyFabTop(topPx) {
+        btn.style.setProperty('right', '12px', 'important');
+        btn.style.setProperty('left', 'auto', 'important');
+        btn.style.setProperty('bottom', 'auto', 'important');
+        btn.style.setProperty('top', clampTop(topPx) + 'px', 'important');
+      }
+
+      function loadFabTop() {
+        var saved = get('fabTop', null);
+        if (typeof saved === 'number' && isFinite(saved)) return clampTop(saved);
+        return clampTop((window.innerHeight || 600) - 56);
+      }
+
+      function placePanel() {
+        var br = btn.getBoundingClientRect();
+        var ph = panel.offsetHeight || 300;
+        var gap = 8;
+        var top = br.top - ph - gap;
+        if (top < 8) top = br.bottom + gap;
+        var maxTop = Math.max(8, (window.innerHeight || 600) - Math.min(ph, (window.innerHeight || 600) - 16) - 8);
+        if (top > maxTop) top = maxTop;
+        panel.style.setProperty('right', '12px', 'important');
+        panel.style.setProperty('left', 'auto', 'important');
+        panel.style.setProperty('bottom', 'auto', 'important');
+        panel.style.setProperty('top', top + 'px', 'important');
+      }
+
+      applyFabTop(loadFabTop());
+
+      var drag = { active: false, moved: false, startY: 0, origTop: 0, pointerId: null };
+
+      btn.addEventListener('pointerdown', function (e) {
+        if (e.button != null && e.button !== 0) return;
+        drag.active = true;
+        drag.moved = false;
+        drag.startY = e.clientY;
+        drag.origTop = btn.getBoundingClientRect().top;
+        drag.pointerId = e.pointerId;
+        try { btn.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+
+      btn.addEventListener('pointermove', function (e) {
+        if (!drag.active) return;
+        var dy = e.clientY - drag.startY;
+        if (!drag.moved && Math.abs(dy) < 5) return;
+        drag.moved = true;
+        btn.classList.add('ge-dragging');
+        applyFabTop(drag.origTop + dy);
+        if (panel.classList.contains('ge-open')) placePanel();
+      });
+
+      function endDrag(e) {
+        if (!drag.active) return;
+        drag.active = false;
+        btn.classList.remove('ge-dragging');
+        try { if (drag.pointerId != null) btn.releasePointerCapture(drag.pointerId); } catch (err2) {}
+        if (drag.moved) {
+          set('fabTop', clampTop(btn.getBoundingClientRect().top));
+          if (panel.classList.contains('ge-open')) placePanel();
+        }
+      }
+      btn.addEventListener('pointerup', endDrag);
+      btn.addEventListener('pointercancel', endDrag);
+
       btn.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
+        if (drag.moved) {
+          drag.moved = false;
+          return;
+        }
         var open = panel.classList.toggle('ge-open');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) placePanel();
       });
 
       document.addEventListener('click', function (e) {
@@ -615,6 +736,11 @@
         panel.classList.remove('ge-open');
         btn.setAttribute('aria-expanded', 'false');
       }, true);
+
+      window.addEventListener('resize', function () {
+        applyFabTop(loadFabTop());
+        if (panel.classList.contains('ge-open')) placePanel();
+      });
 
       document.body.appendChild(panel);
       document.body.appendChild(btn);
@@ -639,8 +765,13 @@
     mountSettingsFab(site, iconUrl);
   };
 
+  function registerSiteActions(site, actions) {
+    if (!site || !actions) return;
+    siteActions[site] = actions;
+  }
+
   var api = {
-    version: '1.10.0',
+    version: '1.11.0',
     palette: palette,
     palettes: PALETTES,
     get: get,
@@ -648,6 +779,7 @@
     applyDocumentFlags: applyDocumentFlags,
     registerMenus: registerMenus,
     mountSettingsFab: mountSettingsFab,
+    registerSiteActions: registerSiteActions,
     rootCss: function () { return rootCss() + '\n' + paletteCss(); },
     paletteCss: paletteCss,
     isThemeEnabled: isThemeEnabled,

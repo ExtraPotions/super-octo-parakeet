@@ -8,20 +8,27 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 
 | Script | Version | Install |
 | --- | --- | --- |
-| **ManaPool Grey Edition** | 1.7.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
-| **Scryfall Grey Edition** | 1.7.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.8.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
-| Grey Edition common (auto via `@require`) | 1.10.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
+| **ManaPool Grey Edition** | 1.8.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
+| **Scryfall Grey Edition** | 1.8.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.8.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| Grey Edition common (auto via `@require`) | 1.11.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: ManaPool/Scryfall **1.7.0**, SteamGifts **1.8.0**, common **1.10.0**.
+Current release: ManaPool **1.8.0**, Scryfall **1.8.0**, SteamGifts **1.8.1**, common **1.11.0**.
 
 ## Changelog — move
 
 - **Amazon Dark Pattern Blocker** moved to its own repo: [ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/velvet-crane-orbit) (`0.1.20`). Install from there going forward.
+
+## Changelog — 1.11.0
+
+- **FAB**: drag up/down only along the right edge (position saved). Panel follows the button.
+- **ManaPool**: Collapse all / Expand all moved into the Grey Edition settings menu (header button removed).
+- **Scryfall**: stop sitewide `button` theme CSS from breaking the settings FAB.
+- ManaPool / Scryfall `1.8.0`, SteamGifts `1.8.1`, common `1.11.0`.
 
 ## Changelog — 1.10.0
 
