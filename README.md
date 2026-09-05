@@ -11,8 +11,8 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 | **ManaPool Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
 | **Scryfall Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
 | **SteamGifts Grey Edition** | 1.7.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
-| **Amazon Grey Edition** | 1.5.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/amazon-grey-edition.user.js) |
-| **eBay Grey Edition** | 1.5.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/ebay-grey-edition.user.js) |
+| **Amazon Grey Edition** | 1.5.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/amazon-grey-edition.user.js) |
+| **eBay Grey Edition** | 1.5.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/ebay-grey-edition.user.js) |
 | **SoFi Grey Edition** | 1.5.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/sofi-grey-edition.user.js) |
 | Grey Edition common (auto via `@require`) | 1.8.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
@@ -20,7 +20,12 @@ Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: ManaPool/Scryfall **1.6.1**, SteamGifts **1.7.1**, Amazon/eBay/SoFi **1.5.0**, common **1.8.0**.
+Current release: ManaPool/Scryfall **1.6.1**, SteamGifts **1.7.1**, Amazon/eBay **1.5.1**, SoFi **1.5.0**, common **1.8.0**.
+
+## Changelog — 1.5.1 (Amazon / eBay)
+
+- **Amazon / eBay**: harder chrome pass — header/nav, My Garage / light hero strips, card wrappers, watch-heart circles; broader near-white surface darken. Opaque product JPEG white plates cannot be made transparent.
+- Versions: Amazon & eBay `1.5.1` (SoFi still `1.5.0`).
 
 ## Changelog — 1.8.0
 
