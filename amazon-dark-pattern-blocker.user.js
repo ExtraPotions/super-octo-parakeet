@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Amazon Dark Pattern Blocker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        0.1.14
+// @version        0.1.15
 // @description    Remove Amazon dark patterns (Prime upsells, credit cards, Rufus, etc.) — fork of August4067 MIT script; amazon.com only
 // @author         expDARE
 // @license        MIT
@@ -51,6 +51,7 @@
  * 0.1.12: stop removing #attach-desktop-sideSheet (right-side cart flyout).
  * 0.1.13: protect cart rails (ewc/sw/sc-buy-box); drop broad protection + #sw-maple hides.
  * 0.1.14: remove display:revert force-show (broke ewc/cart); expand cart guards; leave #sc-primeupsell-widget alone.
+ * 0.1.15: homepage only strips Join Prime + Rufus; CSS hides exclude #nav-flyout-ewc descendants (fixes blank cart rail).
  */
 
 (function () {
@@ -327,6 +328,9 @@
     "#attach-accessory-pane",
     "#attachSideSheet_feature_div",
     "#nav-flyout-ewc",
+    ".nav-ewcFlyout",
+    ".nav-ewc-persistent",
+    "#nav-flyout-ewc .nav-flyout-content",
     "#ewc-content",
     "#ewc-compact",
     "#ewc-compact-body",
@@ -355,32 +359,59 @@
   function injectStyles() {
     if (document.getElementById("adpb-styles")) return;
 
-    const rules = [];
-    for (const category of Object.values(CONFIG.selectors)) {
-      if (!category.setting || !Settings[category.setting].value) continue;
+    const path = window.location.pathname + window.location.search;
+    const isHomepage = CONFIG.pages.homepage.test(path);
 
-      for (const [key, selector] of Object.entries(category)) {
-        if (key === "setting") continue;
-        rules.push(selector);
+    // 0.1.15: on homepage, ONLY hide Join Prime + Rufus nav chips.
+    // Full selector dumps were blanking the persistent EWC cart rail on the right.
+    let rules = [];
+    if (isHomepage) {
+      if (Settings.removePrimeUpsells.value) rules.push("#nav-join-prime");
+      if (Settings.removeAIUpsells.value) {
+        rules.push("#nav-rufus-disco");
+        rules.push("#rufus-ask-rufus-tooltip");
+      }
+    } else {
+      for (const category of Object.values(CONFIG.selectors)) {
+        if (!category.setting || !Settings[category.setting].value) continue;
+        for (const [key, selector] of Object.entries(category)) {
+          if (key === "setting") continue;
+          rules.push(selector);
+        }
       }
     }
 
     if (rules.length === 0) return;
 
+    // Never hide nodes inside the cart / EWC / attach rails
+    const exclude = [
+      ":not(#nav-flyout-ewc):not(#nav-flyout-ewc *)",
+      ":not(#ewc-content):not(#ewc-content *)",
+      ":not(#ewc-compact):not(#ewc-compact *)",
+      ":not(#attach-desktop-sideSheet):not(#attach-desktop-sideSheet *)",
+      ":not(#attachSideSheet_feature_div):not(#attachSideSheet_feature_div *)",
+      ":not(#proceed-to-checkout-desktop-container):not(#proceed-to-checkout-desktop-container *)",
+      ":not(#sc-buy-box-panel):not(#sc-buy-box-panel *)",
+      ":not(#sc-active-cart):not(#sc-active-cart *)",
+      ":not(#smartWagon_feature_div):not(#smartWagon_feature_div *)",
+    ].join("");
+
+    const safeRules = rules
+      .filter(function (sel) {
+        return CART_RAIL_SELECTORS.indexOf(sel) === -1;
+      })
+      .map(function (sel) {
+        return sel + exclude;
+      });
+
+    if (safeRules.length === 0) return;
+
     const style = document.createElement("style");
     style.id = "adpb-styles";
-    // 0.1.14: never force-show cart rails with display:!important — that overrides
-    // Amazon's flyout open/close (revert/none wins over inline display:block).
-    // Only skip DOM-removal inside CART_RAIL_SELECTORS; do not CSS-force them.
-    const safeRules = rules.filter(function (sel) {
-      // Never inject hide rules that ARE cart rails
-      return CART_RAIL_SELECTORS.indexOf(sel) === -1;
-    });
-    if (safeRules.length === 0) return;
     style.textContent =
-      "/* Amazon Dark Pattern Blocker - FOUC prevention */\n" +
+      "/* Amazon Dark Pattern Blocker 0.1.15 - FOUC prevention (cart-rail safe) */\n" +
       safeRules.join(",\n") +
-      " {\n  display: none !important;\n}";
+      " {\n  display: none !important;\n}\n";
     (document.head || document.documentElement).appendChild(style);
     debug("Injected CSS hide rules for " + safeRules.length + " selectors");
   }
@@ -745,11 +776,18 @@
     },
 
     homepage() {
-      Declutterer.processPrimeUpsells();
-      Declutterer.processAIUpsells();
-      Declutterer.processHomepageClutter();
-      Declutterer.processPrimeModals();
-      Declutterer.processGeneralDismiss();
+      // 0.1.15: do NOT run full prime/clutter passes on homepage — they blank the
+      // persistent right-side EWC cart rail. Only strip Join Prime + Rufus in the nav.
+      if (Settings.removePrimeUpsells.value) {
+        document.querySelectorAll("#nav-join-prime").forEach(function (el) {
+          if (!isInsideCartRail(el)) el.remove();
+        });
+      }
+      if (Settings.removeAIUpsells.value) {
+        document.querySelectorAll("#nav-rufus-disco, #rufus-ask-rufus-tooltip").forEach(function (el) {
+          if (!isInsideCartRail(el)) el.remove();
+        });
+      }
     },
 
     other() {

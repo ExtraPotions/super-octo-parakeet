@@ -12,13 +12,17 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 | **Scryfall Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
 | **SteamGifts Grey Edition** | 1.7.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
 | Grey Edition common (auto via `@require`) | 1.8.1 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
-| **Amazon Dark Pattern Blocker** | 0.1.14 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/amazon-dark-pattern-blocker.user.js) |
+| **Amazon Dark Pattern Blocker** | 0.1.15 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/amazon-dark-pattern-blocker.user.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
 Current release: ManaPool/Scryfall **1.6.1**, SteamGifts **1.7.1**, common **1.8.1**.
+
+## Changelog — amazon-dpb 0.1.15
+
+- **Fix**: homepage persistent cart rail (EWC) blank column — homepage no longer runs the full prime/clutter remover; CSS hide rules exclude `#nav-flyout-ewc` / attach / checkout rails and their descendants.
 
 ## Changelog — amazon-dpb 0.1.14
 
