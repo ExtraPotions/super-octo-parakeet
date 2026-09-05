@@ -1,11 +1,12 @@
 /**
  * Grey Edition common helpers (Tampermonkey @require)
- * Version: 1.9.0
+ * Version: 1.9.1
  * Author: expDARE
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
  *
  * Shared palette + settings for ManaPool / Scryfall / SteamGifts Grey Edition.
  * 1.9.0: right-edge vertical favicon settings rail (Violentmonkey/Tampermonkey).
+ * 1.9.1: rail/button themed to each site (dark chrome + favicon accent, FL-dock style).
  * Not a userscript — load via // @require from each Grey Edition script.
  */
 (function (global) {
@@ -27,6 +28,58 @@
     manapool: 'ManaPool',
     scryfall: 'Scryfall',
     steamgifts: 'SteamGifts'
+  };
+
+  /* Rail chrome matches site dark UI; accent ≈ favicon / brand chip color (see FL dock pattern). */
+  var SITE_THEMES = {
+    manapool: {
+      railBg: 'rgba(28,28,26,0.94)',
+      btnBg: '#252522',
+      btnBgHover: '#2a2a28',
+      accent: '#5eb0ef',
+      accentSoft: 'rgba(94,176,239,0.28)',
+      text: 'rgba(204,204,204,0.95)',
+      panelBg: '#2a2a28',
+      panelBorder: 'rgba(0,0,0,0.75)',
+      title: '#8f9fb3',
+      muted: '#788087'
+    },
+    scryfall: {
+      railBg: 'rgba(28,28,26,0.94)',
+      btnBg: '#252522',
+      btnBgHover: '#2a2a28',
+      accent: '#7ec8f0',
+      accentSoft: 'rgba(126,200,240,0.28)',
+      text: 'rgba(204,204,204,0.95)',
+      panelBg: '#2a2a28',
+      panelBorder: 'rgba(0,0,0,0.75)',
+      title: '#a8b8cc',
+      muted: '#788087'
+    },
+    steamgifts: {
+      railBg: 'rgba(33,43,54,0.96)',
+      btnBg: '#2e3d4d',
+      btnBgHover: '#39576f',
+      accent: '#7ec8f0',
+      accentSoft: 'rgba(126,200,240,0.25)',
+      text: 'rgba(204,204,204,0.95)',
+      panelBg: '#2a2a28',
+      panelBorder: 'rgba(0,0,0,0.75)',
+      title: '#8f9fb3',
+      muted: '#788087'
+    },
+    default: {
+      railBg: 'rgba(28,28,26,0.94)',
+      btnBg: '#252522',
+      btnBgHover: '#2a2a28',
+      accent: '#aeaeae',
+      accentSoft: 'rgba(174,174,174,0.25)',
+      text: 'rgba(204,204,204,0.95)',
+      panelBg: '#2a2a28',
+      panelBorder: 'rgba(0,0,0,0.75)',
+      title: '#8f9fb3',
+      muted: '#788087'
+    }
   };
 
   var palette = {
@@ -157,7 +210,7 @@
 
   function rootCss() {
     return [
-      '/* Grey Edition common root flags CSS v1.9.0 */',
+      '/* Grey Edition common root flags CSS v1.9.1 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -198,6 +251,10 @@
     ].join('\n');
   }
 
+  function themeFor(site) {
+    return SITE_THEMES[site] || SITE_THEMES.default;
+  }
+
   function fabCss() {
     return [
       '#' + RAIL_ID + ', #' + FAB_ID + ', #' + PANEL_ID + ', #' + RAIL_ID + ' * { box-sizing: border-box; }',
@@ -215,9 +272,9 @@
       '  gap: 10px !important;',
       '  padding: 12px 0 !important;',
       '  margin: 0 !important;',
-      '  background: rgba(28,28,26,0.92) !important;',
-      '  border-left: 1px solid rgba(0,0,0,0.75) !important;',
-      '  box-shadow: -4px 0 18px rgba(0,0,0,0.35) !important;',
+      '  background: var(--ge-rail-bg, rgba(28,28,26,0.94)) !important;',
+      '  border-left: 1px solid var(--ge-rail-accent-soft, rgba(0,0,0,0.75)) !important;',
+      '  box-shadow: -4px 0 18px rgba(0,0,0,0.35), 0 0 0 1px var(--ge-rail-accent-soft, transparent) !important;',
       '  pointer-events: auto !important;',
       '}',
       '#' + FAB_ID + ' {',
@@ -226,10 +283,11 @@
       '  bottom: auto !important;',
       '  width: 36px !important;',
       '  height: 36px !important;',
-      '  border-radius: 10px !important;',
-      '  border: 1px solid rgba(0,0,0,0.75) !important;',
-      '  background: #2a2a28 !important;',
-      '  box-shadow: 0 2px 8px rgba(0,0,0,0.35) !important;',
+      '  border-radius: 999px !important;',
+      '  border: 1px solid var(--ge-rail-accent, #aeaeae) !important;',
+      '  background: var(--ge-rail-btn-bg, #252522) !important;',
+      '  color: var(--ge-rail-accent, #aeaeae) !important;',
+      '  box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 1px var(--ge-rail-accent-soft, transparent) !important;',
       '  cursor: pointer !important;',
       '  padding: 0 !important;',
       '  margin: 0 !important;',
@@ -237,8 +295,14 @@
       '  align-items: center !important;',
       '  justify-content: center !important;',
       '  overflow: hidden !important;',
+      '  transition: transform .15s ease, background .15s ease, border-color .15s ease, filter .15s ease !important;',
       '}',
-      '#' + FAB_ID + ':hover { filter: brightness(1.12); }',
+      '#' + FAB_ID + ':hover {',
+      '  background: var(--ge-rail-btn-hover, #2a2a28) !important;',
+      '  border-color: var(--ge-rail-accent, #aeaeae) !important;',
+      '  transform: scale(1.06) !important;',
+      '  filter: none !important;',
+      '}',
       '#' + FAB_ID + ' img {',
       '  width: 22px !important;',
       '  height: 22px !important;',
@@ -257,11 +321,11 @@
       '  max-width: calc(100vw - 68px) !important;',
       '  max-height: calc(100vh - 48px) !important;',
       '  overflow: auto !important;',
-      '  background: #2a2a28 !important;',
-      '  color: rgba(204,204,204,0.95) !important;',
-      '  border: 1px solid rgba(0,0,0,0.75) !important;',
+      '  background: var(--ge-rail-panel-bg, #2a2a28) !important;',
+      '  color: var(--ge-rail-text, rgba(204,204,204,0.95)) !important;',
+      '  border: 1px solid var(--ge-rail-panel-border, rgba(0,0,0,0.75)) !important;',
       '  border-radius: 12px !important;',
-      '  box-shadow: 0 10px 28px rgba(0,0,0,0.5) !important;',
+      '  box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 1px var(--ge-rail-accent-soft, transparent) !important;',
       '  padding: 12px 12px 10px !important;',
       '  font: 13px/1.35 "Open Sans", system-ui, sans-serif !important;',
       '  display: none !important;',
@@ -271,7 +335,7 @@
       '  font-weight: 700 !important;',
       '  font-size: 13px !important;',
       '  margin: 0 0 10px !important;',
-      '  color: #8f9fb3 !important;',
+      '  color: var(--ge-rail-title, #8f9fb3) !important;',
       '}',
       '#' + PANEL_ID + ' .ge-row {',
       '  display: flex !important;',
@@ -281,14 +345,14 @@
       '  margin: 0 0 8px !important;',
       '}',
       '#' + PANEL_ID + ' label {',
-      '  color: rgba(204,204,204,0.95) !important;',
+      '  color: var(--ge-rail-text, rgba(204,204,204,0.95)) !important;',
       '  cursor: pointer !important;',
       '  flex: 1 !important;',
       '}',
       '#' + PANEL_ID + ' input[type="checkbox"] {',
       '  width: 16px !important;',
       '  height: 16px !important;',
-      '  accent-color: #5eb0ef !important;',
+      '  accent-color: var(--ge-rail-accent, #5eb0ef) !important;',
       '  cursor: pointer !important;',
       '}',
       '#' + PANEL_ID + ' select {',
@@ -303,7 +367,7 @@
       '  padding-top: 8px !important;',
       '  border-top: 1px solid rgba(0,0,0,0.45) !important;',
       '  font-size: 11px !important;',
-      '  color: #788087 !important;',
+      '  color: var(--ge-rail-muted, #788087) !important;',
       '}'
     ].join('\n');
   }
@@ -410,6 +474,27 @@
       var rail = document.createElement('div');
       rail.id = RAIL_ID;
       rail.setAttribute('aria-label', 'Grey Edition settings rail');
+      var th = themeFor(site);
+      rail.style.setProperty('--ge-rail-bg', th.railBg);
+      rail.style.setProperty('--ge-rail-btn-bg', th.btnBg);
+      rail.style.setProperty('--ge-rail-btn-hover', th.btnBgHover);
+      rail.style.setProperty('--ge-rail-accent', th.accent);
+      rail.style.setProperty('--ge-rail-accent-soft', th.accentSoft);
+      rail.style.setProperty('--ge-rail-text', th.text);
+      rail.style.setProperty('--ge-rail-panel-bg', th.panelBg);
+      rail.style.setProperty('--ge-rail-panel-border', th.panelBorder);
+      rail.style.setProperty('--ge-rail-title', th.title);
+      rail.style.setProperty('--ge-rail-muted', th.muted);
+      panel.style.setProperty('--ge-rail-bg', th.railBg);
+      panel.style.setProperty('--ge-rail-btn-bg', th.btnBg);
+      panel.style.setProperty('--ge-rail-btn-hover', th.btnBgHover);
+      panel.style.setProperty('--ge-rail-accent', th.accent);
+      panel.style.setProperty('--ge-rail-accent-soft', th.accentSoft);
+      panel.style.setProperty('--ge-rail-text', th.text);
+      panel.style.setProperty('--ge-rail-panel-bg', th.panelBg);
+      panel.style.setProperty('--ge-rail-panel-border', th.panelBorder);
+      panel.style.setProperty('--ge-rail-title', th.title);
+      panel.style.setProperty('--ge-rail-muted', th.muted);
 
       var btn = document.createElement('button');
       btn.id = FAB_ID;
@@ -472,7 +557,7 @@
   };
 
   var api = {
-    version: '1.9.0',
+    version: '1.9.1',
     palette: palette,
     get: get,
     set: set,

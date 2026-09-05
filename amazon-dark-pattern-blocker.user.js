@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Amazon Dark Pattern Blocker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        0.1.16
+// @version        0.1.17
 // @description    Remove Amazon dark patterns + right-edge favicon settings rail — fork of August4067 MIT; amazon.com only
 // @author         expDARE
 // @license        MIT
@@ -48,6 +48,7 @@
  * Maintained fork by expDARE — ExtraPotions/super-octo-parakeet
  * Match scope narrowed to amazon.com / www.amazon.com only.
  * 0.1.16: right-edge vertical favicon settings rail (mirrors Grey Edition).
+ * 0.1.17: rail/button themed to Amazon navy + orange accent (site color scheme).
  * 0.1.11: stop removing #desktop-banner / gwm homepage layout (was wiping the homepage).
  * 0.1.12: stop removing #attach-desktop-sideSheet (right-side cart flyout).
  * 0.1.13: protect cart rails (ewc/sw/sc-buy-box); drop broad protection + #sw-maple hides.
@@ -843,24 +844,32 @@
   align-items: center !important;
   justify-content: center !important;
   padding: 12px 0 !important;
-  background: rgba(19,25,33,0.94) !important;
-  border-left: 1px solid rgba(0,0,0,0.75) !important;
-  box-shadow: -4px 0 18px rgba(0,0,0,0.35) !important;
+  /* Amazon nav navy */
+  background: rgba(19,25,33,0.96) !important;
+  border-left: 1px solid rgba(255,153,0,0.28) !important;
+  box-shadow: -4px 0 18px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,153,0,0.12) !important;
 }
 #${this.BTN_ID} {
   width: 36px !important;
   height: 36px !important;
-  border-radius: 10px !important;
-  border: 1px solid rgba(0,0,0,0.75) !important;
+  border-radius: 999px !important;
+  border: 1px solid #ff9900 !important;
   background: #232f3e !important;
+  color: #ff9900 !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,153,0,0.25) !important;
   cursor: pointer !important;
   padding: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: hidden !important;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease !important;
 }
-#${this.BTN_ID}:hover { filter: brightness(1.12); }
+#${this.BTN_ID}:hover {
+  background: #37475a !important;
+  border-color: #ff9900 !important;
+  transform: scale(1.06) !important;
+}
 #${this.BTN_ID} img {
   width: 22px !important;
   height: 22px !important;
@@ -879,9 +888,9 @@
   overflow: auto !important;
   background: #232f3e !important;
   color: #eee !important;
-  border: 1px solid rgba(0,0,0,0.75) !important;
+  border: 1px solid rgba(255,153,0,0.35) !important;
   border-radius: 12px !important;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.5) !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,153,0,0.12) !important;
   padding: 12px !important;
   font: 13px/1.35 "Amazon Ember", Arial, sans-serif !important;
   display: none !important;
@@ -907,7 +916,7 @@
 #${this.PANEL_ID} input[type="checkbox"] {
   width: 16px !important;
   height: 16px !important;
-  accent-color: #f0c14b !important;
+  accent-color: #ff9900 !important;
   cursor: pointer !important;
 }
 #${this.PANEL_ID} .adpb-foot {

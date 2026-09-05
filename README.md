@@ -8,17 +8,17 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 
 | Script | Version | Install |
 | --- | --- | --- |
-| **ManaPool Grey Edition** | 1.6.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
-| **Scryfall Grey Edition** | 1.6.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.7.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
-| Grey Edition common (auto via `@require`) | 1.9.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
-| **Amazon Dark Pattern Blocker** | 0.1.16 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/amazon-dark-pattern-blocker.user.js) |
+| **ManaPool Grey Edition** | 1.6.3 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
+| **Scryfall Grey Edition** | 1.6.3 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.7.3 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| Grey Edition common (auto via `@require`) | 1.9.1 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
+| **Amazon Dark Pattern Blocker** | 0.1.17 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/amazon-dark-pattern-blocker.user.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: ManaPool/Scryfall **1.6.2**, SteamGifts **1.7.2**, common **1.9.0**, Amazon Dark Pattern Blocker **0.1.16**.
+Current release: ManaPool/Scryfall **1.6.3**, SteamGifts **1.7.3**, common **1.9.1**, Amazon Dark Pattern Blocker **0.1.17**.
 
 ## Changelog — amazon-dpb 0.1.15
 
@@ -43,6 +43,11 @@ Current release: ManaPool/Scryfall **1.6.2**, SteamGifts **1.7.2**, common **1.9
 ## Changelog — amazon-dpb 0.1.10
 
 - Added **Amazon Dark Pattern Blocker** fork (`0.1.10`) from August4067 MIT Greasy Fork script; `amazon.com` only; raw install from this repo.
+
+## Changelog — 1.9.1
+
+- **Settings rail theming**: button/rail/panel match each site’s dark chrome + favicon accent (ManaPool NM blue, Scryfall link blue, SteamGifts nav blue, Amazon navy/orange) — same idea as the FL Tools dock.
+- ManaPool / Scryfall `1.6.3`, SteamGifts `1.7.3`, common `1.9.1`, Amazon DPB `0.1.17`.
 
 ## Changelog — 1.9.0
 
