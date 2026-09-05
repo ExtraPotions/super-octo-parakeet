@@ -11,26 +11,26 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 | **ManaPool Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
 | **Scryfall Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
 | **SteamGifts Grey Edition** | 1.7.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
-| **Amazon Grey Edition** | 1.5.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/amazon-grey-edition.user.js) |
-| **eBay Grey Edition** | 1.5.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/ebay-grey-edition.user.js) |
-| **SoFi Grey Edition** | 1.5.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/sofi-grey-edition.user.js) |
-| Grey Edition common (auto via `@require`) | 1.8.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
+| Grey Edition common (auto via `@require`) | 1.8.1 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: ManaPool/Scryfall **1.6.1**, SteamGifts **1.7.1**, Amazon/eBay **1.5.1**, SoFi **1.5.0**, common **1.8.0**.
+Current release: ManaPool/Scryfall **1.6.1**, SteamGifts **1.7.1**, common **1.8.1**.
 
-## Changelog — 1.5.1 (Amazon / eBay)
+## Changelog — 1.8.1
+
+- **Removed** Amazon, eBay, and SoFi Grey Edition (themes weren’t holding up on those sites). ManaPool / Scryfall / SteamGifts unchanged. Common `1.8.1` drops their FAB site entries.
+
+## Changelog — 1.5.1 (Amazon / eBay) — withdrawn
 
 - **Amazon / eBay**: harder chrome pass — header/nav, My Garage / light hero strips, card wrappers, watch-heart circles; broader near-white surface darken. Opaque product JPEG white plates cannot be made transparent.
 - Versions: Amazon & eBay `1.5.1` (SoFi still `1.5.0`).
 
 ## Changelog — 1.8.0
 
-- **Amazon / eBay / SoFi Grey Edition** `1.5.0`: new charcoal themes with the shared bottom-right favicon settings FAB (intensity / brighter links / hide ads). Broad `@match` for major Amazon and eBay country sites; SoFi includes `app` / `login` / `*.sofi.com`.
-- Common `1.8.0`: site icons/titles for amazon, ebay, sofi.
+- Briefly added Amazon / eBay / SoFi Grey Edition (later withdrawn in `1.8.1`).
 
 ## Changelog — 1.7.1
 
@@ -59,6 +59,5 @@ Current release: ManaPool/Scryfall **1.6.1**, SteamGifts **1.7.1**, Amazon/eBay 
 ## Notes
 
 - Open Tampermonkey → script → “Grey Edition: …” menu commands, or use the **bottom-right favicon FAB**, to toggle intensity, brighter links, hide ads, and (ManaPool) denser grid.
-- Amazon / eBay / SoFi themes keep primary CTAs recognizable (Amazon yellow/orange, eBay blue, SoFi green).
 - **SteamGifts Grey Edition** `1.7.0+` ships the full SG Dark Grey stylesheet (ESGST-tested). It coexists with [ESGST / A-ESGST](https://github.com/JustArchi/ESGST).
 - SteamGifts theme is derived from / inspired by [SG Dark Grey](https://github.com/SquishedPotatoe/SG-Dark-Grey) by SquishedPotatoe, licensed [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/).

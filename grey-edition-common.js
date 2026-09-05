@@ -1,10 +1,10 @@
 /**
  * Grey Edition common helpers (Tampermonkey @require)
- * Version: 1.8.0
+ * Version: 1.8.1
  * Author: expDARE
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
  *
- * Shared palette + settings for ManaPool / Scryfall / SteamGifts / Amazon / eBay / SoFi Grey Edition.
+ * Shared palette + settings for ManaPool / Scryfall / SteamGifts Grey Edition.
  * Not a userscript — load via // @require from each Grey Edition script.
  */
 (function (global) {
@@ -18,19 +18,13 @@
   var SITE_ICONS = {
     manapool: 'https://manapool.com/favicon.svg',
     scryfall: 'https://scryfall.com/favicon.ico',
-    steamgifts: 'https://cdn.steamgifts.com/img/favicon.ico',
-    amazon: 'https://www.amazon.com/favicon.ico',
-    ebay: 'https://www.ebay.com/favicon.ico',
-    sofi: 'https://www.sofi.com/favicon.ico'
+    steamgifts: 'https://cdn.steamgifts.com/img/favicon.ico'
   };
 
   var SITE_TITLES = {
     manapool: 'ManaPool',
     scryfall: 'Scryfall',
-    steamgifts: 'SteamGifts',
-    amazon: 'Amazon',
-    ebay: 'eBay',
-    sofi: 'SoFi'
+    steamgifts: 'SteamGifts'
   };
 
   var palette = {
@@ -161,7 +155,7 @@
 
   function rootCss() {
     return [
-      '/* Grey Edition common root flags CSS v1.8.0 */',
+      '/* Grey Edition common root flags CSS v1.8.1 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -450,7 +444,7 @@
   };
 
   var api = {
-    version: '1.8.0',
+    version: '1.8.1',
     palette: palette,
     get: get,
     set: set,
