@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Amazon Dark Pattern Blocker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        0.1.13
+// @version        0.1.14
 // @description    Remove Amazon dark patterns (Prime upsells, credit cards, Rufus, etc.) — fork of August4067 MIT script; amazon.com only
 // @author         expDARE
 // @license        MIT
@@ -50,6 +50,7 @@
  * 0.1.11: stop removing #desktop-banner / gwm homepage layout (was wiping the homepage).
  * 0.1.12: stop removing #attach-desktop-sideSheet (right-side cart flyout).
  * 0.1.13: protect cart rails (ewc/sw/sc-buy-box); drop broad protection + #sw-maple hides.
+ * 0.1.14: remove display:revert force-show (broke ewc/cart); expand cart guards; leave #sc-primeupsell-widget alone.
  */
 
 (function () {
@@ -71,7 +72,8 @@
         deliveryPrimeUpsell:
           "#mir-layout-DELIVERY_BLOCK-slot-SECONDARY_DELIVERY_MESSAGE_LARGE",
         navBarJoinPrime: "#nav-join-prime",
-        cartPrimeUpsell: "#sc-primeupsell-widget",
+        // 0.1.14: do not hide/remove #sc-primeupsell-widget — sits in cart right rail
+        // (#proceed-to-checkout-desktop-container) beside #sc-buy-box
         checkoutPrimeUpsell: "#osu-prime-recommendations",
         checkoutPrimeStripe: "#prime-spc-stripe-recommendations",
         checkoutPrimeIsoa: ".isoa-wrapper-radio",
@@ -308,25 +310,33 @@
   }
 
   const CART_RAIL_SELECTORS = [
+    // /cart page (from live inspect)
+    "#sc-page-content",
+    "#sc-retail-cart-container",
+    "#sc-cart-column",
+    "#sc-active-cart",
+    "#sc-empty-cart",
+    "#sc-saved-cart",
+    "#proceed-to-checkout-desktop-container",
+    "#sc-buy-box-panel",
+    "#sc-buy-box",
+    "#sc-buy-box-ptc-button",
+    "form#activeCartViewForm",
+    // attach / ewc flyouts
     "#attach-desktop-sideSheet",
     "#attach-accessory-pane",
+    "#attachSideSheet_feature_div",
     "#nav-flyout-ewc",
     "#ewc-content",
     "#ewc-compact",
     "#ewc-compact-body",
     ".ewc-container",
-    "#sc-active-cart",
-    "#sc-buy-box",
-    "#sc-buy-box-ptc",
-    "form#activeCartViewForm",
+    // smart wagon
     "#smartWagon_feature_div",
     "#sw-content",
     "#sw-foldaway",
     "#sw-subtotals",
     "#sw-items",
-    ".sc-right-rail",
-    "#sc-right-rail",
-    "#cart-right-rail",
   ];
 
   function isInsideCartRail(el) {
@@ -359,15 +369,20 @@
 
     const style = document.createElement("style");
     style.id = "adpb-styles";
+    // 0.1.14: never force-show cart rails with display:!important — that overrides
+    // Amazon's flyout open/close (revert/none wins over inline display:block).
+    // Only skip DOM-removal inside CART_RAIL_SELECTORS; do not CSS-force them.
+    const safeRules = rules.filter(function (sel) {
+      // Never inject hide rules that ARE cart rails
+      return CART_RAIL_SELECTORS.indexOf(sel) === -1;
+    });
+    if (safeRules.length === 0) return;
     style.textContent =
       "/* Amazon Dark Pattern Blocker - FOUC prevention */\n" +
-      rules.join(",\n") +
-      " {\n  display: none !important;\n}\n" +
-      "/* 0.1.13: keep cart rails visible */\n" +
-      CART_RAIL_SELECTORS.join(",\n") +
-      ",\n#attach-popover-lgtbox,\n#sw-maple,\n[id^=\"sw-\"] {\n  display: revert !important;\n  visibility: visible !important;\n  opacity: 1 !important;\n}";
+      safeRules.join(",\n") +
+      " {\n  display: none !important;\n}";
     (document.head || document.documentElement).appendChild(style);
-    debug("Injected CSS hide rules for " + rules.length + " selectors");
+    debug("Injected CSS hide rules for " + safeRules.length + " selectors");
   }
 
   function getPageType() {
