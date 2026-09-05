@@ -10,7 +10,7 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 | --- | --- | --- |
 | **ManaPool Grey Edition** | 1.6.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
 | **Scryfall Grey Edition** | 1.6.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.6.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.6.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
 | Grey Edition common (auto via `@require`) | 1.6.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
@@ -18,6 +18,10 @@ Tampermonkey checks `@updateURL` on these raw files for updates.
 ## Versions
 
 Current release: **1.6.0** (all scripts + common).
+
+## Changelog — 1.6.1
+
+- **SteamGifts**: Enter/quick-entry (`giveaway__quick-entry-btn--insert`) forced green again; remove = yellow, description = blue. Layout fixes — stop painting `.widget-container`, keep overflow visible on giveaway rows/quick-entry, drop hover `filter` that caused overlap/hidden UI.
 
 ## Changelog — 1.6.0
 
