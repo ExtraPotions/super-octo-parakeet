@@ -17,7 +17,7 @@ Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: **1.6.0** (all scripts + common).
+Current release: **1.6.0** (ManaPool/Scryfall/common); SteamGifts **1.6.1**.
 
 ## Changelog — 1.6.1
 

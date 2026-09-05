@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SteamGifts Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.6.0
+// @version        1.6.1
 // @description    Lean dark charcoal Grey Edition theme for SteamGifts (and SteamTrades / SGTools). Compatible with ESGST (JustArchi/A-ESGST). Derived from / inspired by SG Dark Grey by SquishedPotatoe (CC-BY-SA-4.0).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -48,7 +48,555 @@
   GE.registerMenus('steamgifts');
 
   var STYLE_ID = 'grey-edition-steamgifts';
-  var css = "/* SteamGifts Grey Edition v1.6.0 \u2014 lean CSS rewrite\n   Inspired by / derived from SG Dark Grey by SquishedPotatoe (CC-BY-SA-4.0)\n   Compatible with ESGST / A-ESGST \u2014 does not remove ESGST nodes.\n*/\n:root {\n  color-scheme: dark;\n  --ge-body: #252522;\n  --ge-surface: #2a2a28;\n  --ge-header: #1c1c1a;\n  --ge-muted: #333333;\n  --ge-text: rgba(166,166,166,0.95);\n  --ge-text-bright: rgba(204,204,204,0.9);\n  --ge-link: rgba(98,159,192,0.85);\n  --ge-link-bright: #7ec8f0;\n  --ge-secondary: #788087;\n  --ge-headings: #8f9fb3;\n  --ge-border: rgba(0,0,0,0.7);\n  --ge-nav-btn: linear-gradient(#39576f 0%, #273d4f 100%);\n  --ge-header-footer: linear-gradient(#2e3d4d 0%, #212b36 100%);\n  --ge-enter-green-bg: linear-gradient(#5a7740 0%, #283e18 100%);\n  --ge-enter-green-txt: rgba(201,227,181,0.9);\n  --ge-enter-yellow-bg: linear-gradient(#85891a 0%, #575a02 100%);\n  --ge-enter-yellow-txt: rgba(218,220,163,0.95);\n  --ge-enter-red-bg: linear-gradient(#a54040 0%, #6a1010 100%);\n  --ge-enter-red-txt: #efa9a9;\n  --ge-pageheading: linear-gradient(#3b3b3b 0%, #2e2e2e 100%);\n  --ge-pinned: linear-gradient(#212f3b 0%, #1d242b 100%);\n  --ge-content: rgba(24,24,22,0.3);\n  --ge-input: #333333;\n}\n\nhtml, body, .page__outer-wrap, .page_outer_wrap {\n  background: var(--ge-body) !important;\n  background-color: var(--ge-body) !important;\n  background-image: none !important;\n  color: var(--ge-text) !important;\n}\n\n/* Soft intensity */\nhtml[data-ge-intensity=\"soft\"] {\n  --ge-body: #2c2c29;\n  --ge-surface: #32322e;\n  --ge-muted: #3a3a36;\n}\nhtml[data-ge-intensity=\"soft\"],\nhtml[data-ge-intensity=\"soft\"] body {\n  background-color: #2c2c29 !important;\n}\n\n/* Header / nav */\n.header, header, .header__outer-wrap, .nav__left-container, .nav__right-container,\n.header_outer_wrap, nav {\n  background-image: var(--ge-header-footer) !important;\n  background-color: #212b36 !important;\n  border-color: var(--ge-border) !important;\n  color: var(--ge-text-bright) !important;\n}\n.nav__button, .nav_btn, .nav__button-container .nav__button,\n.esgst-header-menu-button {\n  background-image: var(--ge-nav-btn) !important;\n  color: var(--ge-text-bright) !important;\n  border-color: #000 !important;\n}\n.nav__button:hover, .nav_btn:hover,\n.nav__button-container.is-selected .nav__button,\n.esgst-header-menu-button:hover {\n  filter: brightness(1.25) saturate(1.3);\n}\n.nav__relative-dropdown, .nav__absolute-dropdown, .nav__row,\n.dropdown, .dropdown_btn, .esgst-header-menu-absolute-dropdown,\n.esgst-header-menu-dropdown {\n  background: linear-gradient(#404040 0%, #363636 100%) !important;\n  background-color: #363636 !important;\n  border-color: #000 !important;\n  color: var(--ge-text) !important;\n}\n.nav__row:hover, .dropdown_btn:hover, .esgst-header-menu-row:hover {\n  background-image: var(--ge-nav-btn) !important;\n}\n.nav__row__summary__name, .nav__notification, .nav__button .nav__notification,\n.nav__points, .nav_points, a.nav__button[href*=\"account\"] {\n  color: var(--ge-text-bright) !important;\n}\n\n/* Featured / pinned */\n.featured__container, .featured__outer-wrap {\n  background-color: rgba(24,46,67,0.5) !important;\n  border-color: rgba(0,0,0,0.8) !important;\n}\n.featured__inner-wrap, .featured__heading, .featured__columns, .featured__column,\n.featured__table, .featured__table__row {\n  color: var(--ge-text) !important;\n  border-color: rgba(0,0,0,0.45) !important;\n}\n.featured__heading__small, .featured__column, .featured__table__row__left,\n.featured__table__row__right {\n  color: var(--ge-secondary) !important;\n}\n.pinned-giveaways, .pinned-giveaways__inner-wrap, .pinned_giveaways,\n.giveaways-popout {\n  background-image: var(--ge-pinned) !important;\n  background-color: #1d242b !important;\n  border-color: rgba(0,0,0,0.45) !important;\n}\n\n/* Giveaway rows */\n.giveaway__row-outer-wrap, .giveaway__row-inner-wrap,\n.giveaway_row, .giveaway-summary {\n  background-color: var(--ge-content) !important;\n  border-color: rgba(0,0,0,0.4) !important;\n  color: var(--ge-text) !important;\n}\n.giveaway__row-outer-wrap:hover, .giveaway__row-inner-wrap:hover {\n  filter: brightness(1.08);\n}\n.giveaway__heading__name, .giveaway__heading__thin {\n  color: #adadad !important;\n}\n.giveaway__links a:not(.esgst-gc), .giveaway__columns,\n.giveaway__column, .giveaway__columns > * {\n  color: var(--ge-text) !important;\n  border-color: rgba(0,0,0,0.7) !important;\n}\n.giveaway__columns > *:not(.giveaway__column--group):not(.giveaway__column--whitelist):not(.giveaway__column--invite-only):not(.giveaway__column--community-voted):not(.giveaway__column--contributor-level):not(.giveaway__column--region-restricted):not(form):not(.esgst-elgb-button):not(.esgst-button-set):not(.esgst-gc) {\n  background-image: linear-gradient(rgba(255,255,255,0.06) 0, rgba(115,115,115,0.06) 100%) !important;\n  border-color: rgba(0,0,0,0.7) !important;\n  box-shadow: 0 0 0 1px rgba(255,255,255,0.05) !important;\n}\n\n/* Faded / entered */\n.is-faded:not(em), .giveaway__row-inner-wrap.is-faded,\n.giveaway-gridview .faded, .giveaway__row-inner-wrap.esgst-faded {\n  opacity: 0.45 !important;\n  filter: grayscale(0.35) !important;\n}\n\n/* Contributor / region / invite badges */\n.giveaway__column--contributor-level--positive,\n.featured__column--contributor-level--positive,\n.giveaway__column--contributor-level--positive:not(.esgst-glh-highlight),\n.featured__column--contributor-level--positive:not(.esgst-glh-highlight) {\n  background-image: var(--ge-enter-green-bg) !important;\n  color: var(--ge-enter-green-txt) !important;\n  border-color: #000 !important;\n}\n.giveaway__column--contributor-level--negative,\n.featured__column--contributor-level--negative,\n.giveaway__column--contributor-level--negative:not(.esgst-glh-highlight),\n.featured__column--contributor-level--negative:not(.esgst-glh-highlight) {\n  background-image: var(--ge-enter-red-bg) !important;\n  color: var(--ge-enter-red-txt) !important;\n}\n.giveaway__column--region-restricted,\n.featured__column--region-restricted,\n.giveaway__column--invite-only,\n.giveaway__column--community-voted,\n.featured__column--invite-only,\n.featured__column--community-voted {\n  background-image: var(--ge-enter-yellow-bg) !important;\n  color: var(--ge-enter-yellow-txt) !important;\n  border-color: #000 !important;\n}\n.giveaway__column--group, .featured__column--group {\n  background-image: linear-gradient(#4b8a42 0%, #21471f 100%) !important;\n  color: #7ac270 !important;\n}\n\n/* Enter / leave / quick-entry buttons \u2014 preserve affordances */\n.sidebar__entry-insert, .sidebar__action-button, .nav__sits,\n.form__submit-button, .form__sync-default, .featured__action-button,\n.entry.validEntry, .btn_action.green, .page__heading__button--green,\n.page_heading_btn.green, .btn-success, #btn-get,\n.esgst-sttb-button, .esgst-stbb-button, .table__column__key__redeem,\n.sidebar__entry-delete, .esgst-enter-button,\na.sidebar__entry-insert, button.sidebar__entry-insert {\n  background-image: var(--ge-enter-green-bg) !important;\n  color: var(--ge-enter-green-txt) !important;\n  border-color: #000 !important;\n}\n.sidebar__error, .sidebar__suspension, .btn_action.red,\n.page__heading__button--red, .page_heading_btn.red, .btn-danger,\n.header__error {\n  background-image: var(--ge-enter-red-bg) !important;\n  color: var(--ge-enter-red-txt) !important;\n  border-color: #000 !important;\n}\n.sidebar__entry-loading, .btn_action.yellow, .esgst-loading {\n  background-image: var(--ge-enter-yellow-bg) !important;\n  color: var(--ge-enter-yellow-txt) !important;\n}\n\n/* Sidebar */\n.sidebar, .sidebar__navigation, .sidebar__search-container,\n.sidebar__navigation__item, .sidebar_search {\n  background-color: rgba(24,24,22,0.33) !important;\n  border-color: rgba(0,0,0,0.4) !important;\n  color: var(--ge-text) !important;\n}\n.sidebar__heading, h3.sidebar__heading {\n  color: var(--ge-headings) !important;\n}\n.sidebar__navigation__item__link, .sidebar__navigation__item__name,\n.sidebar a {\n  color: rgba(119,185,223,0.9) !important;\n}\n.sidebar__navigation__item.is-selected,\n.sidebar__navigation__item__link.is-selected {\n  background-image: var(--ge-pageheading) !important;\n  color: var(--ge-text-bright) !important;\n}\n.sidebar__search-input, .sidebar input[type=\"text\"] {\n  background: var(--ge-input) !important;\n  border-color: var(--ge-border) !important;\n  color: var(--ge-text) !important;\n}\n\n/* Page heading / pagination */\n.page__heading, .page_heading, .page__heading__breadcrumbs,\n.page_heading_breadcrumbs, .page__heading__button, .page_heading_btn {\n  background-image: var(--ge-pageheading) !important;\n  border-color: var(--ge-border) !important;\n  color: rgba(119,185,223,0.9) !important;\n}\n.page__heading__breadcrumbs a, .page_heading_breadcrumbs a {\n  color: rgba(119,185,223,0.9) !important;\n}\n.pagination, .pagination__navigation, .pagination_navigation,\n.pagination__results {\n  background-color: transparent !important;\n  color: var(--ge-text) !important;\n}\n.pagination__navigation a, .pagination_navigation a {\n  color: var(--ge-link) !important;\n  background-image: var(--ge-pageheading) !important;\n  border-color: var(--ge-border) !important;\n}\n.pagination__navigation a.is-selected, .pagination__navigation .is-selected {\n  filter: brightness(1.25);\n  color: var(--ge-text-bright) !important;\n}\n\n/* Content / comments / tables / deals / discussions */\n.page__content, .page_content, .comment, .comment__parent,\n.comment__child, .comments, .table, .table__row-outer-wrap,\n.table__row-inner-wrap, .table__heading, .widget-container,\n.notification, .poll, .poll__answer, .markdown,\n.discussion, .deals, .trade {\n  background-color: var(--ge-content) !important;\n  border-color: rgba(0,0,0,0.4) !important;\n  color: var(--ge-text) !important;\n}\n.table__column--width-fill, .table__column__heading,\n.table__column__secondary-link:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight) {\n  color: var(--ge-text) !important;\n}\n.table__row-outer-wrap:hover, .table__row-inner-wrap:hover {\n  filter: brightness(1.1);\n}\n.markdown a:not(.esgst-gc),\n.comment__username:not(.comment__username--op) a:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight),\n.giveaway__username:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight),\n.table__column__secondary-link:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight):not(.table__column__select) {\n  color: var(--ge-link) !important;\n}\n.comment__username--op a:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight) {\n  color: rgba(201,227,181,0.95) !important;\n}\nh1, h2, h3, .page__heading__breadcrumbs, .form__heading__text {\n  color: var(--ge-headings) !important;\n}\n\n/* Forms / inputs / popups / lightbox */\ninput, textarea, select,\n.form__input, .form__text, .form__rows, .form__row,\n.form__heading, .form__submit-button, .form_list_item {\n  background-color: var(--ge-input) !important;\n  border-color: var(--ge-border) !important;\n  color: var(--ge-text) !important;\n}\n.form__submit-button {\n  background-image: var(--ge-enter-green-bg) !important;\n  color: var(--ge-enter-green-txt) !important;\n}\n.popup, .popup__outer-wrap, .popup__inner-wrap, .popup__heading,\n.popup__actions, .popup_outer_wrap, .popup_inner_wrap,\n.b-modal, .modal, .lightbox, .lightbox-header, .lightbox-footer-outer,\n.lightbox-content-image {\n  background: #2e2e2e !important;\n  background-color: #2e2e2e !important;\n  border-color: rgba(0,0,0,0.65) !important;\n  color: var(--ge-text) !important;\n}\n.lightbox-header, .lightbox-footer-outer {\n  background-image: var(--ge-header-footer) !important;\n}\n.popup__actions a, .popup_actions a {\n  color: var(--ge-link) !important;\n}\n\n/* Footer */\n.footer__outer-wrap, footer, .footer_outer_wrap, .footer__inner-wrap,\n.footer_inner_wrap {\n  background-image: var(--ge-header-footer) !important;\n  border-color: var(--ge-border) !important;\n  color: var(--ge-text) !important;\n}\n.footer__inner-wrap a, .footer_inner_wrap a {\n  color: var(--ge-link) !important;\n}\n\n/* Soft-theme ads / promo containers */\n.hpsgck, .fanatical_container, .bundle_container,\n[class*=\"hpsg\"], .adsbygoogle {\n  background-color: var(--ge-surface) !important;\n  border-color: rgba(0,0,0,0.45) !important;\n  color: var(--ge-text) !important;\n}\n.fanatical_name, .bundle_name {\n  color: rgba(119,185,223,0.9) !important;\n}\n.fanatical_savings, .fanatical_pricing, .bundle_pricing {\n  background-image: var(--ge-enter-green-bg) !important;\n  color: var(--ge-enter-green-txt) !important;\n}\n\nhtml[data-ge-hide-ads=\"1\"] .hpsgck,\nhtml[data-ge-hide-ads=\"1\"] .fanatical_container,\nhtml[data-ge-hide-ads=\"1\"] .bundle_container,\nhtml[data-ge-hide-ads=\"1\"] [class*=\"hpsg\"],\nhtml[data-ge-hide-ads=\"1\"] .adsbygoogle,\nhtml[data-ge-hide-ads=\"1\"] [id*=\"google_ads\"],\nhtml[data-ge-hide-ads=\"1\"] [data-ad],\nhtml[data-ge-hide-ads=\"1\"] iframe[src*=\"doubleclick\"],\nhtml[data-ge-hide-ads=\"1\"] iframe[src*=\"googlesyndication\"] {\n  display: none !important;\n}\n\n/* Notifications */\n.notification--success, .notification.notification--success {\n  background-image: linear-gradient(rgba(117,185,39,0.14) 0%, rgba(56,92,15,0.63) 100%) !important;\n  border-color: rgba(73,131,7,0.7) !important;\n  color: rgba(192,236,142,0.8) !important;\n}\n.notification--warning {\n  background-image: linear-gradient(rgba(180,185,39,0.23) 0%, rgba(102,105,17,0.9) 100%) !important;\n  color: rgba(230,233,165,0.9) !important;\n}\n.notification--danger, .notification--error {\n  background-image: linear-gradient(rgba(185,39,39,0.23) 0%, rgba(105,17,17,0.9) 100%) !important;\n  color: #ed8282 !important;\n}\n.notification--info {\n  background-image: linear-gradient(rgba(39,112,185,0.23) 0%, rgba(17,61,105,0.9) 100%) !important;\n  color: #92bde8 !important;\n}\n\n/* Code / quotes */\ncode, pre, .markdown code, .markdown pre {\n  background: var(--ge-surface) !important;\n  color: #b7b776 !important;\n  border-color: rgba(0,0,0,0.45) !important;\n}\nblockquote, .markdown blockquote {\n  background: rgba(0,0,0,0.18) !important;\n  border-left-color: rgba(130,130,125,0.64) !important;\n  color: rgba(161,161,161,0.95) !important;\n}\n\n/* Images */\n.giveaway_image_thumbnail, .giveaway_image_avatar, .global__image-outer-wrap,\n.comment__avatar, img.emoji {\n  background-color: #404040 !important;\n  border-color: rgba(0,0,0,0.65) !important;\n  filter: brightness(0.85);\n}\n.giveaway_image_thumbnail:hover, .global__image-outer-wrap:hover {\n  filter: brightness(1);\n}\n\n/* Links brighter toggle */\nhtml[data-ge-brighter-links=\"1\"] a:not(.esgst-gc),\nhtml[data-ge-brighter-links=\"1\"] .markdown a:not(.esgst-gc),\nhtml[data-ge-brighter-links=\"1\"] .sidebar__navigation__item__link {\n  color: var(--ge-link-bright) !important;\n}\n\n/* ========== ESGST-safe theming ========== */\n.esgst-popup, .esgst-popup-button, .esgst-popup-actions,\n.esgst-popup-scrollable, .esgst-popout, .esgst-panel,\n.esgst-gf-container, .esgst-menu-split, .esgst-form-row,\n.esgst-form-row-indent, .esgst-button-set, .esgst-button-group,\n.esgst-header-menu-row, .esgst-modal, [class*=\"esgst-popup\"],\n[class*=\"esgst-popout\"], [class*=\"esgst-panel\"], [class*=\"esgst-filter\"],\n.esgst-gv-popout, .esgst-ap-popup, .esgst-settings {\n  background-color: #2a2a28 !important;\n  background: #2a2a28 !important;\n  border-color: rgba(0,0,0,0.5) !important;\n  color: var(--ge-text) !important;\n}\n.esgst-popup-button, .esgst-button, .esgst-clickable {\n  background-image: var(--ge-nav-btn) !important;\n  color: var(--ge-text-bright) !important;\n  border-color: #000 !important;\n}\n.esgst-popup a:not(.esgst-gc), .esgst-popout a:not(.esgst-gc),\n.esgst-popup-actions a, a.esgst-bold:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight-whitelisted):not(.esgst-wbh-highlight-blacklisted) {\n  color: var(--ge-link) !important;\n}\n.esgst-green, .esgst-positive, .fa-thumbs-up.esgst-positive {\n  color: rgba(120,167,73,0.9) !important;\n}\n.esgst-red, .esgst-negative {\n  color: rgba(221,60,60,0.95) !important;\n}\n.esgst-yellow, .esgst-orange {\n  color: rgba(230,233,165,0.9) !important;\n}\n/* Do not strip ESGST nodes; only theme surfaces */\n\n/* SteamTrades / SGTools extras */\n.trade_row, .trade, .trades, .sgtools, .sg-tools,\n.page_heading, .block_header {\n  background-color: var(--ge-content) !important;\n  color: var(--ge-text) !important;\n  border-color: rgba(0,0,0,0.4) !important;\n}\n.btn_action.green, .btn_action {\n  border-color: #000 !important;\n}\n\n/* Secondary text */\n.secondary, .giveaway__columns .fa, .icon-red, .icon-grey {\n  color: var(--ge-secondary) !important;\n}\n.icon-green, i.fa.fa-check-circle-o.green, .sg-icon-green {\n  color: rgba(120,167,73,0.85) !important;\n}\n\n/* Scrollbars */\n::-webkit-scrollbar { width: 10px; height: 10px; }\n::-webkit-scrollbar-track { background: #1a1a18; }\n::-webkit-scrollbar-thumb { background: #3d3d3d; border-radius: 4px; }\n::-webkit-scrollbar-thumb:hover { background: #4a4a48; }\n" + "\n" + (GE.rootCss ? GE.rootCss() : '');
+  var css = `/* SteamGifts Grey Edition v1.6.1 — lean CSS rewrite
+   Inspired by / derived from SG Dark Grey by SquishedPotatoe (CC-BY-SA-4.0)
+   Compatible with ESGST / A-ESGST — does not remove ESGST nodes.
+*/
+:root {
+  color-scheme: dark;
+  --ge-body: #252522;
+  --ge-surface: #2a2a28;
+  --ge-header: #1c1c1a;
+  --ge-muted: #333333;
+  --ge-text: rgba(166,166,166,0.95);
+  --ge-text-bright: rgba(204,204,204,0.9);
+  --ge-link: rgba(98,159,192,0.85);
+  --ge-link-bright: #7ec8f0;
+  --ge-secondary: #788087;
+  --ge-headings: #8f9fb3;
+  --ge-border: rgba(0,0,0,0.7);
+  --ge-nav-btn: linear-gradient(#39576f 0%, #273d4f 100%);
+  --ge-header-footer: linear-gradient(#2e3d4d 0%, #212b36 100%);
+  --ge-enter-green-bg: linear-gradient(#5a7740 0%, #283e18 100%);
+  --ge-enter-green-txt: rgba(201,227,181,0.95);
+  --ge-enter-yellow-bg: linear-gradient(#85891a 0%, #575a02 100%);
+  --ge-enter-yellow-txt: rgba(218,220,163,0.95);
+  --ge-enter-red-bg: linear-gradient(#a54040 0%, #6a1010 100%);
+  --ge-enter-red-txt: #efa9a9;
+  --ge-enter-blue-bg: linear-gradient(#3a6a8a 0%, #1e3d52 100%);
+  --ge-enter-blue-txt: rgba(160,210,240,0.95);
+  --ge-pageheading: linear-gradient(#3b3b3b 0%, #2e2e2e 100%);
+  --ge-pinned: linear-gradient(#212f3b 0%, #1d242b 100%);
+  --ge-content: rgba(24,24,22,0.35);
+  --ge-input: #333333;
+}
+
+html, body {
+  background: var(--ge-body) !important;
+  background-color: var(--ge-body) !important;
+  background-image: none !important;
+  color: var(--ge-text) !important;
+}
+.page__outer-wrap, .page_outer_wrap, .page__inner-wrap {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--ge-text) !important;
+}
+
+html[data-ge-intensity="soft"] {
+  --ge-body: #2c2c29;
+  --ge-surface: #32322e;
+  --ge-muted: #3a3a36;
+}
+html[data-ge-intensity="soft"],
+html[data-ge-intensity="soft"] body {
+  background-color: #2c2c29 !important;
+}
+
+/* Do NOT paint flex layout wrappers — causes overlap/hidden UI */
+.widget-container {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+header, .header, .header__outer-wrap, .header_outer_wrap {
+  background-image: var(--ge-header-footer) !important;
+  background-color: #212b36 !important;
+  border-color: var(--ge-border) !important;
+  color: var(--ge-text-bright) !important;
+  position: relative !important;
+  z-index: 100 !important;
+}
+header nav, .nav__left-container, .nav__right-container {
+  background: transparent !important;
+}
+.nav__button, .nav_btn, .nav__button-container .nav__button,
+.esgst-header-menu-button {
+  background-image: var(--ge-nav-btn) !important;
+  color: var(--ge-text-bright) !important;
+  border-color: #000 !important;
+}
+.nav__button:hover, .nav_btn:hover,
+.nav__button-container.is-selected .nav__button,
+.esgst-header-menu-button:hover {
+  filter: brightness(1.25) saturate(1.3);
+}
+.nav__relative-dropdown, .nav__absolute-dropdown, .nav__row,
+.dropdown, .dropdown_btn, .esgst-header-menu-absolute-dropdown,
+.esgst-header-menu-dropdown {
+  background: linear-gradient(#404040 0%, #363636 100%) !important;
+  background-color: #363636 !important;
+  border-color: #000 !important;
+  color: var(--ge-text) !important;
+  z-index: 200 !important;
+}
+.nav__row:hover, .dropdown_btn:hover, .esgst-header-menu-row:hover {
+  background-image: var(--ge-nav-btn) !important;
+}
+.nav__row__summary__name, .nav__notification,
+.nav__points, .nav_points, a.nav__button[href*="account"] {
+  color: var(--ge-text-bright) !important;
+}
+
+.featured__container, .featured__outer-wrap {
+  background-color: rgba(24,46,67,0.55) !important;
+  border-color: rgba(0,0,0,0.8) !important;
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: visible !important;
+}
+.featured__inner-wrap, .featured__heading, .featured__columns, .featured__column {
+  color: var(--ge-text) !important;
+  border-color: rgba(0,0,0,0.45) !important;
+}
+.featured__heading__medium a, .featured__heading a {
+  color: #c8c8c8 !important;
+}
+.featured__heading__small, .featured__column {
+  color: var(--ge-secondary) !important;
+}
+.pinned-giveaways-header, .pinned-giveaways-tab, .pinned-giveaways-expand {
+  background-image: var(--ge-pinned) !important;
+  background-color: #1d242b !important;
+  color: var(--ge-text-bright) !important;
+  border-color: rgba(0,0,0,0.45) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+.pinned-giveaways, .pinned-giveaways__inner-wrap, .pinned_giveaways {
+  background-image: var(--ge-pinned) !important;
+  background-color: #1d242b !important;
+  border-color: rgba(0,0,0,0.45) !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.giveaway__row-outer-wrap, .giveaway_row {
+  background-color: transparent !important;
+  border-color: rgba(0,0,0,0.35) !important;
+  color: var(--ge-text) !important;
+  overflow: visible !important;
+  position: relative !important;
+  filter: none !important;
+}
+.giveaway__row-inner-wrap, .giveaway-summary {
+  background-color: var(--ge-content) !important;
+  border-color: rgba(0,0,0,0.4) !important;
+  color: var(--ge-text) !important;
+  overflow: visible !important;
+  position: relative !important;
+  filter: none !important;
+}
+.giveaway__row-outer-wrap:hover .giveaway__row-inner-wrap {
+  background-color: rgba(36,36,32,0.55) !important;
+}
+.giveaway__heading, .giveaway__summary {
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+.giveaway__heading__name, .giveaway__heading__thin {
+  color: #adadad !important;
+}
+.giveaway__links a:not(.esgst-gc), .giveaway__columns, .giveaway__column {
+  color: var(--ge-text) !important;
+  border-color: rgba(0,0,0,0.7) !important;
+}
+.giveaway__columns:not(.esgst-gv-icons):not(.esgst-giveaway-panel) > *:not(.giveaway__column--group):not(.giveaway__column--whitelist):not(.giveaway__column--invite-only):not(.giveaway__column--community-voted):not(.giveaway__column--contributor-level):not(.giveaway__column--region-restricted):not(form):not(.esgst-elgb-button):not(.esgst-button-set):not(.esgst-gc):not(.giveaway__column--width-fill) {
+  background-image: linear-gradient(rgba(255,255,255,0.06) 0, rgba(115,115,115,0.06) 100%) !important;
+  border-color: rgba(0,0,0,0.7) !important;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05) !important;
+}
+
+.is-faded:not(em), .giveaway__row-inner-wrap.is-faded,
+.giveaway-gridview .faded, .giveaway__row-inner-wrap.esgst-faded {
+  opacity: 0.55 !important;
+  filter: grayscale(0.25) !important;
+}
+
+.giveaway__column--contributor-level--positive,
+.featured__column--contributor-level--positive,
+.giveaway__column--contributor-level--positive:not(.esgst-glh-highlight),
+.featured__column--contributor-level--positive:not(.esgst-glh-highlight) {
+  background-image: var(--ge-enter-green-bg) !important;
+  color: var(--ge-enter-green-txt) !important;
+  border-color: #000 !important;
+}
+.giveaway__column--contributor-level--negative,
+.featured__column--contributor-level--negative {
+  background-image: var(--ge-enter-red-bg) !important;
+  color: var(--ge-enter-red-txt) !important;
+}
+.giveaway__column--region-restricted,
+.featured__column--region-restricted,
+.giveaway__column--invite-only,
+.giveaway__column--community-voted {
+  background-image: var(--ge-enter-yellow-bg) !important;
+  color: var(--ge-enter-yellow-txt) !important;
+  border-color: #000 !important;
+}
+.giveaway__column--group, .featured__column--group {
+  background-image: linear-gradient(#4b8a42 0%, #21471f 100%) !important;
+  color: #7ac270 !important;
+}
+
+/* Enter / leave / quick-entry — Enter MUST stay green */
+.giveaway__quick-entry-wrap,
+.giveaway__quick-entry-form {
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 5 !important;
+  background: transparent !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+.giveaway__quick-entry-btn,
+.giveaway__quick-entry-btn i {
+  opacity: 1 !important;
+  filter: none !important;
+  visibility: visible !important;
+}
+.giveaway__quick-entry-btn--insert,
+.giveaway__quick-entry-btn[data-do="entry_insert"],
+.sidebar__entry-insert,
+a.sidebar__entry-insert,
+button.sidebar__entry-insert,
+.sidebar__action-button,
+.nav__sits,
+.form__submit-button,
+.form__sync-default,
+.featured__action-button,
+.entry.validEntry,
+.btn_action.green,
+.page__heading__button--green,
+.page_heading_btn.green,
+.btn-success,
+#btn-get,
+.esgst-sttb-button,
+.esgst-stbb-button,
+.table__column__key__redeem,
+.esgst-enter-button,
+.esgst-egh-button,
+[data-do="entry_insert"],
+.js__submit-hide-games {
+  background-image: var(--ge-enter-green-bg) !important;
+  background-color: #3d5a28 !important;
+  color: var(--ge-enter-green-txt) !important;
+  border-color: #000 !important;
+}
+.giveaway__quick-entry-btn--insert i,
+.giveaway__quick-entry-btn[data-do="entry_insert"] i,
+.sidebar__entry-insert i,
+[data-do="entry_insert"] i {
+  color: var(--ge-enter-green-txt) !important;
+}
+.giveaway__quick-entry-btn--delete,
+.giveaway__quick-entry-btn[data-do="entry_delete"],
+.sidebar__entry-delete,
+[data-do="entry_delete"] {
+  background-image: var(--ge-enter-yellow-bg) !important;
+  background-color: #6a6e10 !important;
+  color: var(--ge-enter-yellow-txt) !important;
+  border-color: #000 !important;
+}
+.giveaway__quick-entry-btn--delete i,
+[data-do="entry_delete"] i,
+.sidebar__entry-delete i {
+  color: var(--ge-enter-yellow-txt) !important;
+}
+.giveaway__quick-entry-btn--description {
+  background-image: var(--ge-enter-blue-bg) !important;
+  background-color: #2a4a62 !important;
+  color: var(--ge-enter-blue-txt) !important;
+  border-color: #000 !important;
+}
+.giveaway__quick-entry-btn--description i {
+  color: var(--ge-enter-blue-txt) !important;
+}
+.sidebar__error, .sidebar__suspension, .btn_action.red,
+.page__heading__button--red, .page_heading_btn.red, .btn-danger,
+.header__error {
+  background-image: var(--ge-enter-red-bg) !important;
+  background-color: #7a2020 !important;
+  color: var(--ge-enter-red-txt) !important;
+  border-color: #000 !important;
+}
+.sidebar__entry-loading, .btn_action.yellow, .esgst-loading {
+  background-image: var(--ge-enter-yellow-bg) !important;
+  color: var(--ge-enter-yellow-txt) !important;
+}
+
+.sidebar {
+  background-color: rgba(24,24,22,0.33) !important;
+  border-color: rgba(0,0,0,0.4) !important;
+  color: var(--ge-text) !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+.sidebar__navigation, .sidebar__search-container,
+.sidebar__navigation__item, .sidebar_search {
+  background-color: transparent !important;
+  border-color: rgba(0,0,0,0.4) !important;
+  color: var(--ge-text) !important;
+}
+.sidebar__heading, h3.sidebar__heading {
+  color: var(--ge-headings) !important;
+}
+.sidebar__navigation__item__link, .sidebar__navigation__item__name,
+.sidebar a {
+  color: rgba(119,185,223,0.9) !important;
+}
+.sidebar__navigation__item.is-selected,
+.sidebar__navigation__item__link.is-selected {
+  background-image: var(--ge-pageheading) !important;
+  color: var(--ge-text-bright) !important;
+}
+.sidebar__search-input, .sidebar input[type="text"] {
+  background: var(--ge-input) !important;
+  border-color: var(--ge-border) !important;
+  color: var(--ge-text) !important;
+}
+
+.page__heading, .page_heading, .page__heading__breadcrumbs,
+.page_heading_breadcrumbs, .page__heading__button, .page_heading_btn {
+  background-image: var(--ge-pageheading) !important;
+  border-color: var(--ge-border) !important;
+  color: rgba(119,185,223,0.9) !important;
+  position: relative !important;
+  z-index: 2 !important;
+  overflow: visible !important;
+}
+.page__heading__breadcrumbs a, .page_heading_breadcrumbs a {
+  color: rgba(119,185,223,0.9) !important;
+}
+.pagination, .pagination__navigation, .pagination_navigation,
+.pagination__results {
+  background-color: transparent !important;
+  color: var(--ge-text) !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+.pagination__navigation a, .pagination_navigation a {
+  color: var(--ge-link) !important;
+  background-image: var(--ge-pageheading) !important;
+  border-color: var(--ge-border) !important;
+}
+.pagination__navigation a.is-selected, .pagination__navigation .is-selected {
+  filter: brightness(1.25);
+  color: var(--ge-text-bright) !important;
+}
+
+.page__content, .page_content, .comment, .comment__parent,
+.comment__child, .comments, .table, .table__row-outer-wrap,
+.table__row-inner-wrap, .table__heading,
+.notification, .poll, .poll__answer, .markdown,
+.discussion, .deals, .trade {
+  background-color: var(--ge-content) !important;
+  border-color: rgba(0,0,0,0.4) !important;
+  color: var(--ge-text) !important;
+}
+.block_header, .block_header_text, .block_header_link {
+  background-color: transparent !important;
+  color: var(--ge-headings) !important;
+}
+.table__column--width-fill, .table__column__heading,
+.table__column__secondary-link:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight) {
+  color: var(--ge-text) !important;
+}
+.table__row-outer-wrap:hover, .table__row-inner-wrap:hover {
+  background-color: rgba(40,40,36,0.5) !important;
+}
+.markdown a:not(.esgst-gc),
+.comment__username:not(.comment__username--op) a:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight),
+.giveaway__username:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight),
+.table__column__secondary-link:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight):not(.table__column__select) {
+  color: var(--ge-link) !important;
+}
+.comment__username--op a:not(.esgst-namwc-highlight):not(.esgst-wbh-highlight) {
+  color: rgba(201,227,181,0.95) !important;
+}
+h1, h2, h3, .form__heading__text {
+  color: var(--ge-headings) !important;
+}
+
+input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
+textarea, select,
+.form__input, .form__text {
+  background-color: var(--ge-input) !important;
+  border-color: var(--ge-border) !important;
+  color: var(--ge-text) !important;
+}
+.form__rows, .form__row, .form__heading, .form_list_item {
+  background-color: transparent !important;
+  border-color: var(--ge-border) !important;
+  color: var(--ge-text) !important;
+}
+.popup, .popup__outer-wrap, .popup__inner-wrap, .popup__heading,
+.popup__actions, .popup_outer_wrap, .popup_inner_wrap,
+.b-modal, .modal, .lightbox, .lightbox-header, .lightbox-footer-outer,
+.lightbox-content-image {
+  background: #2e2e2e !important;
+  background-color: #2e2e2e !important;
+  border-color: rgba(0,0,0,0.65) !important;
+  color: var(--ge-text) !important;
+  z-index: 500 !important;
+}
+.lightbox-header, .lightbox-footer-outer {
+  background-image: var(--ge-header-footer) !important;
+}
+.popup__actions a, .popup_actions a {
+  color: var(--ge-link) !important;
+}
+
+.footer__outer-wrap, footer, .footer_outer_wrap, .footer__inner-wrap,
+.footer_inner_wrap {
+  background-image: var(--ge-header-footer) !important;
+  border-color: var(--ge-border) !important;
+  color: var(--ge-text) !important;
+  clear: both !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+.footer__inner-wrap a, .footer_inner_wrap a, .footer_column_link {
+  color: var(--ge-link) !important;
+}
+
+.hpsgck, .fanatical_container, .bundle_container, [class*="hpsg"] {
+  background-color: var(--ge-surface) !important;
+  border-color: rgba(0,0,0,0.45) !important;
+  color: var(--ge-text) !important;
+  overflow: hidden !important;
+}
+.fanatical_name, .bundle_name {
+  color: rgba(119,185,223,0.9) !important;
+}
+.fanatical_savings, .fanatical_pricing, .bundle_pricing {
+  background-image: var(--ge-enter-green-bg) !important;
+  color: var(--ge-enter-green-txt) !important;
+}
+html[data-ge-hide-ads="1"] .hpsgck,
+html[data-ge-hide-ads="1"] .fanatical_container,
+html[data-ge-hide-ads="1"] .bundle_container,
+html[data-ge-hide-ads="1"] [class*="hpsg"],
+html[data-ge-hide-ads="1"] .adsbygoogle,
+html[data-ge-hide-ads="1"] [id*="google_ads"],
+html[data-ge-hide-ads="1"] [data-ad] {
+  display: none !important;
+}
+
+.notification--success {
+  background-image: linear-gradient(rgba(117,185,39,0.14) 0%, rgba(56,92,15,0.63) 100%) !important;
+  border-color: rgba(73,131,7,0.7) !important;
+  color: rgba(192,236,142,0.8) !important;
+}
+.notification--warning {
+  background-image: linear-gradient(rgba(180,185,39,0.23) 0%, rgba(102,105,17,0.9) 100%) !important;
+  color: rgba(230,233,165,0.9) !important;
+}
+.notification--danger, .notification--error {
+  background-image: linear-gradient(rgba(185,39,39,0.23) 0%, rgba(105,17,17,0.9) 100%) !important;
+  color: #ed8282 !important;
+}
+.notification--info {
+  background-image: linear-gradient(rgba(39,112,185,0.23) 0%, rgba(17,61,105,0.9) 100%) !important;
+  color: #92bde8 !important;
+}
+
+code, pre, .markdown code, .markdown pre {
+  background: var(--ge-surface) !important;
+  color: #b7b776 !important;
+  border-color: rgba(0,0,0,0.45) !important;
+}
+blockquote, .markdown blockquote {
+  background: rgba(0,0,0,0.18) !important;
+  border-left-color: rgba(130,130,125,0.64) !important;
+  color: rgba(161,161,161,0.95) !important;
+}
+
+.giveaway_image_thumbnail, .giveaway_image_avatar, .global__image-outer-wrap,
+.featured_giveaway_image_avatar, .nav__avatar-inner-wrap, .table_image_avatar {
+  background-color: #404040 !important;
+  border-color: rgba(0,0,0,0.65) !important;
+  filter: brightness(0.9);
+  position: relative !important;
+  z-index: 1 !important;
+  flex-shrink: 0 !important;
+}
+.giveaway_image_thumbnail:hover, .global__image-outer-wrap:hover {
+  filter: brightness(1);
+}
+
+html[data-ge-brighter-links="1"] a:not(.esgst-gc),
+html[data-ge-brighter-links="1"] .markdown a:not(.esgst-gc),
+html[data-ge-brighter-links="1"] .sidebar__navigation__item__link {
+  color: var(--ge-link-bright) !important;
+}
+
+.esgst-popup, .esgst-popup-button, .esgst-popup-actions,
+.esgst-popup-scrollable, .esgst-popout, .esgst-panel,
+.esgst-gf-container, .esgst-menu-split, .esgst-form-row,
+.esgst-form-row-indent, .esgst-button-set, .esgst-button-group,
+.esgst-header-menu-row, .esgst-modal, [class*="esgst-popup"],
+[class*="esgst-popout"], [class*="esgst-panel"], [class*="esgst-filter"],
+.esgst-gv-popout, .esgst-ap-popup, .esgst-settings {
+  background-color: #2a2a28 !important;
+  background: #2a2a28 !important;
+  border-color: rgba(0,0,0,0.5) !important;
+  color: var(--ge-text) !important;
+}
+.esgst-popup-button, .esgst-button, .esgst-clickable {
+  background-image: var(--ge-nav-btn) !important;
+  color: var(--ge-text-bright) !important;
+  border-color: #000 !important;
+}
+.esgst-popup a:not(.esgst-gc), .esgst-popout a:not(.esgst-gc),
+.esgst-popup-actions a {
+  color: var(--ge-link) !important;
+}
+.esgst-green, .esgst-positive { color: rgba(120,167,73,0.9) !important; }
+.esgst-red, .esgst-negative { color: rgba(221,60,60,0.95) !important; }
+.esgst-yellow, .esgst-orange { color: rgba(230,233,165,0.9) !important; }
+
+.trade_row, .trade, .trades, .sgtools, .sg-tools {
+  background-color: var(--ge-content) !important;
+  color: var(--ge-text) !important;
+  border-color: rgba(0,0,0,0.4) !important;
+}
+.btn_action.green {
+  background-image: var(--ge-enter-green-bg) !important;
+  background-color: #3d5a28 !important;
+  color: var(--ge-enter-green-txt) !important;
+  border-color: #000 !important;
+}
+
+.secondary, .giveaway__columns .fa, .icon-red, .icon-grey {
+  color: var(--ge-secondary) !important;
+}
+.icon-green, i.fa.fa-check-circle-o.green, .sg-icon-green {
+  color: rgba(120,167,73,0.85) !important;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #1a1a18; }
+::-webkit-scrollbar-thumb { background: #3d3d3d; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #4a4a48; }
+` + '\n' + (GE.rootCss ? GE.rootCss() : '');
 
   function inject() {
     var node = document.getElementById(STYLE_ID);
