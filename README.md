@@ -10,14 +10,18 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 | --- | --- | --- |
 | **ManaPool Grey Edition** | 1.6.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
 | **Scryfall Grey Edition** | 1.6.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.6.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.7.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
 | Grey Edition common (auto via `@require`) | 1.6.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: **1.6.0** (ManaPool/Scryfall/common); SteamGifts **1.6.2**.
+Current release: **1.6.0** (ManaPool/Scryfall/common); SteamGifts **1.7.0** (full SG Dark Grey restore).
+
+## Changelog — 1.7.0
+
+- **SteamGifts**: restored the full proven [SG Dark Grey](https://github.com/SquishedPotatoe/SG-Dark-Grey) CSS (SquishedPotatoe, CC-BY-SA-4.0) as SteamGifts Grey Edition. Lean 1.6.x rewrite retired — ESGST + SteamGifts compatibility matches the original again. Grey Edition `@require` menus still attach without altering that CSS.
 
 ## Changelog — 1.6.2
 
@@ -37,5 +41,5 @@ Current release: **1.6.0** (ManaPool/Scryfall/common); SteamGifts **1.6.2**.
 ## Notes
 
 - Open Tampermonkey → script → “Grey Edition: …” menu commands to toggle intensity, brighter links, hide ads, and (ManaPool) denser grid.
-- **SteamGifts Grey Edition** is designed to coexist with [ESGST / A-ESGST](https://github.com/JustArchi/ESGST). It themes `.esgst-*` popups/panels without removing ESGST nodes; link selectors carefully use `:not(.esgst-gc)` where needed.
+- **SteamGifts Grey Edition** `1.7.0+` ships the full SG Dark Grey stylesheet (ESGST-tested). It coexists with [ESGST / A-ESGST](https://github.com/JustArchi/ESGST).
 - SteamGifts theme is derived from / inspired by [SG Dark Grey](https://github.com/SquishedPotatoe/SG-Dark-Grey) by SquishedPotatoe, licensed [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/).
