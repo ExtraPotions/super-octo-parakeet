@@ -295,7 +295,7 @@
 
   function rootCss() {
     return [
-      '/* Theme Picker common root flags CSS v1.13.0 */',
+      '/* Theme Picker common root flags CSS v1.14.2 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -340,7 +340,7 @@
 
   function featureCss() {
     return [
-      '/* Theme Picker feature flags v1.13.0 */',
+      '/* Theme Picker feature flags v1.14.2 */',
       /* ManaPool */
       'html[data-ge-hide-sold-out="1"] [data-mpge-sold-out="1"] { display: none !important; }',
       'html[data-ge-compact-prices="1"] .text-green-700,',
