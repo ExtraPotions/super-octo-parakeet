@@ -1,6 +1,6 @@
 /**
  * Theme Picker common helpers (Tampermonkey @require)
- * Version: 1.14.6
+ * Version: 1.14.7
  * Author: expDARE
  * License: CC-BY-NC-4.0
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
@@ -16,6 +16,7 @@
  * 1.14.3: re-export ensureFabStyle so site scripts can re-assert FAB CSS after their theme sheets.
  * 1.14.4: stop all:unset on panel controls (broke selects/layout); always append FAB stylesheet last.
  * 1.14.5: Esc closes settings panel.
+ * 1.14.7: FAB button 48×48 (was 52).
  * 1.14.6: drop all:unset on settings panel (kept flattening Scryfall); column flex layout.
  * Not a userscript — load via // @require from each Theme Picker script.
  */
@@ -23,7 +24,7 @@
   'use strict';
 
   var PREFIX = 'ge-';
-  var COMMON_VERSION = '1.14.6';
+  var COMMON_VERSION = '1.14.7';
   var RAIL_ID = 'theme-picker-settings-rail';
   var FAB_ID = 'theme-picker-fab';
   var siteActions = {};
@@ -299,7 +300,7 @@
 
   function rootCss() {
     return [
-      '/* Theme Picker common root flags CSS v1.14.6 */',
+      '/* Theme Picker common root flags CSS v1.14.7 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -505,12 +506,12 @@
       '  right: 12px !important;',
       '  left: auto !important;',
       '  z-index: 2147483000 !important;',
-      '  width: 52px !important;',
-      '  height: 52px !important;',
-      '  min-width: 52px !important;',
-      '  min-height: 52px !important;',
-      '  max-width: 52px !important;',
-      '  max-height: 52px !important;',
+            '  width: 48px !important;',
+      '  height: 48px !important;',
+      '  min-width: 48px !important;',
+      '  min-height: 48px !important;',
+      '  max-width: 48px !important;',
+      '  max-height: 48px !important;',
       '  border-radius: 999px !important;',
       '  border: 1px solid var(--ge-rail-accent, #aeaeae) !important;',
       '  background: var(--ge-rail-btn-bg, #111111) !important;',
@@ -540,8 +541,8 @@
       '  border-color: var(--ge-rail-accent, #aeaeae) !important;',
       '}',
       '#' + FAB_ID + ' img {',
-      '  width: 28px !important;',
-      '  height: 28px !important;',
+      '  width: 26px !important;',
+      '  height: 26px !important;',
       '  object-fit: contain !important;',
       '  display: block !important;',
       '  pointer-events: none !important;',
@@ -995,8 +996,8 @@
         var img = document.createElement('img');
         img.src = iconUrl;
         img.alt = '';
-        img.width = 28;
-        img.height = 28;
+        img.width = 26;
+        img.height = 26;
         btn.appendChild(img);
       } else {
         btn.textContent = 'GE';
@@ -1006,7 +1007,7 @@
       }
 
       function clampTop(y) {
-        var max = Math.max(8, (window.innerHeight || 600) - 60);
+        var max = Math.max(8, (window.innerHeight || 600) - 56);
         if (y < 8) return 8;
         if (y > max) return max;
         return y;
@@ -1022,7 +1023,7 @@
       function loadFabTop() {
         var saved = get('fabTop', null);
         if (typeof saved === 'number' && isFinite(saved)) return clampTop(saved);
-        return clampTop((window.innerHeight || 600) - 68);
+        return clampTop((window.innerHeight || 600) - 64);
       }
 
       function placePanel() {

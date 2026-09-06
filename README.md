@@ -17,7 +17,7 @@
   <a href="https://creativecommons.org/licenses/by-nc/4.0/"><img alt="License: CC BY-NC 4.0" src="https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey?style=flat-square" /></a>
 </p>
 
-**Author:** [expDARE](https://github.com/ExtraPotions) · **Latest:** [theme-picker-2.0.8](https://github.com/ExtraPotions/super-octo-parakeet/releases/tag/theme-picker-2.0.8)
+**Author:** [expDARE](https://github.com/ExtraPotions) · **Latest:** [theme-picker-2.0.9](https://github.com/ExtraPotions/super-octo-parakeet/releases/tag/theme-picker-2.0.9)
 
 | Stat | Value |
 |------|-------|
@@ -35,11 +35,11 @@
 3. Open each `.user.js` (or drag into the extension dashboard) and save.
 4. Visit the site — the favicon button appears on the right edge.
 
-| Script | Version (in 2.0.8) | Install |
+| Script | Version (in 2.0.9) | Install |
 | --- | --- | --- |
 | **ManaPool Theme Picker** | 2.0.7 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/manapool-theme-picker.user.js) |
 | **SteamGifts Theme Picker** | 2.0.3 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/steamgifts-theme-picker.user.js) |
-| Theme Picker common (`@require`) | 1.14.6 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) |
+| Theme Picker common (`@require`) | 1.14.7 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) |
 | Scryfall Theme Picker (frozen) | 2.0.7 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js) |
 
 Each site script `@require`s `theme-picker-common.js` from the same latest-release URL. Update **common** whenever you update a site script.
@@ -78,6 +78,7 @@ See [GitHub Releases](https://github.com/ExtraPotions/super-octo-parakeet/releas
 
 Recent tags:
 
+- **theme-picker-2.0.9** — common `1.14.7`: settings FAB **48×48**
 - **theme-picker-2.0.8** — common `1.14.6` panel layout hardening; Scryfall `2.0.7`  
 - **theme-picker-2.0.7** — Esc closes panel; ManaPool section discovery; README/release checklist  
 - **theme-picker-2.0.6** — Scryfall panel select/`all: unset` layout fix  
