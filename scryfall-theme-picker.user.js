@@ -10,8 +10,8 @@
 // @match          *://www.scryfall.com/*
 // @icon           https://scryfall.com/favicon.ico?v=23c9b39069bf
 // @run-at         document-start
-// @downloadURL    https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js
-// @updateURL      https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js
+// @downloadURL    https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js
+// @updateURL      https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js
 // @require        https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/theme-picker-common.js
 // @grant          GM_getValue
 // @grant          GM_setValue

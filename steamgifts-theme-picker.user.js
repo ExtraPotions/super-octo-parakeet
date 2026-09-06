@@ -5,8 +5,8 @@
 // @description    Dark charcoal Theme Picker for SteamGifts / SteamTrades / SGTools (ESGST-compatible).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
-// @downloadURL    https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js
-// @updateURL      https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js
+// @downloadURL    https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-theme-picker.user.js
+// @updateURL      https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-theme-picker.user.js
 // @supportURL     https://github.com/ExtraPotions/super-octo-parakeet/issues
 // @match          *://www.steamgifts.com/*
 // @match          *://www.steamtrades.com/*

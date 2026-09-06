@@ -10,8 +10,8 @@
 // @match          *://www.manapool.com/*
 // @icon           https://manapool.com/favicon.svg
 // @run-at         document-start
-// @downloadURL    https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js
-// @updateURL      https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js
+// @downloadURL    https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-theme-picker.user.js
+// @updateURL      https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-theme-picker.user.js
 // @require        https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/theme-picker-common.js
 // @grant          GM_getValue
 // @grant          GM_setValue
