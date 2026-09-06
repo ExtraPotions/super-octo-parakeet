@@ -24,6 +24,6 @@ Site scripts `@downloadURL` / `@updateURL` / `@require` already point at those l
 
 ## After
 
-Spot-check ManaPool, Scryfall, and SteamGifts: FAB opens, panel lays out normally, one theme toggle works.
+Spot-check ManaPool and SteamGifts: FAB opens, panel lays out normally (Shadow DOM), one theme toggle works. Scryfall is frozen — optional smoke only.
 
 Do **not** slim or rewrite the SteamGifts CSS blob unless explicitly requested — past attempts broke the theme.

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           ManaPool Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        2.0.7
+// @version        2.0.8
 // @description    Theme palettes + settings for Mana Pool — collapsible sections, hide sold out, compact prices, denser grid
 // @author         expDARE
 // @license        CC-BY-NC-4.0
@@ -432,14 +432,13 @@
     var cards = document.querySelectorAll('article, li article, li.group, .group.bg-white');
     for (var i = 0; i < cards.length; i++) {
       var el = cards[i];
-      if (el.getAttribute('data-mpge-sold-checked') === '1') continue;
-      el.setAttribute('data-mpge-sold-checked', '1');
       var t = (el.textContent || '').toLowerCase();
       var sold = /\bout of stock\b|\bsold out\b|\bno stock\b/.test(t);
       if (!sold) {
         var zero = el.querySelector('.line-through, [class*="sold"], [class*="out-of-stock"]');
         if (zero) sold = true;
       }
+      el.setAttribute('data-mpge-sold-checked', '1');
       if (sold) el.setAttribute('data-mpge-sold-out', '1');
       else el.removeAttribute('data-mpge-sold-out');
     }
@@ -482,6 +481,7 @@
     else if (!logoFixed) fixLogoOnce();
     if (sectionTimer) clearTimeout(sectionTimer);
     sectionTimer = setTimeout(function () {
+      if (GE.ensureFabStyle) GE.ensureFabStyle();
       enhanceHomeSections();
       ensureCollapseAllButtons();
       markSoldOutCards();
@@ -489,11 +489,30 @@
   });
   obs.observe(document.documentElement, { childList: true, subtree: true });
   if (document.body) apply();
-  window.addEventListener('pageshow', function () {
+
+  function onSpaNav() {
     enhanceHomeSections();
     ensureCollapseAllButtons();
     markSoldOutCards();
-  });
+    if (GE.ensureFabStyle) GE.ensureFabStyle();
+  }
+  window.addEventListener('pageshow', onSpaNav);
+  window.addEventListener('popstate', onSpaNav);
+  // Catch client-side pushes (ManaPool SPA).
+  try {
+    var _ps = history.pushState;
+    var _rs = history.replaceState;
+    history.pushState = function () {
+      var r = _ps.apply(this, arguments);
+      setTimeout(onSpaNav, 0);
+      return r;
+    };
+    history.replaceState = function () {
+      var r = _rs.apply(this, arguments);
+      setTimeout(onSpaNav, 0);
+      return r;
+    };
+  } catch (eHist) {}
   window.addEventListener('scroll', function () {
     if (window.__mpgeScrollT) clearTimeout(window.__mpgeScrollT);
     window.__mpgeScrollT = setTimeout(persistScrollAggressive, 200);

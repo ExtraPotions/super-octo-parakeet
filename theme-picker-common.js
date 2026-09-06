@@ -1,6 +1,6 @@
 /**
  * Theme Picker common helpers (Tampermonkey @require)
- * Version: 1.14.7
+ * Version: 1.14.8
  * Author: expDARE
  * License: CC-BY-NC-4.0
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
@@ -16,15 +16,16 @@
  * 1.14.3: re-export ensureFabStyle so site scripts can re-assert FAB CSS after their theme sheets.
  * 1.14.4: stop all:unset on panel controls (broke selects/layout); always append FAB stylesheet last.
  * 1.14.5: Esc closes settings panel.
- * 1.14.7: FAB button 48×48 (was 52).
  * 1.14.6: drop all:unset on settings panel (kept flattening Scryfall); column flex layout.
+ * 1.14.7: FAB button 48×48 (was 52).
+ * 1.14.8: settings panel in Shadow DOM (site CSS can't flatten controls); composedPath click-outside.
  * Not a userscript — load via // @require from each Theme Picker script.
  */
 (function (global) {
   'use strict';
 
   var PREFIX = 'ge-';
-  var COMMON_VERSION = '1.14.7';
+  var COMMON_VERSION = '1.14.8';
   var RAIL_ID = 'theme-picker-settings-rail';
   var FAB_ID = 'theme-picker-fab';
   var siteActions = {};
@@ -704,6 +705,128 @@
     ].join('\n');
   }
 
+  function panelShadowCss() {
+      // Fully self-contained — lives inside the panel shadow root (site CSS cannot reach it).
+      return [
+        ':host {',
+        '  box-sizing: border-box;',
+        '  font: 13px/1.35 system-ui, "Open Sans", sans-serif;',
+        '  color: var(--ge-rail-text, rgba(204,204,204,0.95));',
+        '  background: var(--ge-rail-panel-bg, #2a2a28);',
+        '  border: 1px solid var(--ge-rail-panel-border, rgba(0,0,0,0.75));',
+        '  border-radius: 12px;',
+        '  box-shadow: 0 10px 28px rgba(0,0,0,0.5);',
+        '  padding: 12px 12px 10px;',
+        '  width: 270px;',
+        '  max-width: calc(100vw - 24px);',
+        '  max-height: calc(100vh - 96px);',
+        '  overflow-x: hidden;',
+        '  overflow-y: auto;',
+        '  flex-direction: column;',
+        '  align-items: stretch;',
+        '}',
+        ':host(.ge-open) { display: flex !important; }',
+        '*, *::before, *::after { box-sizing: border-box; }',
+        '.ge-inner {',
+        '  display: flex;',
+        '  flex-direction: column;',
+        '  align-items: stretch;',
+        '  gap: 0;',
+        '  width: 100%;',
+        '  margin: 0;',
+        '  padding: 0;',
+        '}',
+        '.ge-title {',
+        '  font-weight: 700;',
+        '  font-size: 13px;',
+        '  margin: 0 0 10px;',
+        '  color: var(--ge-rail-title, #8f9fb3);',
+        '}',
+        '.ge-row {',
+        '  display: flex;',
+        '  align-items: center;',
+        '  justify-content: space-between;',
+        '  gap: 10px;',
+        '  margin: 0 0 8px;',
+        '}',
+        'label.ge-switch {',
+        '  display: flex;',
+        '  align-items: center;',
+        '  justify-content: space-between;',
+        '  gap: 10px;',
+        '  width: 100%;',
+        '  margin: 6px 0;',
+        '  color: inherit;',
+        '  cursor: pointer;',
+        '  user-select: none;',
+        '}',
+        '.ge-switch-text { flex: 1 1 auto; min-width: 0; line-height: 1.3; }',
+        '.ge-switch-input {',
+        '  position: absolute;',
+        '  opacity: 0;',
+        '  width: 0;',
+        '  height: 0;',
+        '  pointer-events: none;',
+        '}',
+        '.ge-toggle {',
+        '  position: relative;',
+        '  flex: none;',
+        '  width: 36px;',
+        '  height: 18px;',
+        '  background: #6b6b6b;',
+        '  border: 0;',
+        '  border-radius: 12px;',
+        '  cursor: pointer;',
+        '}',
+        '.ge-toggle::after {',
+        '  content: "";',
+        '  position: absolute;',
+        '  top: 0; left: 0;',
+        '  width: 18px; height: 18px;',
+        '  border-radius: 12px;',
+        '  background: #d4d4d4;',
+        '  box-shadow: 0 1px 2px rgba(0,0,0,.35);',
+        '  transition: transform .15s ease;',
+        '}',
+        '.ge-switch-input:checked + .ge-toggle { background: var(--ge-rail-accent, #5eb0ef); }',
+        '.ge-switch-input:checked + .ge-toggle::after { transform: translateX(18px); background: #e8e8e8; }',
+        '.ge-row > label:not(.ge-switch) { flex: 1; cursor: default; color: inherit; }',
+        'select {',
+        '  display: inline-block;',
+        '  -webkit-appearance: menulist;',
+        '  -moz-appearance: menulist;',
+        '  appearance: menulist;',
+        '  background: #333;',
+        '  color: #ccc;',
+        '  border: 1px solid #000;',
+        '  border-radius: 6px;',
+        '  padding: 4px 6px;',
+        '  margin: 0;',
+        '  max-width: 140px;',
+        '  height: 28px;',
+        '  font: 12px/1.2 system-ui, sans-serif;',
+        '  cursor: pointer;',
+        '}',
+        'select option { background: #333; color: #ccc; }',
+        'button {',
+        '  font: 12px/1.2 system-ui, sans-serif;',
+        '  color: inherit;',
+        '  cursor: pointer;',
+        '  pointer-events: auto;',
+        '  background-image: none;',
+        '  filter: none;',
+        '}',
+        '.ge-foot {',
+        '  margin-top: 8px;',
+        '  padding-top: 8px;',
+        '  border-top: 1px solid rgba(0,0,0,0.45);',
+        '  font-size: 11px;',
+        '  color: var(--ge-rail-muted, #788087);',
+        '}'
+      ].join('\\n');
+    }
+
+
   function ensureFabStyle() {
     var node = document.getElementById(STYLE_ID);
     if (!node) {
@@ -950,6 +1073,20 @@
     foot.textContent = 'Drag up/down · Alt+G opens · Esc closes · v' + COMMON_VERSION;
     panel.appendChild(foot);
 
+    // Isolate panel chrome from site CSS (selects/buttons stay styled).
+    try {
+      var shadow = panel.attachShadow({ mode: 'open' });
+      var shStyle = document.createElement('style');
+      shStyle.textContent = panelShadowCss();
+      var inner = document.createElement('div');
+      inner.className = 'ge-inner';
+      while (panel.firstChild) inner.appendChild(panel.firstChild);
+      shadow.appendChild(shStyle);
+      shadow.appendChild(inner);
+    } catch (eShadow) {
+      // Shadow DOM unavailable — keep light-DOM panel.
+    }
+
     return panel;
   }
 
@@ -1091,8 +1228,11 @@
 
       document.addEventListener('click', function (e) {
         if (!panel.classList.contains('ge-open')) return;
+        var path = [];
+        try { path = e.composedPath ? e.composedPath() : []; } catch (eP) { path = []; }
+        if (path.indexOf(btn) >= 0 || path.indexOf(panel) >= 0) return;
         var t = e.target;
-        if (t === btn || btn.contains(t) || t === panel || panel.contains(t)) return;
+        if (t === btn || (btn.contains && btn.contains(t)) || t === panel) return;
         panel.classList.remove('ge-open');
         btn.setAttribute('aria-expanded', 'false');
       }, true);
