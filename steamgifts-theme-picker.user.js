@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SteamGifts Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        2.0.0
+// @version        2.0.1
 // @description    Dark charcoal Theme Picker for SteamGifts / SteamTrades / SGTools (ESGST-compatible).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -8399,7 +8399,7 @@ header {
 `;
   };
   try {
-    var _GE = (typeof globalThis !== 'undefined' && (globalThis.ThemePicker || globalThis.GreyEdition)) || (typeof window !== 'undefined' && (window.ThemePicker || window.GreyEdition));
+    var _GE = (typeof globalThis !== 'undefined' && (globalThis.ThemePicker)) || (typeof window !== 'undefined' && (window.ThemePicker));
     if (_GE && typeof _GE.isThemeEnabled === 'function' && !_GE.isThemeEnabled()) {
       return; // Original palette: leave site CSS alone
     }
@@ -8423,7 +8423,7 @@ Docobserver.observe(document.documentElement, { childList: true });
 /* Theme Picker settings menus */
 (function () {
   try {
-    var GE = (typeof globalThis !== 'undefined' && (globalThis.ThemePicker || globalThis.GreyEdition)) || (typeof window !== 'undefined' && (window.ThemePicker || window.GreyEdition));
+    var GE = (typeof globalThis !== 'undefined' && (globalThis.ThemePicker)) || (typeof window !== 'undefined' && (window.ThemePicker));
     if (!GE) return;
     if (typeof GE.applyDocumentFlags === 'function') GE.applyDocumentFlags('steamgifts');
     if (typeof GE.registerMenus === 'function') GE.registerMenus('steamgifts', 'https://cdn.steamgifts.com/img/favicon.ico');

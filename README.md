@@ -12,16 +12,15 @@ Install from the **latest GitHub Release** (those downloads are counted). Violen
 
 | Script | Version | Downloads | Install |
 | --- | --- | ---: | --- |
-| **ManaPool Theme Picker** | 2.0.0 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/manapool-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/manapool-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-theme-picker.user.js) |
-| **Scryfall Theme Picker** | 2.0.0 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/scryfall-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js) |
-| **SteamGifts Theme Picker** | 2.0.0 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/steamgifts-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/steamgifts-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-theme-picker.user.js) |
-| Theme Picker common (`@require`) | 1.14.0 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/theme-picker-common.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/theme-picker-common.js) |
+| **ManaPool Theme Picker** | 2.0.1 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/manapool-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/manapool-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-theme-picker.user.js) |
+| **Scryfall Theme Picker** | 2.0.1 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/scryfall-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js) |
+| **SteamGifts Theme Picker** | 2.0.1 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/steamgifts-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/steamgifts-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-theme-picker.user.js) |
+| Theme Picker common (`@require`) | 1.14.1 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/theme-picker-common.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/theme-picker-common.js) |
 
 **Total release downloads:** ![total](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/total?label=total%20downloads)
 
 > Download badges count **GitHub Release asset** downloads (including “latest/download” links). They do **not** include silent Violentmonkey updates from `raw.githubusercontent.com`. Prefer the **release** install link if you want your install counted.
 
-Legacy filenames (`*-grey-edition.user.js`, `grey-edition-common.js`) still update for existing installs; new installs should use **Theme Picker** names above.
 
 ## Features
 
@@ -39,7 +38,7 @@ Lives in **[ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/vel
 
 ## Changelog — 2.0.0
 
-- Rebrand **Grey Edition** → **Theme Picker** (more than gray palettes).
+- Rebrand **Theme Picker** → **Theme Picker** (more than gray palettes).
 - README rebuilt; GitHub Release assets + download badges.
 - Common `1.14.0`; site scripts `2.0.0`.
 

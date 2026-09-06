@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Scryfall Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        2.0.0
+// @version        2.0.1
 // @description    Dark charcoal theme for Scryfall — readable blues, themed chips, durable tooltips/grids
 // @author         expDARE
 // @license        CC-BY-NC-4.0
@@ -21,7 +21,7 @@
 (function () {
   'use strict';
 
-  if (typeof globalThis.ThemePicker === 'undefined' && typeof globalThis.GreyEdition === 'undefined' && (typeof window === 'undefined' || typeof window.ThemePicker === 'undefined')) {
+  if (typeof globalThis.ThemePicker === 'undefined' && (typeof window === 'undefined' || typeof window.ThemePicker === 'undefined')) {
     var _geStore = {};
     globalThis.ThemePicker = {
       palette: { body: '#252522', surface: '#2a2a28', header: '#1c1c1a', muted: '#333', text: 'rgba(166,166,166,0.95)', link: '#7ec8f0', linkAlt: '#629fc0', nmBlue: '#5eb0ef', priceGreen: '#16a34a', chipGray: '#aeaeae', deepGreen: '#045206' },
@@ -50,7 +50,7 @@
     };
     if (typeof window !== 'undefined') window.ThemePicker = globalThis.ThemePicker;
   }
-  var GE = globalThis.ThemePicker || globalThis.GreyEdition || window.ThemePicker || window.GreyEdition;
+  var GE = globalThis.ThemePicker || window.ThemePicker;
   GE.applyDocumentFlags('scryfall');
   GE.registerMenus('scryfall', 'https://scryfall.com/favicon.ico?v=23c9b39069bf');
 

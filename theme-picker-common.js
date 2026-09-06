@@ -1,6 +1,6 @@
 /**
  * Theme Picker common helpers (Tampermonkey @require)
- * Version: 1.14.0
+ * Version: 1.14.1
  * Author: expDARE
  * License: CC-BY-NC-4.0
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
@@ -13,7 +13,6 @@
  * 1.11.0: vertical-only FAB drag (right edge); ManaPool collapse/expand in panel; harden FAB vs site button CSS.
  * 1.12.0: larger FAB; ManaPool/Scryfall Original skips all theme overrides.
  * 1.13.0: accent picker, export/import/reset, Alt+G, update toast, site feature toggles, theme-colored switches.
- * 1.14.0: rebrand Grey Edition → Theme Picker (compat alias GreyEdition kept).
  * Not a userscript — load via // @require from each Theme Picker script.
  */
 (function (global) {
@@ -848,7 +847,7 @@
       return b;
     }
     tools.appendChild(mkTool('Export', function () {
-      var data = { v: 1, greyEdition: true };
+      var data = { v: 1, themePicker: true };
       Object.keys(SETTINGS_DEFAULTS).forEach(function (k) {
         data[k] = get(k, SETTINGS_DEFAULTS[k]);
       });
@@ -1136,9 +1135,7 @@
   };
 
   global.ThemePicker = api;
-  global.GreyEdition = api; // compat alias
   if (typeof globalThis !== 'undefined') {
     globalThis.ThemePicker = api;
-    globalThis.GreyEdition = api;
   }
 })(typeof window !== 'undefined' ? window : globalThis);

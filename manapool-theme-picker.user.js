@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           ManaPool Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        2.0.0
+// @version        2.0.1
 // @description    Dark charcoal theme for Mana Pool — collapsible home sections + collapse/expand in Theme Picker menu
 // @author         expDARE
 // @license        CC-BY-NC-4.0
@@ -21,7 +21,7 @@
 (function () {
   'use strict';
 
-  if (typeof globalThis.ThemePicker === 'undefined' && typeof globalThis.GreyEdition === 'undefined' && typeof window !== 'undefined' && typeof window.ThemePicker === 'undefined') {
+  if (typeof globalThis.ThemePicker === 'undefined' && typeof window !== 'undefined' && typeof window.ThemePicker === 'undefined') {
     var _geStore = {};
     globalThis.ThemePicker = {
       palette: { body: '#252522', surface: '#2a2a28', header: '#1c1c1a', muted: '#333', text: 'rgba(166,166,166,0.95)', link: '#7ec8f0', linkAlt: '#629fc0', nmBlue: '#5eb0ef', priceGreen: '#16a34a', chipGray: '#aeaeae', deepGreen: '#045206' },
@@ -50,7 +50,7 @@
     };
     if (typeof window !== 'undefined') window.ThemePicker = globalThis.ThemePicker;
   }
-  var GE = globalThis.ThemePicker || globalThis.GreyEdition || window.ThemePicker || window.GreyEdition;
+  var GE = globalThis.ThemePicker || window.ThemePicker;
   GE.applyDocumentFlags('manapool');
   GE.registerMenus('manapool', 'https://manapool.com/favicon.svg');
 
@@ -133,7 +133,7 @@
   function clearThemeOverrides() {
     var root = document.documentElement;
     if (!root) return;
-    delete root.dataset.greyEditionVars;
+    delete root.dataset.themePickerVars;
     root.classList.remove('dark');
     root.style.removeProperty('color-scheme');
     Object.keys(vars).forEach(function (k) {
@@ -148,8 +148,8 @@
       return;
     }
     var root = document.documentElement;
-    if (root.dataset.greyEditionVars === '1') return;
-    root.dataset.greyEditionVars = '1';
+    if (root.dataset.themePickerVars === '1') return;
+    root.dataset.themePickerVars = '1';
     root.style.colorScheme = 'dark';
     root.classList.add('dark');
     Object.keys(vars).forEach(function (k) {
