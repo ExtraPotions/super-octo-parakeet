@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Scryfall Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        2.0.4
+// @version        2.0.5
 // @description    Theme palettes + settings for Scryfall — readable blues, themed chips, dim warnings, gallery polish
 // @author         expDARE
 // @license        CC-BY-NC-4.0
@@ -55,7 +55,7 @@
   GE.registerMenus('scryfall', 'https://scryfall.com/favicon.ico?v=23c9b39069bf');
 
   var STYLE_ID = 'theme-picker-scryfall';
-  var css = "/* Scryfall Theme Picker v2.0.4 \u2014 sitewide charcoal + durable overlays */\n/* Protect Theme Picker FAB/panel from Scryfall button chrome */
+  var css = "/* Scryfall Theme Picker v2.0.5 \u2014 sitewide charcoal + durable overlays */\n/* Protect Theme Picker FAB/panel from Scryfall button chrome */
 html body button#theme-picker-fab,
 #theme-picker-fab {
   all: unset !important;
