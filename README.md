@@ -8,7 +8,9 @@ Palettes: Original · Light gray · Dark gray · Navy · Black — plus accent c
 
 ## Install
 
-Install from the **latest GitHub Release** (those downloads are counted). Violentmonkey will use `@updateURL` on the raw file for updates.
+Works with **Violentmonkey** (preferred), **Tampermonkey**, or any userscript manager you like.
+
+Install from the **latest GitHub Release** (those downloads are counted). Your manager will use `@updateURL` on the raw file for updates.
 
 | Script | Version | Downloads | Install |
 | --- | --- | ---: | --- |
@@ -19,7 +21,7 @@ Install from the **latest GitHub Release** (those downloads are counted). Violen
 
 **Total release downloads:** ![total](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/total?label=total%20downloads)
 
-> Download badges count **GitHub Release asset** downloads (including “latest/download” links). They do **not** include silent Violentmonkey updates from `raw.githubusercontent.com`. Prefer the **release** install link if you want your install counted.
+> Download badges count **GitHub Release asset** downloads (including “latest/download” links). They do **not** include silent auto-updates from `raw.githubusercontent.com`. Prefer the **release** install link if you want your install counted.
 
 
 ## Features
@@ -38,7 +40,7 @@ Lives in **[ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/vel
 
 ## Changelog — 2.0.0
 
-- Rebrand **Theme Picker** → **Theme Picker** (more than gray palettes).
+- Rebranded from Grey Edition to **Theme Picker** (more than gray palettes).
 - README rebuilt; GitHub Release assets + download badges.
 - Common `1.14.0`; site scripts `2.0.0`.
 
