@@ -10,18 +10,18 @@ Palettes: Original · Light gray · Dark gray · Navy · Black — plus accent c
 
 Works with **Violentmonkey** (preferred), **Tampermonkey**, or any userscript manager you like.
 
-Install from the **latest GitHub Release** (those downloads are counted). Your manager will use `@updateURL` on the raw file for updates.
+Install from the **latest GitHub Release** (those downloads are counted). `@downloadURL` / `@updateURL` / `@require` also point at release assets, so Violentmonkey/Tampermonkey **update checks count** toward the badges.
 
 | Script | Version | Downloads | Install |
 | --- | --- | ---: | --- |
-| **ManaPool Theme Picker** | 2.0.1 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/manapool-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/manapool-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-theme-picker.user.js) |
-| **Scryfall Theme Picker** | 2.0.1 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/scryfall-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js) |
-| **SteamGifts Theme Picker** | 2.0.1 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/steamgifts-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/steamgifts-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-theme-picker.user.js) |
-| Theme Picker common (`@require`) | 1.14.1 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/theme-picker-common.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/theme-picker-common.js) |
+| **ManaPool Theme Picker** | 2.0.2 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/manapool-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/manapool-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-theme-picker.user.js) |
+| **Scryfall Theme Picker** | 2.0.2 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/scryfall-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js) |
+| **SteamGifts Theme Picker** | 2.0.2 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/steamgifts-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/steamgifts-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-theme-picker.user.js) |
+| Theme Picker common (`@require`) | 1.14.2 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/theme-picker-common.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/theme-picker-common.js) |
 
 **Total release downloads:** ![total](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/total?label=total%20downloads)
 
-> Download badges count **GitHub Release asset** downloads (including “latest/download” links). They do **not** include silent auto-updates from `raw.githubusercontent.com`. Prefer the **release** install link if you want your install counted.
+> Download badges count **GitHub Release asset** downloads — including first installs and manager update fetches via `releases/latest/download`. Raw `main` links still work but are **not** counted.
 
 
 ## Features
@@ -37,6 +37,11 @@ Install from the **latest GitHub Release** (those downloads are counted). Your m
 ## Amazon Dark Pattern Blocker
 
 Lives in **[ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/velvet-crane-orbit)** — [install](https://github.com/ExtraPotions/velvet-crane-orbit/releases/latest/download/amazon-dark-pattern-blocker.user.js).
+
+## Changelog — 2.0.2
+
+- `@downloadURL` / `@updateURL` / `@require` → GitHub Release assets (update checks counted).
+- Common `1.14.2`; site scripts `2.0.2`.
 
 ## Changelog — 2.0.0
 

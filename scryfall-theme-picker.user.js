@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Scryfall Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        2.0.1
+// @version        2.0.2
 // @description    Dark charcoal theme for Scryfall — readable blues, themed chips, durable tooltips/grids
 // @author         expDARE
 // @license        CC-BY-NC-4.0
@@ -10,9 +10,9 @@
 // @match          *://www.scryfall.com/*
 // @icon           https://scryfall.com/favicon.ico?v=23c9b39069bf
 // @run-at         document-start
-// @downloadURL    https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js
-// @updateURL      https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js
-// @require        https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/theme-picker-common.js
+// @downloadURL    https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js
+// @updateURL      https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js
+// @require        https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js
 // @grant          GM_getValue
 // @grant          GM_setValue
 // @grant          GM_registerMenuCommand
