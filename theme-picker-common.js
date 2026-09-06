@@ -19,6 +19,7 @@
   'use strict';
 
   var PREFIX = 'ge-';
+  var COMMON_VERSION = '1.14.2';
   var RAIL_ID = 'theme-picker-settings-rail';
   var FAB_ID = 'theme-picker-fab';
   var siteActions = {};
@@ -899,7 +900,7 @@
 
     var foot = document.createElement('div');
     foot.className = 'ge-foot';
-    foot.textContent = 'Drag up/down · Alt+G opens menu · v' + '1.14.0';
+    foot.textContent = 'Drag up/down · Alt+G opens menu · v' + COMMON_VERSION;
     panel.appendChild(foot);
 
     return panel;
@@ -1073,12 +1074,12 @@
       // One-time update toast
       try {
         var seen = get('lastSeenVersion', '');
-        if (seen !== '1.14.0') {
-          set('lastSeenVersion', '1.14.0');
+        if (seen !== COMMON_VERSION) {
+          set('lastSeenVersion', COMMON_VERSION);
           if (seen) {
             var toast = document.createElement('div');
             toast.id = 'theme-picker-update-toast';
-            toast.textContent = 'Theme Picker updated to 1.13.0 — open the favicon menu for new options.';
+            toast.textContent = 'Theme Picker updated to ' + COMMON_VERSION + ' — open the favicon menu for new options.';
             document.body.appendChild(toast);
             setTimeout(function () {
               try { toast.remove(); } catch (eT) {}
@@ -1114,7 +1115,7 @@
   }
 
   var api = {
-    version: '1.14.0',
+    version: COMMON_VERSION,
     palette: palette,
     palettes: PALETTES,
     get: get,
