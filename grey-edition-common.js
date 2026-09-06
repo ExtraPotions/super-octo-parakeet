@@ -6,12 +6,12 @@
  *
  * Shared palette + settings for ManaPool / Scryfall / SteamGifts Grey Edition.
  * 1.9.0: right-edge vertical favicon settings rail (Violentmonkey/Tampermonkey).
- * 1.9.1: rail/button themed to each site (dark chrome + favicon accent, FL-dock style).
- * 1.9.2: floating circular favicon button (no full-height rail strip) — matches FL #fl-dock-show.
+ * 1.9.1: rail/button themed to each site (dark chrome + favicon accent).
+ * 1.9.2: floating circular favicon button (no full-height rail strip).
  * 1.10.0: theme palette picker — original / light gray / dark gray / navy / black.
  * 1.11.0: vertical-only FAB drag (right edge); ManaPool collapse/expand in panel; harden FAB vs site button CSS.
  * 1.12.0: larger FAB; ManaPool/Scryfall Original skips all theme overrides.
- * 1.13.0: accent picker, export/import/reset, Alt+G, update toast, site feature toggles, FL-style theme switches.
+ * 1.13.0: accent picker, export/import/reset, Alt+G, update toast, site feature toggles, theme-colored switches.
  * Not a userscript — load via // @require from each Grey Edition script.
  */
 (function (global) {
@@ -36,7 +36,7 @@
     steamgifts: 'SteamGifts'
   };
 
-  /* Rail chrome matches site dark UI; accent ≈ favicon / brand chip color (see FL dock pattern). */
+  /* Rail chrome matches site dark UI; accent ≈ favicon / brand chip color. */
   var SITE_THEMES = {
     manapool: {
       railBg: 'rgba(28,28,26,0.94)',
@@ -592,7 +592,7 @@
       '  height: 0 !important;',
       '  pointer-events: none !important;',
       '}',
-      /* FL Tools–style track: 36×18, knob 18; ON uses theme accent */
+      /* Switch track: 36×18, knob 18; ON uses theme accent */
       '#' + PANEL_ID + ' .ge-toggle {',
       '  position: relative !important;',
       '  flex: none !important;',

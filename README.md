@@ -25,7 +25,7 @@ Current release: ManaPool / Scryfall / SteamGifts **1.9.0**, common **1.13.0**.
 
 ## Changelog — 1.13.0
 
-- **FL-style switches** for all toggles (track uses selected Theme/Accent color).
+- **Theme switches** for all toggles (track uses selected Theme/Accent color).
 - **Accent** picker, **Export / Import / Reset**, **Alt+G** to open menu, update toast on version bump.
 - ManaPool: hide sold out, compact prices, always-show chips; stronger section scroll memory.
 - Scryfall: print/set gallery polish; dim content warnings.
@@ -52,12 +52,12 @@ Current release: ManaPool / Scryfall / SteamGifts **1.9.0**, common **1.13.0**.
 
 ## Changelog — 1.9.2
 
-- **Floating favicon button**: settings control is a free-floating circle (bottom-right), not a full-height side rail — matches FL Tools dock-show. Panel opens above the button.
+- **Floating favicon button**: settings control is a free-floating circle (bottom-right), not a full-height side rail. Panel opens above the button.
 - ManaPool / Scryfall `1.6.4`, SteamGifts `1.7.4`, common `1.9.2`, Amazon DPB `0.1.18`.
 
 ## Changelog — 1.9.1
 
-- **Settings rail theming**: button/rail/panel match each site’s dark chrome + favicon accent (ManaPool NM blue, Scryfall link blue, SteamGifts nav blue, Amazon navy/orange) — same idea as the FL Tools dock.
+- **Settings rail theming**: button/rail/panel match each site’s dark chrome + favicon accent (ManaPool NM blue, Scryfall link blue, SteamGifts nav blue, Amazon navy/orange).
 - ManaPool / Scryfall `1.6.3`, SteamGifts `1.7.3`, common `1.9.1`, Amazon DPB `0.1.17`.
 
 ## Changelog — 1.9.0
