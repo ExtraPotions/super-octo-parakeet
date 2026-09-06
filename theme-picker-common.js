@@ -1,6 +1,6 @@
 /**
  * Theme Picker common helpers (Tampermonkey @require)
- * Version: 1.14.5
+ * Version: 1.14.6
  * Author: expDARE
  * License: CC-BY-NC-4.0
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
@@ -16,13 +16,14 @@
  * 1.14.3: re-export ensureFabStyle so site scripts can re-assert FAB CSS after their theme sheets.
  * 1.14.4: stop all:unset on panel controls (broke selects/layout); always append FAB stylesheet last.
  * 1.14.5: Esc closes settings panel.
+ * 1.14.6: drop all:unset on settings panel (kept flattening Scryfall); column flex layout.
  * Not a userscript — load via // @require from each Theme Picker script.
  */
 (function (global) {
   'use strict';
 
   var PREFIX = 'ge-';
-  var COMMON_VERSION = '1.14.5';
+  var COMMON_VERSION = '1.14.6';
   var RAIL_ID = 'theme-picker-settings-rail';
   var FAB_ID = 'theme-picker-fab';
   var siteActions = {};
@@ -298,7 +299,7 @@
 
   function rootCss() {
     return [
-      '/* Theme Picker common root flags CSS v1.14.5 */',
+      '/* Theme Picker common root flags CSS v1.14.6 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -487,7 +488,7 @@
   function fabCss() {
     return [
       '#' + FAB_ID + ', #' + PANEL_ID + ', #' + FAB_ID + ' *, #' + PANEL_ID + ' * { box-sizing: border-box; }',
-      /* Do NOT all:unset panel selects/inputs — that expands <select> options inline and flattens the menu. */
+      /* Do NOT all:unset the panel or its selects/inputs — expands options / flattens the menu (esp. Scryfall). */
       '#' + PANEL_ID + ' button {',
       '  font: 12px/1.2 system-ui, sans-serif !important;',
       '  color: inherit !important;',
@@ -545,8 +546,8 @@
       '  display: block !important;',
       '  pointer-events: none !important;',
       '}',
+      /* Never all:unset the panel — it resets display/stacking and Scryfall site CSS flattens the menu. */
       '#' + PANEL_ID + ', html body #' + PANEL_ID + ' {',
-      '  all: unset !important;',
       '  position: fixed !important;',
       '  right: 12px !important;',
       '  left: auto !important;',
@@ -558,17 +559,28 @@
       '  width: 270px !important;',
       '  max-width: calc(100vw - 24px) !important;',
       '  max-height: calc(100vh - 96px) !important;',
-      '  overflow: auto !important;',
+      '  overflow-x: hidden !important;',
+      '  overflow-y: auto !important;',
       '  background: var(--ge-rail-panel-bg, #2a2a28) !important;',
       '  color: var(--ge-rail-text, rgba(204,204,204,0.95)) !important;',
       '  border: 1px solid var(--ge-rail-panel-border, rgba(0,0,0,0.75)) !important;',
       '  border-radius: 12px !important;',
       '  box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 1px var(--ge-rail-accent-soft, transparent) !important;',
       '  padding: 12px 12px 10px !important;',
+      '  margin: 0 !important;',
       '  font: 13px/1.35 "Open Sans", system-ui, sans-serif !important;',
+      '  flex-direction: column !important;',
+      '  flex-wrap: nowrap !important;',
+      '  align-items: stretch !important;',
+      '  justify-content: flex-start !important;',
+      '  gap: 0 !important;',
+      '  pointer-events: auto !important;',
       '  display: none !important;',
       '}',
-      '#' + PANEL_ID + '.ge-open { display: block !important; }',
+      '#' + PANEL_ID + '.ge-open, html body #' + PANEL_ID + '.ge-open {',
+      '  display: flex !important;',
+      '  flex-direction: column !important;',
+      '}',
       '#' + PANEL_ID + ' .ge-title {',
       '  font-weight: 700 !important;',
       '  font-size: 13px !important;',
@@ -657,7 +669,8 @@
       '#' + PANEL_ID + ' select {',
       '  display: inline-block !important;',
       '  appearance: auto !important;',
-      '  -webkit-appearance: auto !important;',
+      '  -webkit-appearance: menulist !important;',
+      '  -moz-appearance: menulist !important;',
       '  background: #333 !important;',
       '  background-image: none !important;',
       '  color: #ccc !important;',
@@ -666,9 +679,19 @@
       '  padding: 4px 6px !important;',
       '  margin: 0 !important;',
       '  max-width: 140px !important;',
+      '  width: auto !important;',
+      '  height: auto !important;',
+      '  min-height: 0 !important;',
+      '  max-height: none !important;',
       '  font: 12px/1.2 system-ui, sans-serif !important;',
       '  cursor: pointer !important;',
       '  pointer-events: auto !important;',
+      '  flex: 0 0 auto !important;',
+      '}',
+      '#' + PANEL_ID + ' select option {',
+      '  display: block !important;',
+      '  background: #333 !important;',
+      '  color: #ccc !important;',
       '}',
       '#' + PANEL_ID + ' .ge-foot {',
       '  margin-top: 8px !important;',

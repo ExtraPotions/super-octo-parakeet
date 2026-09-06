@@ -13,9 +13,9 @@ Use [Violentmonkey](https://violentmonkey.github.io/) (preferred) or Tampermonke
 | Script | Version | Install |
 | --- | --- | --- |
 | **ManaPool Theme Picker** | 2.0.7 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/manapool-theme-picker.user.js) |
-| **Scryfall Theme Picker** | 2.0.6 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js) |
+| **Scryfall Theme Picker** | 2.0.7 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js) |
 | **SteamGifts Theme Picker** | 2.0.3 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/steamgifts-theme-picker.user.js) |
-| Theme Picker common (`@require`) | 1.14.5 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) |
+| Theme Picker common (`@require`) | 1.14.6 | [download](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) |
 
 ![total downloads](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/total?label=total%20downloads)
 
@@ -31,6 +31,12 @@ Use [Violentmonkey](https://violentmonkey.github.io/) (preferred) or Tampermonke
 ## Changelog
 
 See [GitHub Releases](https://github.com/ExtraPotions/super-octo-parakeet/releases) for full notes.
+
+### 2.0.8
+
+- Common: remove `all: unset` from the settings panel (was still flattening Scryfall); column flex layout
+- Scryfall: panel open uses `display: flex` column
+- Common `1.14.6` · Scryfall `2.0.7`
 
 ### 2.0.7
 
