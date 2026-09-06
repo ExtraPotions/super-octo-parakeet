@@ -15,9 +15,9 @@ Install from the **latest GitHub Release** (those downloads are counted). `@down
 | Script | Version | Downloads | Install |
 | --- | --- | ---: | --- |
 | **ManaPool Theme Picker** | 2.0.3 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/manapool-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/manapool-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-theme-picker.user.js) |
-| **Scryfall Theme Picker** | 2.0.3 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/scryfall-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js) |
+| **Scryfall Theme Picker** | 2.0.4 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/scryfall-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/scryfall-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-theme-picker.user.js) |
 | **SteamGifts Theme Picker** | 2.0.3 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/steamgifts-theme-picker.user.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/steamgifts-theme-picker.user.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-theme-picker.user.js) |
-| Theme Picker common (`@require`) | 1.14.2 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/theme-picker-common.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/theme-picker-common.js) |
+| Theme Picker common (`@require`) | 1.14.3 | ![dl](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/theme-picker-common.js/total?label=downloads) | [release](https://github.com/ExtraPotions/super-octo-parakeet/releases/latest/download/theme-picker-common.js) · [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/theme-picker-common.js) |
 
 **Total release downloads:** ![total](https://img.shields.io/github/downloads/ExtraPotions/super-octo-parakeet/total?label=total%20downloads)
 
@@ -37,6 +37,11 @@ Install from the **latest GitHub Release** (those downloads are counted). `@down
 ## Amazon Dark Pattern Blocker
 
 Lives in **[ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/velvet-crane-orbit)** — [install](https://github.com/ExtraPotions/velvet-crane-orbit/releases/latest/download/amazon-dark-pattern-blocker.user.js).
+
+## Changelog — 2.0.4
+
+- **Scryfall**: harden settings FAB against sitewide `button` CSS; re-apply FAB styles after theme inject; isolate panel controls.
+- Common `1.14.3`; Scryfall `2.0.4` (ManaPool/SteamGifts stay `2.0.3`).
 
 ## Changelog — 2.0.3
 

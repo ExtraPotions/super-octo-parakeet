@@ -1,6 +1,6 @@
 /**
  * Theme Picker common helpers (Tampermonkey @require)
- * Version: 1.14.2
+ * Version: 1.14.3
  * Author: expDARE
  * License: CC-BY-NC-4.0
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
@@ -13,13 +13,14 @@
  * 1.11.0: vertical-only FAB drag (right edge); ManaPool collapse/expand in panel; harden FAB vs site button CSS.
  * 1.12.0: larger FAB; ManaPool/Scryfall Original skips all theme overrides.
  * 1.13.0: accent picker, export/import/reset, Alt+G, update toast, site feature toggles, theme-colored switches.
+ * 1.14.3: re-export ensureFabStyle so site scripts can re-assert FAB CSS after their theme sheets.
  * Not a userscript — load via // @require from each Theme Picker script.
  */
 (function (global) {
   'use strict';
 
   var PREFIX = 'ge-';
-  var COMMON_VERSION = '1.14.2';
+  var COMMON_VERSION = '1.14.3';
   var RAIL_ID = 'theme-picker-settings-rail';
   var FAB_ID = 'theme-picker-fab';
   var siteActions = {};
@@ -295,7 +296,7 @@
 
   function rootCss() {
     return [
-      '/* Theme Picker common root flags CSS v1.14.2 */',
+      '/* Theme Picker common root flags CSS v1.14.3 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -483,7 +484,15 @@
 
   function fabCss() {
     return [
-      '#' + FAB_ID + ', #' + PANEL_ID + ', #' + FAB_ID + ' * { box-sizing: border-box; }',
+      '#' + FAB_ID + ', #' + PANEL_ID + ', #' + FAB_ID + ' *, #' + PANEL_ID + ' * { box-sizing: border-box; }',
+      '#' + PANEL_ID + ' button, #' + PANEL_ID + ' select, #' + PANEL_ID + ' input {',
+      '  all: unset !important;',
+      '  font: 12px/1.2 system-ui, sans-serif !important;',
+      '  color: inherit !important;',
+      '  cursor: pointer !important;',
+      '  pointer-events: auto !important;',
+      '  box-sizing: border-box !important;',
+      '}',
       'html body button#' + FAB_ID + ',',
       '#' + FAB_ID + ' {',
       '  all: unset !important;',
@@ -1123,6 +1132,7 @@
     applyDocumentFlags: applyDocumentFlags,
     registerMenus: registerMenus,
     mountSettingsFab: mountSettingsFab,
+    ensureFabStyle: ensureFabStyle,
     registerSiteActions: registerSiteActions,
     rootCss: function () { return rootCss() + '\n' + featureCss() + '\n' + paletteCss(); },
     paletteCss: paletteCss,
