@@ -8,16 +8,16 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 
 | Script | Version | Install |
 | --- | --- | --- |
-| **ManaPool Grey Edition** | 1.9.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
-| **Scryfall Grey Edition** | 1.9.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.9.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| **ManaPool Grey Edition** | 1.9.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
+| **Scryfall Grey Edition** | 1.9.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.9.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
 | Grey Edition common (auto via `@require`) | 1.13.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: ManaPool / Scryfall / SteamGifts **1.9.1**, common **1.13.0** (CC BY 4.0).
+Current release: ManaPool / Scryfall / SteamGifts **1.9.2**, common **1.13.0** (CC BY-NC 4.0, non-commercial).
 
 ## Changelog — move
 
@@ -114,4 +114,4 @@ Moved to **[ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/vel
 
 ## License
 
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — Copyright (c) 2025–2026 **expDARE**. Forks and modifications must attribute expDARE.
+[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — Copyright (c) 2025–2026 **expDARE**. Attribution required. **Non-commercial** — do not profit from this work.

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SteamGifts Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.9.1
+// @version        1.9.2
 // @description    Dark charcoal Grey Edition for SteamGifts / SteamTrades / SGTools (ESGST-compatible).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -11,7 +11,7 @@
 // @match          *://www.steamgifts.com/*
 // @match          *://www.steamtrades.com/*
 // @match          *://www.sgtools.info/*
-// @license        CC-BY-4.0
+// @license        CC-BY-NC-4.0
 // @require        https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js
 // @grant          GM.info
 // @grant          GM_getValue
