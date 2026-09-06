@@ -8,20 +8,29 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 
 | Script | Version | Install |
 | --- | --- | --- |
-| **ManaPool Grey Edition** | 1.8.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
-| **Scryfall Grey Edition** | 1.8.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.8.2 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
-| Grey Edition common (auto via `@require`) | 1.12.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
+| **ManaPool Grey Edition** | 1.9.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
+| **Scryfall Grey Edition** | 1.9.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.9.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| Grey Edition common (auto via `@require`) | 1.13.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: ManaPool **1.8.1**, Scryfall **1.8.1**, SteamGifts **1.8.2**, common **1.12.0**.
+Current release: ManaPool / Scryfall / SteamGifts **1.9.0**, common **1.13.0**.
 
 ## Changelog — move
 
 - **Amazon Dark Pattern Blocker** moved to its own repo: [ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/velvet-crane-orbit) (`0.1.20`). Install from there going forward.
+
+## Changelog — 1.13.0
+
+- **FL-style switches** for all toggles (track uses selected Theme/Accent color).
+- **Accent** picker, **Export / Import / Reset**, **Alt+G** to open menu, update toast on version bump.
+- ManaPool: hide sold out, compact prices, always-show chips; stronger section scroll memory.
+- Scryfall: print/set gallery polish; dim content warnings.
+- SteamGifts: hide entered / ended, soft-hide featured/pinned, high-contrast Enter.
+- ManaPool / Scryfall / SteamGifts `1.9.0`, common `1.13.0`.
 
 ## Changelog — 1.12.0
 

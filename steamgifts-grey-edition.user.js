@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SteamGifts Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.8.2
+// @version        1.9.0
 // @description    Dark charcoal Grey Edition for SteamGifts / SteamTrades / SGTools. Full ESGST-compatible theme restored from SG Dark Grey by SquishedPotatoe (CC-BY-SA-4.0).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -8428,16 +8428,41 @@ Docobserver.observe(document.documentElement, { childList: true });
     if (typeof GE.applyDocumentFlags === 'function') GE.applyDocumentFlags('steamgifts');
     if (typeof GE.registerMenus === 'function') GE.registerMenus('steamgifts', 'https://cdn.steamgifts.com/img/favicon.ico');
     else if (typeof GE.mountSettingsFab === 'function') GE.mountSettingsFab('steamgifts', 'https://cdn.steamgifts.com/img/favicon.ico');
-    if (typeof GE.isThemeEnabled === 'function' && !GE.isThemeEnabled()) {
-      // Original: leave SteamGifts native CSS alone (no flag remaps)
-    } else if (typeof GE.rootCss === 'function') {
+    // Always inject feature flags (hide entered/ended etc.) even on Original
+    if (typeof GE.rootCss === 'function') {
       var extra = GE.rootCss();
-      if (extra) {
-        var s = document.createElement('style');
+      var s = document.getElementById('grey-edition-steamgifts-flags');
+      if (!s) {
+        s = document.createElement('style');
         s.id = 'grey-edition-steamgifts-flags';
-        s.textContent = extra;
         (document.documentElement || document.head).appendChild(s);
       }
+      // On Original, only featureCss portion — rootCss includes featureCss via GE.rootCss wrapper
+      if (typeof GE.isThemeEnabled === 'function' && !GE.isThemeEnabled() && typeof GE.featureCss === 'function') {
+        s.textContent = GE.featureCss();
+      } else if (extra) {
+        s.textContent = extra;
+      }
     }
+    function markEndedGiveaways() {
+      document.querySelectorAll('.giveaway__row-outer-wrap').forEach(function (row) {
+        var ended = false;
+        var spans = row.querySelectorAll('.giveaway__columns span[title], .giveaway__column--width-fill span[title]');
+        for (var i = 0; i < spans.length; i++) {
+          var title = spans[i].getAttribute('title') || '';
+          if (/ended/i.test(title)) { ended = true; break; }
+        }
+        if (!ended && row.querySelector('.fa-times-circle')) ended = true;
+        if (ended) row.setAttribute('data-ge-ended', '1');
+        else row.removeAttribute('data-ge-ended');
+      });
+    }
+    markEndedGiveaways();
+    var endTimer = null;
+    var endObs = new MutationObserver(function () {
+      if (endTimer) clearTimeout(endTimer);
+      endTimer = setTimeout(markEndedGiveaways, 400);
+    });
+    endObs.observe(document.documentElement, { childList: true, subtree: true });
   } catch (e) {}
 })();

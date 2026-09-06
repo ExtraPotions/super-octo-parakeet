@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           ManaPool Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.8.1
+// @version        1.9.0
 // @description    Dark charcoal theme for Mana Pool — collapsible home sections + collapse/expand in Grey Edition menu
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -108,7 +108,10 @@
     '}',
     'html[data-ge-hide-ads="1"] [class*="promo"], html[data-ge-hide-ads="1"] [class*="advert"],',
     'html[data-ge-hide-ads="1"] [class*="sponsored"], html[data-ge-hide-ads="1"] [data-ad],',
-    'html[data-ge-hide-ads="1"] .adsbygoogle { display: none !important; }'
+    'html[data-ge-hide-ads="1"] .adsbygoogle { display: none !important; }',
+    'html[data-ge-hide-sold-out="1"] [data-mpge-sold-out="1"] { display: none !important; }',
+    'html[data-ge-compact-prices="1"] .text-green-700, html[data-ge-compact-prices="1"] .text-xl.font-bold { font-size: 0.95rem !important; }',
+    'html[data-ge-always-chips="1"] .inline-flex.items-center.border { opacity: 1 !important; visibility: visible !important; }'
   ].join('\n');
 
   function ensureStyle() {
@@ -358,6 +361,37 @@
     syncCollapseAllButtons();
   }
 
+
+  function markSoldOutCards() {
+    var cards = document.querySelectorAll('article, li article, li.group, .group.bg-white');
+    for (var i = 0; i < cards.length; i++) {
+      var el = cards[i];
+      if (el.getAttribute('data-mpge-sold-checked') === '1') continue;
+      el.setAttribute('data-mpge-sold-checked', '1');
+      var t = (el.textContent || '').toLowerCase();
+      var sold = /\bout of stock\b|\bsold out\b|\bno stock\b/.test(t);
+      if (!sold) {
+        var zero = el.querySelector('.line-through, [class*="sold"], [class*="out-of-stock"]');
+        if (zero) sold = true;
+      }
+      if (sold) el.setAttribute('data-mpge-sold-out', '1');
+      else el.removeAttribute('data-mpge-sold-out');
+    }
+  }
+
+  function persistScrollAggressive() {
+    try {
+      var map = loadScrollMap();
+      getEnhancedSections().forEach(function (section) {
+        var title = section.getAttribute('data-mpge-title') || '';
+        if (!title) return;
+        if (section.classList.contains('mpge-section-collapsed')) return;
+        map[title] = window.scrollY || window.pageYOffset || 0;
+      });
+      saveScrollMap(map);
+    } catch (e) {}
+  }
+
   function apply() {
     if (applying) return;
     applying = true;
@@ -368,6 +402,8 @@
       fixLogoOnce();
       enhanceHomeSections();
       ensureCollapseAllButtons();
+      markSoldOutCards();
+      persistScrollAggressive();
     } finally {
       applying = false;
     }
@@ -382,6 +418,7 @@
     sectionTimer = setTimeout(function () {
       enhanceHomeSections();
       ensureCollapseAllButtons();
+      markSoldOutCards();
     }, 300);
   });
   obs.observe(document.documentElement, { childList: true, subtree: true });
@@ -389,5 +426,11 @@
   window.addEventListener('pageshow', function () {
     enhanceHomeSections();
     ensureCollapseAllButtons();
+    markSoldOutCards();
   });
+  window.addEventListener('scroll', function () {
+    if (window.__mpgeScrollT) clearTimeout(window.__mpgeScrollT);
+    window.__mpgeScrollT = setTimeout(persistScrollAggressive, 200);
+  }, { passive: true });
+  window.addEventListener('pagehide', persistScrollAggressive);
 })();
