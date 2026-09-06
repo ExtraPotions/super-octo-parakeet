@@ -1,6 +1,6 @@
 /**
  * Theme Picker common helpers (Tampermonkey @require)
- * Version: 1.14.4
+ * Version: 1.14.5
  * Author: expDARE
  * License: CC-BY-NC-4.0
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
@@ -15,13 +15,14 @@
  * 1.13.0: accent picker, export/import/reset, Alt+G, update toast, site feature toggles, theme-colored switches.
  * 1.14.3: re-export ensureFabStyle so site scripts can re-assert FAB CSS after their theme sheets.
  * 1.14.4: stop all:unset on panel controls (broke selects/layout); always append FAB stylesheet last.
+ * 1.14.5: Esc closes settings panel.
  * Not a userscript — load via // @require from each Theme Picker script.
  */
 (function (global) {
   'use strict';
 
   var PREFIX = 'ge-';
-  var COMMON_VERSION = '1.14.4';
+  var COMMON_VERSION = '1.14.5';
   var RAIL_ID = 'theme-picker-settings-rail';
   var FAB_ID = 'theme-picker-fab';
   var siteActions = {};
@@ -297,7 +298,7 @@
 
   function rootCss() {
     return [
-      '/* Theme Picker common root flags CSS v1.14.4 */',
+      '/* Theme Picker common root flags CSS v1.14.5 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -922,7 +923,7 @@
 
     var foot = document.createElement('div');
     foot.className = 'ge-foot';
-    foot.textContent = 'Drag up/down · Alt+G opens menu · v' + COMMON_VERSION;
+    foot.textContent = 'Drag up/down · Alt+G opens · Esc closes · v' + COMMON_VERSION;
     panel.appendChild(foot);
 
     return panel;
@@ -1080,14 +1081,21 @@
       document.body.appendChild(panel);
       document.body.appendChild(btn);
 
-      // Alt+G toggles panel
+      // Alt+G toggles panel; Esc closes
       if (!window.__geShortcutBound) {
         window.__geShortcutBound = true;
         document.addEventListener('keydown', function (e) {
-          if (!(e.altKey && !e.ctrlKey && !e.metaKey && (e.key === 'g' || e.key === 'G'))) return;
           var b = document.getElementById(FAB_ID);
           var p = document.getElementById(PANEL_ID);
           if (!b || !p) return;
+          if (e.key === 'Escape' || e.key === 'Esc') {
+            if (!p.classList.contains('ge-open')) return;
+            e.preventDefault();
+            p.classList.remove('ge-open');
+            b.setAttribute('aria-expanded', 'false');
+            return;
+          }
+          if (!(e.altKey && !e.ctrlKey && !e.metaKey && (e.key === 'g' || e.key === 'G'))) return;
           e.preventDefault();
           b.click();
         });

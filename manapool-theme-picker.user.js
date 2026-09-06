@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           ManaPool Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        2.0.3
+// @version        2.0.7
 // @description    Theme palettes + settings for Mana Pool — collapsible sections, hide sold out, compact prices, denser grid
 // @author         expDARE
 // @license        CC-BY-NC-4.0
@@ -125,9 +125,10 @@
     if (GE.isThemeEnabled && !GE.isThemeEnabled()) {
       // Original: site theme only + structural features (no charcoal / no rootCss remaps)
       node.textContent = featureCss;
-      return;
+    } else if (node.textContent !== css) {
+      node.textContent = css;
     }
-    if (node.textContent !== css) node.textContent = css;
+    if (GE.ensureFabStyle) GE.ensureFabStyle();
   }
 
   function clearThemeOverrides() {
@@ -358,10 +359,74 @@
 
       setCollapsed(section, !!map[title]);
     });
+    discoverExtraHomeSections();
     ensureCollapseAllButtons();
     syncCollapseAllButtons();
   }
 
+
+
+  function discoverExtraHomeSections() {
+    if (!isHome()) return;
+    var map = {};
+    try { map = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || {}; } catch (e) { map = {}; }
+    var headings = document.querySelectorAll('h2');
+    for (var i = 0; i < headings.length; i++) {
+      var h2 = headings[i];
+      var title = (h2.textContent || '').replace(/\s+/g, ' ').trim();
+      if (!title || title.length > 80) continue;
+      var section = h2.closest('div.relative');
+      if (!section || section.getAttribute('data-mpge-collapsible') === '1') continue;
+      if (!section.querySelector('ul, .grid, [class*="grid-cols"]')) continue;
+
+      section.setAttribute('data-mpge-collapsible', '1');
+      section.setAttribute('data-mpge-title', title);
+      h2.classList.remove('hidden');
+      h2.style.setProperty('display', 'block', 'important');
+
+      var headerRow = h2.parentElement;
+      if (!headerRow) continue;
+
+      var bodyWrap = document.createElement('div');
+      bodyWrap.className = 'mpge-section-body';
+      var node = headerRow.nextSibling;
+      while (node) {
+        var next = node.nextSibling;
+        bodyWrap.appendChild(node);
+        node = next;
+      }
+      section.appendChild(bodyWrap);
+
+      var head = document.createElement('div');
+      head.className = 'mpge-section-head';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'mpge-section-toggle';
+      btn.setAttribute('aria-label', 'Toggle ' + title);
+      head.appendChild(btn);
+      headerRow.insertBefore(head, h2);
+      head.appendChild(h2);
+
+      (function (sec) {
+        function toggle() {
+          setCollapsed(sec, !sec.classList.contains('mpge-section-collapsed'));
+        }
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggle();
+        });
+        h2.addEventListener('click', function (e) {
+          e.preventDefault();
+          toggle();
+        });
+      })(section);
+
+      setCollapsed(section, !!map[title]);
+    }
+    ensureCollapseAllButtons();
+    syncCollapseAllButtons();
+  }
 
   function markSoldOutCards() {
     var cards = document.querySelectorAll('article, li article, li.group, .group.bg-white');
