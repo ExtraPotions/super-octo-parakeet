@@ -2,6 +2,7 @@
  * Grey Edition common helpers (Tampermonkey @require)
  * Version: 1.13.0
  * Author: expDARE
+ * License: CC-BY-4.0
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
  *
  * Shared palette + settings for ManaPool / Scryfall / SteamGifts Grey Edition.

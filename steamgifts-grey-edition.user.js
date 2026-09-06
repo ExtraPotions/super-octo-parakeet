@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name           SteamGifts Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.9.0
-// @description    Dark charcoal Grey Edition for SteamGifts / SteamTrades / SGTools. Full ESGST-compatible theme restored from SG Dark Grey by SquishedPotatoe (CC-BY-SA-4.0).
+// @version        1.9.1
+// @description    Dark charcoal Grey Edition for SteamGifts / SteamTrades / SGTools (ESGST-compatible).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
 // @downloadURL    https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js
@@ -11,7 +11,7 @@
 // @match          *://www.steamgifts.com/*
 // @match          *://www.steamtrades.com/*
 // @match          *://www.sgtools.info/*
-// @license        CC-BY-SA-4.0
+// @license        CC-BY-4.0
 // @require        https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js
 // @grant          GM.info
 // @grant          GM_getValue
@@ -8420,7 +8420,7 @@ var Docobserver = new MutationObserver(function() {
 });
 Docobserver.observe(document.documentElement, { childList: true });
 
-/* Grey Edition settings menus (does not alter SG Dark Grey CSS) */
+/* Grey Edition settings menus */
 (function () {
   try {
     var GE = (typeof globalThis !== 'undefined' && globalThis.GreyEdition) || (typeof window !== 'undefined' && window.GreyEdition);

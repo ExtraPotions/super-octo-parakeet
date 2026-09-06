@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name           Scryfall Grey Edition
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        1.9.0
+// @version        1.9.1
 // @description    Dark charcoal theme for Scryfall — readable blues, themed chips, durable tooltips/grids
 // @author         expDARE
+// @license        CC-BY-4.0
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
 // @match          *://scryfall.com/*
 // @match          *://www.scryfall.com/*

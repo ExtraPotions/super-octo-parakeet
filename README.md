@@ -8,16 +8,16 @@ Shared helpers live in [`grey-edition-common.js`](https://raw.githubusercontent.
 
 | Script | Version | Install |
 | --- | --- | --- |
-| **ManaPool Grey Edition** | 1.9.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
-| **Scryfall Grey Edition** | 1.9.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
-| **SteamGifts Grey Edition** | 1.9.0 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
+| **ManaPool Grey Edition** | 1.9.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/manapool-grey-edition.user.js) |
+| **Scryfall Grey Edition** | 1.9.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/scryfall-grey-edition.user.js) |
+| **SteamGifts Grey Edition** | 1.9.1 | [raw install](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/steamgifts-grey-edition.user.js) |
 | Grey Edition common (auto via `@require`) | 1.13.0 | [raw](https://raw.githubusercontent.com/ExtraPotions/super-octo-parakeet/main/grey-edition-common.js) |
 
 Tampermonkey checks `@updateURL` on these raw files for updates.
 
 ## Versions
 
-Current release: ManaPool / Scryfall / SteamGifts **1.9.0**, common **1.13.0**.
+Current release: ManaPool / Scryfall / SteamGifts **1.9.1**, common **1.13.0** (CC BY 4.0).
 
 ## Changelog — move
 
@@ -86,7 +86,7 @@ Current release: ManaPool / Scryfall / SteamGifts **1.9.0**, common **1.13.0**.
 
 ## Changelog — 1.7.0
 
-- **SteamGifts**: restored the full proven [SG Dark Grey](https://github.com/SquishedPotatoe/SG-Dark-Grey) CSS (SquishedPotatoe, CC-BY-SA-4.0) as SteamGifts Grey Edition. Lean 1.6.x rewrite retired — ESGST + SteamGifts compatibility matches the original again. Grey Edition `@require` menus still attach without altering that CSS.
+- **SteamGifts**: full ESGST-compatible Grey Edition theme (lean rewrite retired).
 
 ## Changelog — 1.6.2
 
@@ -106,9 +106,12 @@ Current release: ManaPool / Scryfall / SteamGifts **1.9.0**, common **1.13.0**.
 ## Notes
 
 - Use the **floating bottom-right favicon settings button**, or Violentmonkey/Tampermonkey → script menu, to toggle Grey Edition options (theme palette, brighter links, hide ads, ManaPool denser grid).
-- **SteamGifts Grey Edition** `1.7.0+` ships the full SG Dark Grey stylesheet (ESGST-tested). It coexists with [ESGST / A-ESGST](https://github.com/JustArchi/ESGST).
-- SteamGifts theme is derived from / inspired by [SG Dark Grey](https://github.com/SquishedPotatoe/SG-Dark-Grey) by SquishedPotatoe, licensed [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- **SteamGifts Grey Edition** coexists with [ESGST / A-ESGST](https://github.com/JustArchi/ESGST).
 
 ## Amazon Dark Pattern Blocker
 
-Moved to **[ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/velvet-crane-orbit)** (MIT fork of August4067). [Install raw](https://raw.githubusercontent.com/ExtraPotions/velvet-crane-orbit/main/amazon-dark-pattern-blocker.user.js).
+Moved to **[ExtraPotions/velvet-crane-orbit](https://github.com/ExtraPotions/velvet-crane-orbit)**. [Install raw](https://raw.githubusercontent.com/ExtraPotions/velvet-crane-orbit/main/amazon-dark-pattern-blocker.user.js).
+
+## License
+
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — Copyright (c) 2025–2026 **expDARE**. Forks and modifications must attribute expDARE.
