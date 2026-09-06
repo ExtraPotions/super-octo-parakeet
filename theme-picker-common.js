@@ -1,6 +1,6 @@
 /**
  * Theme Picker common helpers (Tampermonkey @require)
- * Version: 1.14.3
+ * Version: 1.14.4
  * Author: expDARE
  * License: CC-BY-NC-4.0
  * Homepage: https://github.com/ExtraPotions/super-octo-parakeet
@@ -14,13 +14,14 @@
  * 1.12.0: larger FAB; ManaPool/Scryfall Original skips all theme overrides.
  * 1.13.0: accent picker, export/import/reset, Alt+G, update toast, site feature toggles, theme-colored switches.
  * 1.14.3: re-export ensureFabStyle so site scripts can re-assert FAB CSS after their theme sheets.
+ * 1.14.4: stop all:unset on panel controls (broke selects/layout); always append FAB stylesheet last.
  * Not a userscript — load via // @require from each Theme Picker script.
  */
 (function (global) {
   'use strict';
 
   var PREFIX = 'ge-';
-  var COMMON_VERSION = '1.14.3';
+  var COMMON_VERSION = '1.14.4';
   var RAIL_ID = 'theme-picker-settings-rail';
   var FAB_ID = 'theme-picker-fab';
   var siteActions = {};
@@ -296,7 +297,7 @@
 
   function rootCss() {
     return [
-      '/* Theme Picker common root flags CSS v1.14.3 */',
+      '/* Theme Picker common root flags CSS v1.14.4 */',
       'html[data-ge-intensity="soft"],',
       'html[data-ge-intensity="soft"] body {',
       '  background-color: ' + palette.bodySoft + ' !important;',
@@ -485,13 +486,15 @@
   function fabCss() {
     return [
       '#' + FAB_ID + ', #' + PANEL_ID + ', #' + FAB_ID + ' *, #' + PANEL_ID + ' * { box-sizing: border-box; }',
-      '#' + PANEL_ID + ' button, #' + PANEL_ID + ' select, #' + PANEL_ID + ' input {',
-      '  all: unset !important;',
+      /* Do NOT all:unset panel selects/inputs — that expands <select> options inline and flattens the menu. */
+      '#' + PANEL_ID + ' button {',
       '  font: 12px/1.2 system-ui, sans-serif !important;',
       '  color: inherit !important;',
       '  cursor: pointer !important;',
       '  pointer-events: auto !important;',
       '  box-sizing: border-box !important;',
+      '  background-image: none !important;',
+      '  filter: none !important;',
       '}',
       'html body button#' + FAB_ID + ',',
       '#' + FAB_ID + ' {',
@@ -651,11 +654,20 @@
       '  flex: 1 !important;',
       '}',
       '#' + PANEL_ID + ' select {',
+      '  display: inline-block !important;',
+      '  appearance: auto !important;',
+      '  -webkit-appearance: auto !important;',
       '  background: #333 !important;',
+      '  background-image: none !important;',
       '  color: #ccc !important;',
       '  border: 1px solid #000 !important;',
       '  border-radius: 6px !important;',
       '  padding: 4px 6px !important;',
+      '  margin: 0 !important;',
+      '  max-width: 140px !important;',
+      '  font: 12px/1.2 system-ui, sans-serif !important;',
+      '  cursor: pointer !important;',
+      '  pointer-events: auto !important;',
       '}',
       '#' + PANEL_ID + ' .ge-foot {',
       '  margin-top: 8px !important;',
@@ -672,9 +684,10 @@
     if (!node) {
       node = document.createElement('style');
       node.id = STYLE_ID;
-      (document.documentElement || document.head).appendChild(node);
     }
     node.textContent = fabCss();
+    // Move last so FAB/panel rules beat site theme sheets injected earlier.
+    (document.documentElement || document.head).appendChild(node);
   }
 
   function setSetting(site, key, value) {
