@@ -2,7 +2,7 @@
 // @name           ManaPool Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
 // @version        2.0.2
-// @description    Dark charcoal theme for Mana Pool — collapsible home sections + collapse/expand in Theme Picker menu
+// @description    Theme palettes + settings for Mana Pool — collapsible sections, hide sold out, compact prices, denser grid
 // @author         expDARE
 // @license        CC-BY-NC-4.0
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
