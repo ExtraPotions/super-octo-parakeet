@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Scryfall Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        2.0.2
+// @version        2.0.3
 // @description    Theme palettes + settings for Scryfall — readable blues, themed chips, dim warnings, gallery polish
 // @author         expDARE
 // @license        CC-BY-NC-4.0

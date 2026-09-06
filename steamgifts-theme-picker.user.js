@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           SteamGifts Theme Picker
 // @namespace      https://github.com/ExtraPotions/super-octo-parakeet
-// @version        2.0.2
+// @version        2.0.3
 // @description    Theme palettes + settings for SteamGifts / SteamTrades / SGTools (ESGST-compatible).
 // @author         expDARE
 // @homepageURL    https://github.com/ExtraPotions/super-octo-parakeet
@@ -23,7 +23,7 @@
 // ==/UserScript==
 
 function addCss() {
-  var css = `/* SteamGifts Theme Picker v2.0.2 */
+  var css = `/* SteamGifts Theme Picker v2.0.3 */
 :root {
   --SGSP-body-bg-color: #252522;
   --SGSP-body-bg-image: "none";
